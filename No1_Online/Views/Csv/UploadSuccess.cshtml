@@ -1,0 +1,56 @@
+﻿@model List<No1_Online.ViewModels.CsvVM>
+
+@{
+    ViewData["Title"] = "Upload Success";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">Vrag</th>
+                <th scope="col">Load No</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Klient Order No</th>
+                <th scope="col">Klient</th>
+                <th scope="col">Laaipunt</th>
+                <th scope="col">Aflaaipunt</th>
+                <th scope="col">Produk</th>
+                <th scope="col" scope="col">Begin KM</th>
+                <th scope="col">Vrag Kilometers</th>
+                <th scope="col" >Vrag Total</th>
+                <th scope="col">CPK</th>
+                <th scope="col">Transporter Rate</th>
+                <th scope="col">Rate vanaf Klient</th>
+                <th scope="col">Tonne</th>
+                <th scope="col">Load</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                        <th class="w-100" scope="row">@record.Vrag</th>
+                        <td class="w-100" class="w-100">@record.LoadNo</td>
+                        <td class="w-100">@record.Datum</td>
+                        <td class="w-100">@record.KlientOrderNo</td>
+                        <td class="w-100">@record.Klient</td>
+                        <td class="w-100" class="w-100">@record.Laaipunt</td>
+                        <td class="w-100">@record.Aflaaipunt</td>
+                        <td class="w-100">@record.Produk</td>
+                        <td class="w-100">@record.BeginKM</td>
+                        <td class="w-100">@record.VragKilometers</td>
+                        <td class="w-100">@record.VragTotal</td>
+                        <td class="w-100">@record.CPK</td>
+                        <td class="w-100">@record.TransporterRate</td>
+                        <td class="w-100">@record.RateVanafKlient</td>
+                        <td class="w-100" class="w-100">@record.Tonne</td>
+                        <td class="w-100">@record.Load</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
