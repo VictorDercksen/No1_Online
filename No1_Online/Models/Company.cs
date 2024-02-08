@@ -21,6 +21,8 @@ namespace No1_Online.Models
         public string? BranchCode { get; set; }
         [Required]
         public string AccountNumber { get; set; }
+        [Required]
+        public int? VATNo { get; set; }
 
         [Column(TypeName = "decimal(10,4)")]
         public decimal? CreditLimit { get; set; }
@@ -43,10 +45,11 @@ namespace No1_Online.Models
         [DataType(DataType.EmailAddress)]
         public string? EmailStatements { get; set; }
 
-
+        public string Group { get; set; }
         public bool Blocked { get; set; }
 
         public bool Override { get; set; }
+        public DateTime? ClosingDate { get; set; }
 
         public DateTime? PodclosingDate { get; set; }
         [Required]

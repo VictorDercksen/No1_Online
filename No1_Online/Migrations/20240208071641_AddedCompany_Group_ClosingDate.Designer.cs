@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240208071641_AddedCompany_Group_ClosingDate")]
+    partial class AddedCompany_Group_ClosingDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace No1_Online.Migrations
                     b.Property<int?>("PhysicalPostalCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostalCode")
+                    b.Property<int>("PostcalCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -379,10 +382,6 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Terms")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VATNo")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");

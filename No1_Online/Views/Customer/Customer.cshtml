@@ -1,0 +1,254 @@
+﻿<!-- Views/Customer/Index.cshtml -->
+@model No1_Online.ViewModels.CustomerVM
+
+@{
+    ViewData["Title"] = "Customer";
+     
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    
+    
+    <form asp-controller="Customer" asp-action="" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="CompanyName">Company Name:</label>
+                    <input type="text" class="form-control
+                        
+                        @* @((Model.company.Blocked ? "border border-danger" : null) ?? (Model.company.Override ? "border border-success" : null)) *@" id="CompanyName">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="Blocked">Blocked:</label>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="Blocked" name="Blocked" checked>
+                        <label class="form-check-label" asp-for="company.Blocked">Blocked</label>
+                    </div>
+                    <label for="Override">Override:</label>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="Override" name="Blocked" >
+                        <label class="form-check-label" asp-for="company.Override">Override</label>
+                    </div>
+                </div>
+
+                   
+            </div>
+            
+        </div>
+        <div class="row">
+            @* <div class="col">
+                <div class="form-group">
+                    <label for="ContactType">Contact Type:</label>
+                    <input type="text" class="form-control" id="ContactType" name="ContactType" asp-for="ContactType">
+                </div>
+            </div> *@
+            <div class="col">
+                <div class="form-group">
+                    <label for="Marketer">Marketer:</label>
+                    <input type="text" class="form-control" id="Marketer" name="Marketer" asp-for="company.ProfileId"> @*Remember to retrieve name of Marketer*@
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="Tel">Tel:</label>
+                    <input type="text" class="form-control" id="Tel" name="Tel" asp-for="company.Tel"> 
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="Grouping">Grouping:</label>
+                    <select class="form-control" id="Grouping" name="Grouping" asp-for="company.Group">
+                        <option value="No1 Online Solutions">No1 Online Solutions</option>
+                        <option value="Subcontractors">Subcontractors</option>
+                        <option value="Fixed">Fixed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="Markup">Markup %:</label>
+                    <input type="text" class="form-control" id="Markup" name="MarkupPercentage" asp-for="company.Markup">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="Fax">Fax:</label>
+                    <input type="text" class="form-control" id="Fax" name="Fax" asp-for="company.Fax">
+                </div>
+            </div>
+
+        </div>
+       
+        <div class="row">
+            
+            <div class="col">
+                <div class="form-group">
+                    <label for="ClosingDate">Closing Date:</label>
+                    <input type="date" class="form-control" id="ClosingDate" name="ClosingDate" asp-for="company.ClosingDate">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="VAT">VAT Number:</label>
+                    <input type="text" class="form-control" id="VAT" name="VAT" asp-for="company.VATNo">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="PodClosingDate">POD Closing Date:</label>
+                    <input type="date" class="form-control" id="PodClosingDate" name="PodClosingDate" asp-for="company.PodclosingDate">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row">
+            
+            <div class="col">
+                <label class="align-content-center" for="PostalAddress">Postal Address:</label>
+                <div id="PostalAddress" class="form-group">
+
+                    <input type="text" class="form-control" id="Address1" name="Address1" asp-for="company.Address.Address1">
+                    <input type="text" class="form-control" id="Address2" name="Address1" asp-for="company.Address.Address2">
+                    <input type="text" class="form-control" id="Address3" name="Address1" asp-for="company.Address.Address3">
+                    <input type="text" class="form-control" id="PostalCode" name="PostalCode" asp-for="company.Address.PostalCode">
+                </div>
+            </div>
+            <div class="col">
+                <label class="align-content-center" for="DeliveryAddress">Delivery Address:</label>
+                <div id="DeliveryAddress" class="form-group">
+
+                    <input type="text" class="form-control" id="PhysicalAddress1" name="PhysicalAddress1" asp-for="company.Address.PhysicalAddress1">
+                    <input type="text" class="form-control" id="PhysicalAddress2" name="PhysicalAddress2" asp-for="company.Address.PhysicalAddress2">
+                    <input type="text" class="form-control" id="PhysicalAddress3" name="PhysicalAddress3" asp-for="company.Address.PhysicalAddress3">
+                    <input type="text" class="form-control" id="PhysicalPostalCode" name="PostalCode" asp-for="company.Address.PhysicalPostalCode">
+                </div>
+            </div>
+            <div class="col">
+                <h5 class="align-content-center">Email Addresses</h5>
+                <div class="form-group">
+                    <label for="LoadCon">LoadCon:</label>
+                    <input type="text" class="form-control" id="LoadCon" name="Email" asp-for="company.Email">
+                </div>
+                <div class="form-group">
+                    <label for="Remitance">Remitances:</label>
+                    <input type="text" class="form-control" id="Remitance" name="EmailRemitance" asp-for="company.EmailRemitance">
+                </div>
+                <div class="form-group">
+                    <label for="Statements">Statements:</label>
+                    <input type="text" class="form-control" id="Statements" name="EmailStatements" asp-for="company.EmailStatements">
+                </div>
+            </div>
+            <div class="col">
+                <h5 class="align-content-center">Banking Details</h5>
+                <div class="form-group">
+                    <label for="BankName">Bank Name:</label>
+                    <select class="form-control" id="BankName" name="BankName" asp-for="company.BankName">
+                        <option value="Absa">Absa</option>
+                        <option value="FNB">FNB</option>
+                        <option value="Nedbank">Nedbank</option>
+                        <option value="Capitec">Capitec</option>
+                        <option value="Discovery">Discovery</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Branch">Branch Code:</label>
+                    <input type="text" class="form-control" id="BranchCode" name="BranchCode" asp-for="company.BranchCode">
+                </div>
+                <div class="form-group">
+                    <label for="Account">Account Number:</label>
+                    <input type="text" class="form-control" id="Account" name="AccountNumber" asp-for="company.AccountNumber">
+                </div>
+                <div class="form-group">
+                    <label for="Credit">Credit Limit:</label>
+                    <input type="text" class="form-control" id="Credit" name="CreditLimit" asp-for="company.CreditLimit">
+                </div>
+                <div class="form-group">
+                    <label for="Terms">Terms:</label>
+                    <input type="text" class="form-control" id="Terms" name="Terms" asp-for="company.Terms">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="Notes">Notes:</label>
+                <textarea class="form-control" id="Notes" name="Notes" asp-for="company.Note" rows="5"></textarea>
+            </div>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">First Name No</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Tel</th>
+                        <th scope="col">Email</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+               
+                @{
+                    // if (Model.company.Contacts.)
+                    // {
+                    //     foreach (var record in Model.company.Contacts)
+                    //     {
+                    //         <tr>
+                    //             <th class="w-100" scope="row">@record.Position</th>
+                    //             <td class="w-100" class="w-100">@record.FirstName</td>
+                    //             <td class="w-100">@record.LastName</td>
+                    //             <td class="w-100">@record.Tel</td>
+                    //             <td class="w-100">@record.Email</td>
+
+                    //         </tr>
+                    //     }
+                    // }
+                    
+                        <tr>
+                            <th class="w-100" scope="row"></th>
+                            <td class="w-100" ></td>
+                            <td class="w-100"></td>
+                            <td class="w-100"></td>
+                            <td class="w-100"></td>
+
+                        </tr>
+                    
+                }
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+     <script>
+        // Ensure only one checkbox is checked at a time
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    document.querySelectorAll('input[type="checkbox"]').forEach(function (otherCheckbox) {
+                        if (otherCheckbox !== checkbox) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</div>
+
