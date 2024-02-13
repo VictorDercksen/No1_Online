@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
 using No1_Online.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("default");
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddIdentity<AppUser, IdentityRole>(
         options =>
         {
+            //Change these before production    
             options.Password.RequiredUniqueChars = 0;
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 8;
@@ -24,6 +26,17 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(
         }
         )
     .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60); // Adjust the timeout as needed
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
 
 var app = builder.Build();
 
@@ -39,7 +52,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -47,3 +60,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+        

@@ -22,9 +22,9 @@ namespace No1_Online.Models
 
         public string? PhysicalAddress3 { get; set; }
         [Required]
-        public int PostalCode { get; set; }
+        public string? PostalCode { get; set; }
 
-        public int? PhysicalPostalCode { get; set; }
+        public string? PhysicalPostalCode { get; set; }
 
         
     }

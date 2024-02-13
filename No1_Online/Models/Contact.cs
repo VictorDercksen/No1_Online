@@ -15,6 +15,7 @@ namespace No1_Online.Models
         [Required]
         public string Position { get; set; }
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string? Tel { get; set; }
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }

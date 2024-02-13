@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
 
 namespace No1_Online.Models
 {
@@ -9,28 +10,40 @@ namespace No1_Online.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Name:")]
         public string Name { get; set; }
 
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        [Display(Name = "Tel:")]
         public string Tel { get; set; }
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        [Display(Name = "Fax")]
         public string? Fax { get; set; }
         [Required]
+        [Display(Name = "Bank Name:")]
         public  string BankName { get; set; }
+        [Display(Name = "Branch Code:")]
         public string? BranchCode { get; set; }
         [Required]
+        [Display(Name = "Account Number:")]
         public string AccountNumber { get; set; }
         [Required]
-        public int? VATNo { get; set; }
+        [Display(Name = "VAT Number:")]
+        public string? VATNo { get; set; }
 
         [Column(TypeName = "decimal(10,4)")]
+        [Display(Name = "Cred Limit:")]
         public decimal? CreditLimit { get; set; }
-
+        [Display(Name = "Terms:")]
         public int? Terms { get; set; }
-        [Required]
-        public string ProfileId { get; set; }
-
+        
+        [Display(Name = "Marketer")]
+        [Column(TypeName = "nvarchar(450)")]
+        public string? ProfileId { get; set; }
+        [Display(Name = "Markup:")]
         public int Markup { get; set; }
 
         public string? GitName { get; set; }
@@ -38,18 +51,23 @@ namespace No1_Online.Models
         public DateTime? GitDate { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email LoadCon:")]
         public string Email { get; set; }
         [DataType(DataType.EmailAddress)]
-        
+        [Display(Name = "Email Remitance:")]
         public string? EmailRemitance { get; set; }
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email Statements:")]
         public string? EmailStatements { get; set; }
-
+        [Display(Name = "Group:")]
         public string Group { get; set; }
+        [Display(Name = "Bocked:")]
         public bool Blocked { get; set; }
-
+        [Display(Name = "Override:")]
         public bool Override { get; set; }
+        [Display(Name = "Closing Date:")]
         public DateTime? ClosingDate { get; set; }
+        [Display(Name = "POD Closing date:")]
 
         public DateTime? PodclosingDate { get; set; }
         [Required]

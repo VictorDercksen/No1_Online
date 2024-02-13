@@ -12,7 +12,8 @@ namespace No1_Online.Models
         [Required]
     public string LastName { get; set; } = null!;
         [DataType(DataType.PhoneNumber)]
-    public string? Cell { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string? Cell { get; set; }
     
     }
 }

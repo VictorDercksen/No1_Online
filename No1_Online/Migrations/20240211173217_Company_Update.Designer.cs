@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240211173217_Company_Update")]
+    partial class Company_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,12 +186,11 @@ namespace No1_Online.Migrations
                     b.Property<string>("PhysicalAddress3")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhysicalPostalCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PhysicalPostalCode")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -372,7 +374,7 @@ namespace No1_Online.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProfileId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tel")
                         .IsRequired()
@@ -630,6 +632,10 @@ namespace No1_Online.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

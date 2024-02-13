@@ -1,6 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> signInManager
+@inject IHttpContextAccessor _httpContextAccessor
+
 <!DOCTYPE html>
+
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,13 +23,38 @@
             
             @if (signInManager.IsSignedIn(User))
             {
-                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                    <span class ="navbar-toggler-icon"></span>
-                </button>
+                <div class="p-2">
+                    <button class="btn btn-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" >
+                        <span class ="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                    @if (_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName") != null)
+                        {
+                            <div class="form-group me-2" >
+                                <input type="text" class="form-control border-success " id="searchBox" placeholder="@_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName")" readonly>
+                            </div>
+
+                        }
+                else
+                {
+                    <form class="d-flex" asp-controller="Company" asp-action="SearchCompany" method="get">
+                        <div class="form-group me-2 ">
+                        <input type="text" class="form-control p-2" id="searchBox" name="searchBox" data-provide="typeahead" >
+                        </div>
+                        <button type="submit" class="btn btn-primary" >Select Company</button>
+                        </form>
+                }
+                    
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Add navigation links here -->
+                    </ul>
+                </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1"></ul>
-                    <partial name="LoginPartial"/>
+                    <partial name="LoginPartial" />
                 </div>
+
             }
             else
             {
@@ -42,9 +71,7 @@
         </main>
     </div>
     
-<div>
-
-</div>
+   
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

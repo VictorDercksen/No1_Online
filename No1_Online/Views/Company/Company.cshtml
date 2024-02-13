@@ -1,0 +1,305 @@
+﻿<!-- Views/Customer/Index.cshtml -->
+@model No1_Online.ViewModels.CompanyVM
+
+@{
+    ViewData["Title"] = "Company";
+     
+}
+
+<div class="container">
+<div class="container mt-5">
+<div class="card">
+<div class="card-header">
+    Company Details:
+</div>
+<div class="card-body">
+<form asp-controller="Company" asp-action="" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.Name"></label>
+            <input type="text" asp-for="company.Name" class="form-control
+                        
+                        @* @((Model.company.Blocked ? "border border-danger" : null) ?? (Model.company.Override ? "border border-success" : null)) *@" id="CompanyName">
+            <span asp-validation-for="company.Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            
+            <div class="form-check">
+                
+                <label asp-for="company.Blocked"></label>
+                <input asp-for="company.Blocked" type="checkbox" class="form-check-input" id="Blocked" name="Blocked"  checked>
+                <span asp-validation-for="company.Blocked" class="text-danger"></span>
+
+            </div>
+            
+            <div class="form-check">
+               
+                <label asp-for="company.Override"></label>
+                <input asp-for="company.Override" type="checkbox" class="form-check-input" id="Override" name="Blocked">
+                <span asp-validation-for="company.Override" class="text-danger"></span>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<div class="row">
+    @* <div class="col">
+                <div class="form-group">
+                    <label for="ContactType">Contact Type:</label>
+                    <input type="text" class="form-control" id="ContactType" name="ContactType" asp-for="ContactType">
+                </div>
+            </div> *@
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.ProfileId"></label>
+            <input type="text" class="form-control"  asp-for="company.ProfileId" readonly> @*Remember to retrieve name of Marketer*@
+            <span asp-validation-for="company.ProfileId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.Tel"></label>
+            <input type="text" class="form-control" id="Tel"  asp-for="company.Tel">
+            <span asp-validation-for="company.Tel" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.Group"></label>
+            <select class="form-control" id="Grouping"  asp-for="company.Group">
+                <option value="No1 Online Solutions">No1 Online Solutions</option>
+                <option value="Subcontractors">Subcontractors</option>
+                <option value="Fixed">Fixed</option>
+            </select>
+            <span asp-validation-for="company.Group" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.Markup"></label>
+            <input type="text" class="form-control" id="Markup"  asp-for="company.Markup">
+            <span asp-validation-for="company.Markup" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.Fax"></label>
+            <input type="text" class="form-control" id="Fax"  asp-for="company.Fax">
+            <span asp-validation-for="company.Fax" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.ClosingDate"></label>
+            <input type="date" class="form-control" id="ClosingDate"  asp-for="company.ClosingDate">
+            <span asp-validation-for="company.ClosingDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label asp-for="company.VATNo"></label>
+            <input type="text" class="form-control" id="VAT"  asp-for="company.VATNo">
+            <span asp-validation-for="company.VATNo" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+        <div class="form-group mb-3">
+            <label asp-for="company.PodclosingDate"></label>
+            <input type="date" class="form-control" id="PodClosingDate"  asp-for="company.PodclosingDate">
+            <span asp-validation-for="company.PodclosingDate" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col">
+        <label class="align-content-center" for="PostalAddress">Postal Address:</label>
+        <div id="PostalAddress" class="form-group">
+
+            <input type="text" class="form-control" id="Address1"  asp-for="company.Address.Address1">
+            <span asp-validation-for="company.Address.Address1" class="text-danger"></span>
+            <input type="text" class="form-control" id="Address2"  asp-for="company.Address.Address2">
+            <span asp-validation-for="company.Address.Address2" class="text-danger"></span>
+            <input type="text" class="form-control" id="Address3"  asp-for="company.Address.Address3">
+            <input type="text" class="form-control" id="PostalCode"  asp-for="company.Address.PostalCode">
+            <span asp-validation-for="company.Address.PostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <label class="align-content-center" for="DeliveryAddress">Delivery Address:</label>
+        <div id="DeliveryAddress" class="form-group">
+
+            <input type="text" class="form-control" id="PhysicalAddress1"  asp-for="company.Address.PhysicalAddress1">
+            <span asp-validation-for="company.Address.PhysicalAddress1" class="text-danger"></span>
+            <input type="text" class="form-control" id="PhysicalAddress2"  asp-for="company.Address.PhysicalAddress2">
+            <span asp-validation-for="company.Address.PhysicalAddress2" class="text-danger"></span>
+            <input type="text" class="form-control" id="PhysicalAddress3"  asp-for="company.Address.PhysicalAddress3">
+            <span asp-validation-for="company.Address.PhysicalAddress3" class="text-danger"></span>
+            <input type="text" class="form-control" id="PhysicalPostalCode"  asp-for="company.Address.PhysicalPostalCode">
+            <span asp-validation-for="company.Address.PhysicalPostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <h5 class="text-secondary mb-3">Email Addresses:</h5>
+        <div class="form-group">
+            <label asp-for="company.Email"></label>
+            <input type="text" class="form-control" id="LoadCon"  asp-for="company.Email">
+            <span asp-validation-for="company.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="company.EmailRemitance"></label>
+            <input type="text" class="form-control" id="Remitance"  asp-for="company.EmailRemitance">
+            <span asp-validation-for="company.EmailRemitance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="company.EmailStatements"></label>
+            <input type="text" class="form-control" id="Statements"  asp-for="company.EmailStatements">
+            <span asp-validation-for="company.EmailStatements" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col">
+        <h5 class="text-secondary mb-3">Banking Details:</h5>
+        <div class="form-group">
+            <label asp-for="company.BankName"></label>
+            <select class="form-control" id="BankName"  asp-for="company.BankName">
+                <option value="Absa">Absa</option>
+                <option value="FNB">FNB</option>
+                <option value="Nedbank">Nedbank</option>
+                <option value="Capitec">Capitec</option>
+                <option value="Discovery">Discovery</option>
+            </select>
+            <span asp-validation-for="company.BankName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+
+            <label asp-for="company.BranchCode"></label>
+            <input type="text" class="form-control" id="BranchCode"  asp-for="company.BranchCode">
+            <span asp-validation-for="company.BranchCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="company.AccountNumber"></label>
+            <input type="text" class="form-control" id="Account"  asp-for="company.AccountNumber">
+            <span asp-validation-for="company.AccountNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="company.CreditLimit"></label>
+            <input type="text" class="form-control" id="Credit"  asp-for="company.CreditLimit">
+            <span asp-validation-for="company.CreditLimit" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="company.Terms"></label>
+            <input type="text" class="form-control" id="Terms"  asp-for="company.Terms">
+            <span asp-validation-for="company.Terms" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <label asp-for="company.NoteId">Notes:</label>
+        <textarea class="form-control" id="Notes"  asp-for="company.Note.Description" rows="5"></textarea>
+        <span asp-validation-for="company.Note.Description" class="text-danger"></span>
+    </div>
+</div>
+
+
+<div class="text-end mt-4">
+    <button type="submit" class="btn btn-primary"  asp-action="Create" asp-controller="Company">Save</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="container">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Company Contacts
+            </div>
+            
+                    <table class="table table-striped w-auto ">
+                    <thead>
+                    <tr>
+                        <th >Position</th>
+                        <th >First Name</th>
+                        <th >Last Name</th>
+                        <th >Tel</th>
+                        <th >Email</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @{
+                        // if (Model.company.Contacts.)
+                        // {
+                        //     foreach (var record in Model.company.Contacts)
+                        //     {
+                        //         <tr>
+                        //             <th class="w-100" scope="row">@record.Position</th>
+                        //             <td class="w-100" class="w-100">@record.FirstName</td>
+                        //             <td class="w-100">@record.LastName</td>
+                        //             <td class="w-100">@record.Tel</td>
+                        //             <td class="w-100">@record.Email</td>
+
+                        //         </tr>
+                        //     }
+                        // }
+
+                        <tr>
+                            <th  scope="row"></th>
+                            <td ></td>
+                            <td ></td>
+                            <td ></td>
+                            <td ></td>
+
+                        </tr>
+
+                    }
+                    </tbody>
+                </table>
+             
+        </div>
+    </div>
+    </div>
+    <script>
+        // Ensure only one checkbox is checked at a time
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    document.querySelectorAll('input[type="checkbox"]').forEach(function (otherCheckbox) {
+                        if (otherCheckbox !== checkbox) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+
+       
+    </script>
+</div>
+

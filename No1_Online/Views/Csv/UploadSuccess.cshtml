@@ -4,53 +4,59 @@
     ViewData["Title"] = "Upload Success";
 }
 
-<div class="container">
-    <h2>@ViewData["Title"]</h2>
-    <div class="table-responsive">
-        <table class="table ">
-            <thead>
-            <tr>
-                <th scope="col">Vrag</th>
-                <th scope="col">Load No</th>
-                <th scope="col">Datum</th>
-                <th scope="col">Klient Order No</th>
-                <th scope="col">Klient</th>
-                <th scope="col">Laaipunt</th>
-                <th scope="col">Aflaaipunt</th>
-                <th scope="col">Produk</th>
-                <th scope="col" scope="col">Begin KM</th>
-                <th scope="col">Vrag Kilometers</th>
-                <th scope="col" >Vrag Total</th>
-                <th scope="col">CPK</th>
-                <th scope="col">Transporter Rate</th>
-                <th scope="col">Rate vanaf Klient</th>
-                <th scope="col">Tonne</th>
-                <th scope="col">Load</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var record in Model)
-            {
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Upload Success:
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped ">
+                <thead>
                 <tr>
-                        <th class="w-100" scope="row">@record.Vrag</th>
-                        <td class="w-100" class="w-100">@record.LoadNo</td>
-                        <td class="w-100">@record.Datum</td>
-                        <td class="w-100">@record.KlientOrderNo</td>
-                        <td class="w-100">@record.Klient</td>
-                        <td class="w-100" class="w-100">@record.Laaipunt</td>
-                        <td class="w-100">@record.Aflaaipunt</td>
-                        <td class="w-100">@record.Produk</td>
-                        <td class="w-100">@record.BeginKM</td>
-                        <td class="w-100">@record.VragKilometers</td>
-                        <td class="w-100">@record.VragTotal</td>
-                        <td class="w-100">@record.CPK</td>
-                        <td class="w-100">@record.TransporterRate</td>
-                        <td class="w-100">@record.RateVanafKlient</td>
-                        <td class="w-100" class="w-100">@record.Tonne</td>
-                        <td class="w-100">@record.Load</td>
+                    <th>Vrag</th>
+                    <th>Load No</th>
+                    <th>Datum</th>
+                    <th>Klient Order No</th>
+                    <th>Klient</th>
+                    <th>Laaipunt</th>
+                    <th>Aflaaipunt</th>
+                    <th>Produk</th>
+                    <th>Begin KM</th>
+                    <th>Vrag Kilometers</th>
+                    <th>Vrag Total</th>
+                    <th>CPK</th>
+                    <th>Transporter Rate</th>
+                    <th>Rate vanaf Klient</th>
+                    <th>Tonne</th>
+                    <th>Load</th>
                 </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <th  scope="row">@record.Vrag</th>
+                        <td>@record.LoadNo</td>
+                        <td>@record.Datum</td>
+                        <td>@record.KlientOrderNo</td>
+                        <td>@record.Klient</td>
+                        <td>@record.Laaipunt</td>
+                        <td>@record.Aflaaipunt</td>
+                        <td>@record.Produk</td>
+                        <td>@record.BeginKM</td>
+                        <td>@record.VragKilometers</td>
+                        <td>@record.VragTotal</td>
+                        <td>@record.CPK</td>
+                        <td>@record.TransporterRate</td>
+                        <td>@record.RateVanafKlient</td>
+                        <td>@record.Tonne</td>
+                        <td>@record.Load</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    </div>
+
