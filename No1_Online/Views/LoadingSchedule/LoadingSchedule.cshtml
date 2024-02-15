@@ -1,0 +1,166 @@
+﻿@model No1_Online.ViewModels.LoadingScheduleVM
+@inject IHttpContextAccessor _httpContextAccessor
+
+
+<div class="container">
+    <div class="container mt-5">
+
+        <div class="card">
+            <div class="card-header">
+                Enter Loading Schedule Details:
+            </div>
+            <div class="card-body">
+                <form asp-controller="LoadingSchedule" asp-action="" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.Id"></label>
+                                <input type="text" asp-for="loadingSchedule.Id" class="form-control" id="Id">
+                                <span asp-validation-for="loadingSchedule.Id" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.Date"></label>
+                                <input type="date" asp-for="loadingSchedule.Date" class="form-control" id="LoadingDate">
+                                <span asp-validation-for="loadingSchedule.Date" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+
+                                <label asp-for="loadingSchedule.SelfLoad"></label>
+                                <input asp-for="loadingSchedule.SelfLoad" type="checkbox" class="form-check-input" id="SelfLoad">
+                                <span asp-validation-for="loadingSchedule.SelfLoad" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.Company.Name"></label>
+                                <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control" id="CompanyName">
+                                <span asp-validation-for="loadingSchedule.Company.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.PurchaseOrder"></label>
+                                <input type="text" asp-for="loadingSchedule.PurchaseOrder" class="form-control" id="PurchaseOrder">
+                                <span asp-validation-for="loadingSchedule.PurchaseOrder" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.LoadingPointLoad.City"></label>
+                                <input type="text" asp-for="loadingSchedule.LoadingPointLoad.City" class="form-control" id="LoadingPointLoad">
+                                <span asp-validation-for="loadingSchedule.LoadingPointLoad.City" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.LoadingPointOff.City"></label>
+                                <input type="text" asp-for="loadingSchedule.LoadingPointOff.City" class="form-control" id="LoadingPointOff">
+                                <span asp-validation-for="loadingSchedule.LoadingPointOff.City" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.Value"></label>
+                                <input type="text" asp-for="loadingSchedule.Value" class="form-control" id="Value">
+                                <span asp-validation-for="loadingSchedule.Value" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.Vehicle"></label>
+                                <input type="text" asp-for="loadingSchedule.Vehicle" class="form-control" id="Vehicle">
+                                <span asp-validation-for="loadingSchedule.Vehicle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.SubReg"></label>
+                                <input type="text" asp-for="loadingSchedule.SubReg" class="form-control" id="SubReg">
+                                <span asp-validation-for="loadingSchedule.SubReg" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="loadingSchedule.ProfileId"></label>
+                                <input type="text" class="form-control" asp-for="loadingSchedule.ProfileId" readonly>
+                                <span asp-validation-for="loadingSchedule.ProfileId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.LoadInstruction"></label>
+                                    <textarea  asp-for="loadingSchedule.LoadInstruction" class="form-control" id="LoadInstruction" rows="3"></textarea>
+                                    <span asp-validation-for="loadingSchedule.LoadInstruction" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.Note.Description"></label>
+                                    <textarea asp-for="loadingSchedule.Note.Description" class="form-control" id="LoadInstruction" rows="5"></textarea>
+                                    <span asp-validation-for="loadingSchedule.Note.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container mt-5">
+        <div class="card">
+            
+            
+            <table class="table table-striped w-auto ">
+                <thead>
+                <tr>
+                    <th >Product</th>
+                    <th >Load Rate</th>
+                    <th >VAT %</th>
+                    <th >Sub Rate</th>
+                    <th>VAT %</th>
+                    <th >Units</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th  scope="row"></th>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td></td>
+
+                    </tr>
+
+                
+                </tbody>
+            </table>
+             
+        </div>
+    </div>
+</div>

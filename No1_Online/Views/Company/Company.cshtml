@@ -19,9 +19,7 @@
     <div class="col">
         <div class="form-group">
             <label asp-for="company.Name"></label>
-            <input type="text" asp-for="company.Name" class="form-control
-                        
-                        @* @((Model.company.Blocked ? "border border-danger" : null) ?? (Model.company.Override ? "border border-success" : null)) *@" id="CompanyName">
+            <input type="text" asp-for="company.Name" class="form-control" id="CompanyName">
             <span asp-validation-for="company.Name" class="text-danger"></span>
         </div>
     </div>
