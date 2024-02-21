@@ -69,21 +69,15 @@ namespace No1_Online.Controllers
         public async Task<IActionResult> Company()
         {
             
-            if (_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName") != null)
-            {
-              var viewModelSet = new CompanyVM(await _context.Companies.Include(c => c.Address).Include(c => c.Note).FirstOrDefaultAsync(c => c.Name == _httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName")));
-              return View(viewModelSet);
-            }
-            else
-            {
+          
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var viewModel = new CompanyVM();
                 viewModel.company.ProfileId = userId;
                 viewModel.company.Note.Date = DateTime.Now;
                 viewModel.company.Note.Revision = DateTime.Now;
 
-                return View(viewModel);
-            }
+                return PartialView("Company",viewModel);
+            
            
             
         }

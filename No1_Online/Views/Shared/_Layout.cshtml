@@ -3,8 +3,6 @@
 @inject IHttpContextAccessor _httpContextAccessor
 
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,73 +13,132 @@
     <link rel="stylesheet" href="~/No1_Online.styles.css" asp-append-version="true" />
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
-        <div class="container-fluid">
-            
-          
-            
-            @if (signInManager.IsSignedIn(User))
-            {
-                <div class="p-2">
-                    <button class="btn btn-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" >
-                        <span class ="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                    @if (_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName") != null)
-                        {
-                        
-                            <div class="form-group me-2" >
-                                <input type="text" class="form-control border-success " id="searchBox" placeholder="@_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName")" readonly>
-                            </div>
-                            
-
-                        }
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <div class="p-2">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                    <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#uploadModal">Upload Record</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1"></ul>
+                        <partial name="LoginPartial" />
+                    </div>
+                }
                 else
                 {
-                    <form class="d-flex" asp-controller="Company" asp-action="SearchCompany" method="get">
-                        <div class="form-group me-2 ">
-                        <input type="text" class="form-control p-2" id="searchBox" name="searchBox" data-provide="typeahead" >
-                        </div>
-                        <button type="submit" class="btn btn-primary" >Select Company</button>
-                        </form>
+                    <label class="navbar-brand">No1 Online Solutions</label>
                 }
-                    
-                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#uploadModal">Upload Record</a>
-                        </li>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-auto">
+                <!-- Offcanvas content here -->
+                <partial name="OffCanvasPartial" />
+            </div>
+            <div class="col">
+                <div>
+                    <ul class="nav nav-tabs" id ="dynamicTabList">
+                       
                     </ul>
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1"></ul>
-                    <partial name="LoginPartial" />
-                </div>
-
-            }
-            else
-            {
-                <label  class="navbar-brand">No1 Online Solutions</label>
-            }
-
-        </div>
-    </nav>
-</header>
-<partial  name="OffCanvasPartial"/>
-<partial name="ModalPartial"/>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
     
-   
+                    <div class="tab-content" id="dynamicTabContent">
+                        
+                    </div>
+                </div>
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="ModalPartial" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let tabCounter = 0; // Initialize a counter for unique tab IDs
+
+            const offcanvasLinks = document.querySelectorAll('.offcanvas .nav-link');
+
+            offcanvasLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    const pageName = this.textContent.trim();
+                    // Append a unique counter value to the pageId
+                    const uniqueId = ++tabCounter;
+                    const pageId = `${pageName.toLowerCase().replace(/\s+/g, '-')}-${uniqueId}`;
+                    const url = this.getAttribute('href'); // The URL to fetch the view content
+
+                    // Create a new tab with a close button
+                    const newTab = document.createElement('li');
+                    newTab.className = 'nav-item';
+                    newTab.innerHTML = `
+                        <a class="nav-link" id="tab-${pageId}" data-bs-toggle="tab" href="#pane-${pageId}" role="tab">
+                            ${pageName} ${uniqueId}
+                            <button class="close-tab-btn" data-target="#tab-${pageId}" style="border:none; background:none;">&times;</button>
+                        </a>
+                    `;
+                    document.querySelector('#dynamicTabList').appendChild(newTab);
+
+                    // Create a new tab pane
+                    const newPane = document.createElement('div');
+                    newPane.className = 'tab-pane fade';
+                    newPane.id = `pane-${pageId}`;
+                    newPane.role = 'tabpanel';
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            newPane.innerHTML = html;
+                            document.querySelector('#dynamicTabContent').appendChild(newPane);
+                            new bootstrap.Tab(document.querySelector(`#tab-${pageId}`)).show();
+                        });
+
+                    // Add event listener for the close button
+                    newTab.querySelector('.close-tab-btn').addEventListener('click', function (event) {
+                        event.stopPropagation();
+                        const targetId = this.getAttribute('data-target');
+                        const targetTab = document.querySelector(targetId);
+                        const targetPaneId = targetTab.getAttribute('href');
+                        const targetPane = document.querySelector(targetPaneId);
+
+                        // Remove the tab and its content
+                        targetTab.parentNode.remove();
+                        targetPane.remove();
+
+                        // Activate the first tab if available
+                        const firstTab = document.querySelector('.nav-tabs .nav-item:first-child .nav-link');
+                        if (firstTab) {
+                            new bootstrap.Tab(firstTab).show();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -38,7 +38,7 @@ namespace No1_Online.Controllers
         }
         public IActionResult Reports()
         {
-            return View();
+            return PartialView("Reports");
         }
     }
 }

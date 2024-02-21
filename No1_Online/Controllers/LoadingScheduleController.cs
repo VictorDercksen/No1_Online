@@ -6,7 +6,7 @@ namespace No1_Online.Controllers
     {
         public IActionResult LoadingSchedule()
         {
-            return View();
+            return PartialView("LoadingSchedule");
         }
     }
 }
