@@ -1,166 +1,335 @@
 ﻿@model No1_Online.ViewModels.LoadingScheduleVM
 @inject IHttpContextAccessor _httpContextAccessor
 
-
-<div class="container">
-    <div class="container mt-5">
-
-        <div class="card">
-            <div class="card-header">
-                Enter Loading Schedule Details:
+<nav class="navbar bg-body-tertiary">
+    <form class="container-fluid justify-content-start">
+        <div class="d-flex align-items-center">
+            <div class="form-group me-2">
+                <label for="loadNumberSearch">Go To Load Number</label>
+                <input class="form-control me-2" type="search" id="loadNumberSearch" placeholder="Search by Load Number" aria-label="Search by Load Number">
             </div>
-            <div class="card-body">
-                <form asp-controller="LoadingSchedule" asp-action="" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.Id"></label>
-                                <input type="text" asp-for="loadingSchedule.Id" class="form-control" id="Id">
-                                <span asp-validation-for="loadingSchedule.Id" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.Date"></label>
-                                <input type="date" asp-for="loadingSchedule.Date" class="form-control" id="LoadingDate">
-                                <span asp-validation-for="loadingSchedule.Date" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check">
+            <div class="form-group me-2">
+                <label for="purchaseOrderSearch">Go to Purchase Order</label>
+                <input class="form-control me-2" type="search" id="purchaseOrderSearch" placeholder="Search by Purchase Order" aria-label="Search by Purchase Order">
+            </div>
+            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Close Form</button>
+            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Add New Record</button>
+            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Bulk Payment Client</button>
+            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Remitance Payment</button>
+            <div class="btn-group me-2">
+                <button type="button" class="btn btn-success">Load Confirmation</button>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Email</a></li>
+                    <li><a class="dropdown-item" href="#">Print</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-outline-success me-2" type="button">Account Calculations</button>
+        </div>
+    </form>
+</nav>
 
-                                <label asp-for="loadingSchedule.SelfLoad"></label>
-                                <input asp-for="loadingSchedule.SelfLoad" type="checkbox" class="form-check-input" id="SelfLoad">
-                                <span asp-validation-for="loadingSchedule.SelfLoad" class="text-danger"></span>
-
-                            </div>
+<div class=" container-fluid">
+<div class="row">
+<div class="col-lg-6">
+    <div class="card mb-5">
+        <div class="card-header">
+            Enter Loading Schedule Details:
+        </div>
+        <div class="card-body">
+            <form asp-controller="LoadingSchedule" asp-action="" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Id"></label>
+                            <input type="text" asp-for="loadingSchedule.Id" class="form-control" id="Id">
+                            <span asp-validation-for="loadingSchedule.Id" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.Company.Name"></label>
-                                <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control" id="CompanyName">
-                                <span asp-validation-for="loadingSchedule.Company.Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.PurchaseOrder"></label>
-                                <input type="text" asp-for="loadingSchedule.PurchaseOrder" class="form-control" id="PurchaseOrder">
-                                <span asp-validation-for="loadingSchedule.PurchaseOrder" class="text-danger"></span>
-                            </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Date"></label>
+                            <input type="date" asp-for="loadingSchedule.Date" class="form-control" id="LoadingDate">
+                            <span asp-validation-for="loadingSchedule.Date" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.LoadingPointLoad.City"></label>
-                                <input type="text" asp-for="loadingSchedule.LoadingPointLoad.City" class="form-control" id="LoadingPointLoad">
-                                <span asp-validation-for="loadingSchedule.LoadingPointLoad.City" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.LoadingPointOff.City"></label>
-                                <input type="text" asp-for="loadingSchedule.LoadingPointOff.City" class="form-control" id="LoadingPointOff">
-                                <span asp-validation-for="loadingSchedule.LoadingPointOff.City" class="text-danger"></span>
-                            </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label asp-for="loadingSchedule.SelfLoad"></label>
+                            <input asp-for="loadingSchedule.SelfLoad" type="checkbox" class="form-check-input" id="SelfLoad">
+                            <span asp-validation-for="loadingSchedule.SelfLoad" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.Value"></label>
-                                <input type="text" asp-for="loadingSchedule.Value" class="form-control" id="Value">
-                                <span asp-validation-for="loadingSchedule.Value" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.Vehicle"></label>
-                                <input type="text" asp-for="loadingSchedule.Vehicle" class="form-control" id="Vehicle">
-                                <span asp-validation-for="loadingSchedule.Vehicle" class="text-danger"></span>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Company.Name"></label>
+                            <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control" id="CompanyName">
+                            <span asp-validation-for="loadingSchedule.Company.Name" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.SubReg"></label>
-                                <input type="text" asp-for="loadingSchedule.SubReg" class="form-control" id="SubReg">
-                                <span asp-validation-for="loadingSchedule.SubReg" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="loadingSchedule.ProfileId"></label>
-                                <input type="text" class="form-control" asp-for="loadingSchedule.ProfileId" readonly>
-                                <span asp-validation-for="loadingSchedule.ProfileId" class="text-danger"></span>
-                            </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.PurchaseOrder"></label>
+                            <input type="text" asp-for="loadingSchedule.PurchaseOrder" class="form-control" id="PurchaseOrder">
+                            <span asp-validation-for="loadingSchedule.PurchaseOrder" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="loadingSchedule.LoadInstruction"></label>
-                                    <textarea  asp-for="loadingSchedule.LoadInstruction" class="form-control" id="LoadInstruction" rows="3"></textarea>
-                                    <span asp-validation-for="loadingSchedule.LoadInstruction" class="text-danger"></span>
-                                </div>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.LoadingPointLoad.City"></label>
+                            <input type="text" asp-for="loadingSchedule.LoadingPointLoad.City" class="form-control" id="LoadingPointLoad">
+                            <span asp-validation-for="loadingSchedule.LoadingPointLoad.City" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="loadingSchedule.Note.Description"></label>
-                                    <textarea asp-for="loadingSchedule.Note.Description" class="form-control" id="LoadInstruction" rows="5"></textarea>
-                                    <span asp-validation-for="loadingSchedule.Note.Description" class="text-danger"></span>
-                                </div>
-                            </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.LoadingPointOff.City"></label>
+                            <input type="text" asp-for="loadingSchedule.LoadingPointOff.City" class="form-control" id="LoadingPointOff">
+                            <span asp-validation-for="loadingSchedule.LoadingPointOff.City" class="text-danger"></span>
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Value"></label>
+                            <input type="text" asp-for="loadingSchedule.Value" class="form-control" id="Value">
+                            <span asp-validation-for="loadingSchedule.Value" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Vehicle"></label>
+                            <input type="text" asp-for="loadingSchedule.Vehicle" class="form-control" id="Vehicle">
+                            <span asp-validation-for="loadingSchedule.Vehicle" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.SubReg"></label>
+                            <input type="text" asp-for="loadingSchedule.SubReg" class="form-control" id="SubReg">
+                            <span asp-validation-for="loadingSchedule.SubReg" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.ProfileId"></label>
+                            <input type="text" class="form-control" asp-for="loadingSchedule.ProfileId" readonly>
+                            <span asp-validation-for="loadingSchedule.ProfileId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.LoadInstruction"></label>
+                            <textarea asp-for="loadingSchedule.LoadInstruction" class="form-control" id="LoadInstruction" rows="3"></textarea>
+                            <span asp-validation-for="loadingSchedule.LoadInstruction" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="loadingSchedule.Note.Description"></label>
+                            <textarea asp-for="loadingSchedule.Note.Description" class="form-control" id="NoteDescription" rows="5"></textarea>
+                            <span asp-validation-for="loadingSchedule.Note.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3">
+    <div class="card mb-4">
+        <div class="card-header">
+            Client Payment input
+        </div>
+        <div class="card-body">
+            <form asp-controller="Company" asp-action="" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="Discount">Discount R:</label>
+                        <input type="text" class="form-control" id="Discount">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="DepositDate">Deposit Date:</label>
+                        <input type="date" class="form-control" id="DepositDate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="DepositAmount">Deposit Amount:</label>
+                        <input type="text" class="form-control" id="DepositAmount">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-primary">Discount Calculation</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-primary">Credit Note</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+            
+    <div class="card">
+        <div class="card-header">
+            Transporter Payment Input:
+        </div>
+        <div class="card-body">
+            <form asp-controller="Company" asp-action="" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="PODDate">POD Date:</label>
+                        <input type="text" class="form-control" id="PODDate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="InvoiceNo">Invoice Number:</label>
+                        <input type="text" class="form-control" id="InvoiceNo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="PayDue">Payment Due:</label>
+                        <input type="date" class="form-control" id="PayDue">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="PayDate">Payment Date:</label>
+                        <input type="date" class="form-control" id="PayDate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="PayType">Payment Type:</label>
+                        <select class="form-control" id="PayType">
+                            <option value="Cheque">Cheque</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="Amount">Amount:</label>
+                        <input type="text" class="form-control" id="Amount">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="TransDisc">Trans Disc:</label>
+                        <input type="text" class="form-control" id="TransDisc">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3">
+    <div class="card mb-4">
+        <div class="card-header">
+            Invoices
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="InvDate" class="form-label">Date:</label>
+                    <input type="date" class="form-control" id="InvDate">
+                </div>
+                <button type="button" class="btn btn-secondary">Invoice</button>
+                <div class="btn-group me-2">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Options
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Email</a></li>
+                        <li><a class="dropdown-item" href="#">Print</a></li>
+                                
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            Notes
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="inputPerson" class="form-label">Input Person</label>
+                    <input type="text" class="form-control" id="inputPerson">
+                </div>
+                <div class="mb-3">
+                    <label for="noteDate" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="noteDate">
+                </div>
+                <div class="mb-3">
+                    <label for="noteDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="noteDescription" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-2">
+                <div class="card-header">
+                    Product Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Load Rate</th>
+                                <th>VAT %</th>
+                                <th>Sub Rate</th>
+                                <th>VAT %</th>
+                                <th>Units</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row"></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container">
-    <div class="container mt-5">
-        <div class="card">
-            
-            
-            <table class="table table-striped w-auto ">
-                <thead>
-                <tr>
-                    <th >Product</th>
-                    <th >Load Rate</th>
-                    <th >VAT %</th>
-                    <th >Sub Rate</th>
-                    <th>VAT %</th>
-                    <th >Units</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th  scope="row"></th>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td></td>
-
-                    </tr>
-
-                
-                </tbody>
-            </table>
-             
-        </div>
-    </div>
 </div>

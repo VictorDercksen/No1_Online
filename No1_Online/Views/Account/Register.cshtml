@@ -4,45 +4,76 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="row d-flex align-items-center justify-content-center">
-    <div class="col-md-4 p-3">
-        <h2 class="text-center text-info">Register</h2>
-        <form asp-action="Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-1">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Surname"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                 <label asp-for="Email"></label>
-                 <input asp-for="Email" class="form-control" />
-                 <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <a asp-action="Login" class="text-decoration-none float-start mt-2">Have an account?</a>
+<style>
+    .container {
+        max-width: 400px;
+        margin-top: 50px;
+    }
+
+    .card {
+        border-radius: 15px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+        border-radius: 20px;
+    }
+
+    .btn-primary {
+        border-radius: 20px;
+        padding: 10px 20px;
+    }
+
+    .logo {
+        display: block;
+        margin: 0 auto 30px; /* Increased margin-bottom to 30px */
+        width: 100px; /* Adjust based on your logo's size */
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" class="logo">
+            <h2 class="text-center mb-4">Register</h2>
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="col-4">
-                    <input type="submit"  value="Register"class="btn btn-primary btn-sm float-end"/>
+                <div class="mb-3">
+                    <label asp-for="Surname" class="form-label"></label>
+                    <input asp-for="Surname" class="form-control"/>
+                    <span asp-validation-for="Surname" class="text-danger"></span>
                 </div>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control"/>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <a asp-action="Login" class="text-decoration-none float-start mt-2">Have an account?</a>
+                    </div>
+                    <div class="col-4">
+                        <input type="submit" value="Register" class="btn btn-primary btn-sm float-end"/>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

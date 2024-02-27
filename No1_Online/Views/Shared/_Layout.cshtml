@@ -18,12 +18,15 @@
             <div class="container-fluid">
                 @if (signInManager.IsSignedIn(User))
                 {
+                    <a class="navbar-brand" href="/">
+                        <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
+                    </a>
                     <div class="p-2">
                         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                    
+                   
                     <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
@@ -36,10 +39,7 @@
                         <partial name="LoginPartial" />
                     </div>
                 }
-                else
-                {
-                    <label class="navbar-brand">No1 Online Solutions</label>
-                }
+                
             </div>
         </nav>
     </header>
@@ -47,8 +47,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-auto">
+            @if (signInManager.IsSignedIn(User))
+            {
                 <!-- Offcanvas content here -->
-                <partial name="OffCanvasPartial" />
+                <partial name="OffCanvasPartial"/>
+            }
             </div>
             <div class="col">
                 <div>
