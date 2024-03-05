@@ -17,7 +17,7 @@ namespace No1_Online.Models
         public int? PostalCode { get; set; }
 
         [Required]
-        public DateTime Revision { get; set; }
+        public string? Revision { get; set; }
         [Required]
         public int ContactId { get; set; }  
         public virtual Contact? Contact { get; set; }

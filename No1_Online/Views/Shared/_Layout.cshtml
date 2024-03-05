@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject SignInManager<AppUser> signInManager
 @inject IHttpContextAccessor _httpContextAccessor
 
@@ -14,35 +15,53 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                @if (signInManager.IsSignedIn(User))
-                {
-                    <a class="navbar-brand" href="/">
-                        <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
-                    </a>
-                    <div class="p-2">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                   
-                    <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#uploadModal">Upload Record</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1"></ul>
-                        <partial name="LoginPartial" />
-                    </div>
-                }
-                
-            </div>
-        </nav>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <a class="navbar-brand" href="/">
+                            <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
+                        </a>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="d-flex">
+                                <input class="form-control" type="search" placeholder="Search Company" aria-label="Search" id="searchBox">
+                                <button class="btn btn-outline-success" id="searchButton" type="button">Search</button>
+                            </div>
+                        </div>
+                        <div class="collapse navbar-collapse ">
+                            <div class="d-flex">
+                                <input class="form-control" type="search" placeholder="Search Load Number" aria-label="Search" id="LoadsearchBox">
+                                <button class="btn btn-outline-success" id="LoadsearchButton" type="button">Search</button>
+                            </div>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <div class="d-flex">
+                                <input class="form-control" type="search" placeholder="Search Purchase Order" aria-label="Search" id="PurchasesearchBox">
+                                <button class="btn btn-outline-success" id="PurchasesearchButton" type="button">Search</button>
+                            </div>
+                        </div>
+                        <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="modal" data-target="#uploadModal">Upload Record</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1"></ul>
+                            <partial name="LoginPartial" />
+                        </div>
+                    }
+                </div>
+            </nav>
     </header>
+
 
     <div class="container-fluid">
         <div class="row">
@@ -74,74 +93,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/company.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let tabCounter = 0; // Initialize a counter for unique tab IDs
-
-            const offcanvasLinks = document.querySelectorAll('.offcanvas .nav-link');
-
-            offcanvasLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-
-                    const pageName = this.textContent.trim();
-                    // Append a unique counter value to the pageId
-                    const uniqueId = ++tabCounter;
-                    const pageId = `${pageName.toLowerCase().replace(/\s+/g, '-')}-${uniqueId}`;
-                    const url = this.getAttribute('href'); // The URL to fetch the view content
-
-                    // Create a new tab with a close button
-                    const newTab = document.createElement('li');
-                    newTab.className = 'nav-item';
-                    newTab.innerHTML = `
-                        <a class="nav-link" id="tab-${pageId}" data-bs-toggle="tab" href="#pane-${pageId}" role="tab">
-                            ${pageName} ${uniqueId}
-                            <button class="close-tab-btn" data-target="#tab-${pageId}" style="border:none; background:none;">&times;</button>
-                        </a>
-                    `;
-                    document.querySelector('#dynamicTabList').appendChild(newTab);
-
-                    // Create a new tab pane
-                    const newPane = document.createElement('div');
-                    newPane.className = 'tab-pane fade';
-                    newPane.id = `pane-${pageId}`;
-                    newPane.role = 'tabpanel';
-                    fetch(url)
-                        .then(response => response.text())
-                        .then(html => {
-                            newPane.innerHTML = html;
-                            document.querySelector('#dynamicTabContent').appendChild(newPane);
-                            new bootstrap.Tab(document.querySelector(`#tab-${pageId}`)).show();
-                        });
-
-                    // Add event listener for the close button
-                    newTab.querySelector('.close-tab-btn').addEventListener('click', function (event) {
-                        event.stopPropagation();
-                        const targetId = this.getAttribute('data-target');
-                        const targetTab = document.querySelector(targetId);
-                        const targetPaneId = targetTab.getAttribute('href');
-                        const targetPane = document.querySelector(targetPaneId);
-
-                        // Remove the tab and its content
-                        targetTab.parentNode.remove();
-                        targetPane.remove();
-
-                        // Activate the first tab if available
-                        const firstTab = document.querySelector('.nav-tabs .nav-item:first-child .nav-link');
-                        if (firstTab) {
-                            new bootstrap.Tab(firstTab).show();
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-
-
-
-
+    <script src="/js/tabstruct.js"></script>
+  
+    
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

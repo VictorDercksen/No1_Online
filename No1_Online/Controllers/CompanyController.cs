@@ -21,31 +21,37 @@ namespace No1_Online.Controllers
            
             _httpContextAccessor = httpContextAccessor;
         }
+
         [HttpGet]
         public async Task<IActionResult> SearchCompany(string searchBox)
         {
             if (string.IsNullOrEmpty(searchBox))
             {
-                // Handle empty search box (e.g., return BadRequest())
-                return BadRequest();
+                return PartialView("Company", new CompanyVM()); // Return the partial view with an empty ViewModel
             }
 
-            // Fetch the company from the database
-            Company selectedCompany = await _context.Companies.FirstOrDefaultAsync(c => c.Name == searchBox);
+            var company = await _context.Companies
+                .Include(c => c.Address)
+                .Include(c => c.Note)
+                .FirstOrDefaultAsync(c => c.Name.Contains(searchBox));
 
-            if (selectedCompany == null)
+            if (company == null)
             {
-                // Company not found, handle accordingly (e.g., return NotFound())
-                return NotFound();
+                return NotFound(); // Or handle the case where the company is not found
             }
 
-            // Store the selected company in session
-            _httpContextAccessor.HttpContext.Session.SetString("SelectedCompanyName", selectedCompany.Name);
-            //Console.WriteLine(_httpContextAccessor.HttpContext.Session.GetString("SelectedCompanyName"));
+            var viewModel = new CompanyVM(company);
 
-            // Redirect to the desired page
-            return RedirectToAction("Index", "Home"); // Change this to your desired action and controller
+            // Retrieve contacts with matching CompanyId and add them to the ViewModel
+            viewModel.contacts = await _context.Contacts
+                .Where(c => c.CompanyId == company.Id)
+                .ToListAsync();
+
+            return PartialView("Company", viewModel); // Return the partial view with the populated ViewModel
         }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -73,7 +79,7 @@ namespace No1_Online.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var viewModel = new CompanyVM();
                 viewModel.company.ProfileId = userId;
-                viewModel.company.Note.Date = DateTime.Now;
+                
                 viewModel.company.Note.Revision = DateTime.Now;
 
                 return PartialView("Company",viewModel);
@@ -81,6 +87,27 @@ namespace No1_Online.Controllers
            
             
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCompanyPartial()
+        {
+            string companyName = HttpContext.Session.GetString("SelectedCompanyName");
+            if (string.IsNullOrEmpty(companyName))
+            {
+                return NotFound();
+            }
+
+            var company = await _context.Companies.FirstOrDefaultAsync(c => c.Name == companyName);
+
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new CompanyVM(company);
+            return PartialView("Company", viewModel);
+        }
+
 
     }
 }

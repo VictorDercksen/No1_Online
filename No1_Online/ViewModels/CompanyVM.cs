@@ -5,7 +5,7 @@ namespace No1_Online.ViewModels
     public class CompanyVM
     {
         public Company company { get; set; } = new Company();
-
+        public List<Contact> contacts { get; set; }  = new List<Contact>();
         public CompanyVM()
         {
            

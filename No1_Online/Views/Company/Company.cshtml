@@ -6,6 +6,12 @@
      
 }
 
+<body>
+
+
+
+
+
 <div class="container-fluid">
 <div class="container-fluid mt-5">
 <div class="card">
@@ -48,12 +54,14 @@
 
 </div>
 <div class="row">
-    @* <div class="col">
+   
+    <div class="col">
                 <div class="form-group">
                     <label for="ContactType">Contact Type:</label>
-                    <input type="text" class="form-control" id="ContactType" name="ContactType" asp-for="ContactType">
+                    <input type="text" class="form-control" id="ContactType" name="ContactType" asp-for="company.ContactType">
+                    <span asp-validation-for="company.ContactType" class="text-danger"></span>
                 </div>
-            </div> *@
+            </div>
     <div class="col">
         <div class="form-group">
             <label asp-for="company.ProfileId"></label>
@@ -183,12 +191,25 @@
         <div class="form-group">
             <label asp-for="company.BankName"></label>
             <select class="form-control" id="BankName" asp-for="company.BankName">
-                <option value="Absa">Absa</option>
-                <option value="FNB">FNB</option>
-                <option value="Nedbank">Nedbank</option>
-                <option value="Capitec">Capitec</option>
-                <option value="Discovery">Discovery</option>
-            </select>
+                                        <option value="1">N/A</option>
+                                        <option value="4">ABSA</option>
+                                        <option value="5">STANDARD</option>
+                                        <option value="6">NEDBANK</option>
+                                        <option value="7">FNB</option>
+                                        <option value="8">BOE</option>
+                                        <option value="9">FIRST RAND BANK</option>
+                                        <option value="10">4380208282</option>
+                                        <option value="11">4120262185</option>
+                                        <option value="12">4600260477</option>
+                                        <option value="13">Bank Windhoek</option>
+                                        <option value="14">Capitec</option>
+                <option value="15">Investec</option>
+                                        <option value="16">4730270271</option>
+                                        <option value="17">CASH</option>
+                                        <option value="18">KONTANT VRAG</option>
+                                        <option value="19">grobank</option>
+                                        <option value="20">STANDARD BANK</option>
+                                    </select>
             <span asp-validation-for="company.BankName" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -231,76 +252,42 @@
 </div>
 </div>
 </div>
-<div class="container-fluid">
-    <div class="container-fluid mt-5">
-        <div class="card">
+        <div class="container-fluid mt-5">
+            <div class="card">
             <div class="card-header">
-                Company Contacts
+                Company Contacts:
             </div>
-
             <table class="table table-striped w-auto ">
                 <thead>
-                <tr>
-                    <th >Position</th>
-                    <th >First Name</th>
-                    <th >Last Name</th>
-                    <th >Tel</th>
-                    <th >Email</th>
-
-                </tr>
+                    <tr>
+                        <th>Position</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Tel</th>
+                        <th>Email</th>
+                    </tr>
                 </thead>
                 <tbody>
-
-                @{
-                    // if (Model.company.Contacts.)
-                    // {
-                    //     foreach (var record in Model.company.Contacts)
-                    //     {
-                    //         <tr>
-                    //             <th class="w-100" scope="row">@record.Position</th>
-                    //             <td class="w-100" class="w-100">@record.FirstName</td>
-                    //             <td class="w-100">@record.LastName</td>
-                    //             <td class="w-100">@record.Tel</td>
-                    //             <td class="w-100">@record.Email</td>
-
-                    //         </tr>
-                    //     }
-                    // }
-
-                    <tr>
-                        <th scope="row"></th>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-
-                    </tr>
-
-                }
+                    @foreach (var contact in Model.contacts)
+                    {
+                        <tr>
+                            <td>@contact.Position</td>
+                            <td>@contact.FirstName</td>
+                            <td>@contact.LastName</td>
+                            <td>@contact.Tel</td>
+                            <td>@contact.Email</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-
         </div>
+
     </div>
-</div>
-<script>
-        // Ensure only one checkbox is checked at a time
-        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    document.querySelectorAll('input[type="checkbox"]').forEach(function (otherCheckbox) {
-                        if (otherCheckbox !== checkbox) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                }
-            });
-        });
+    
 
-       
-    </script>
+
 </div>
 
-
- 
+    
+</body>
    

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240301082228_Note_Type")]
+    partial class Note_Type
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,9 +167,11 @@ namespace No1_Online.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address2")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address3")
@@ -330,7 +335,7 @@ namespace No1_Online.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("CreditLimit")
-                        .HasColumnType("decimal(18,3)");
+                        .HasColumnType("decimal(10,4)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -382,6 +387,7 @@ namespace No1_Online.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("VATNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -412,10 +418,15 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Revision")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Tel")
                         .HasColumnType("nvarchar(max)");
@@ -625,7 +636,8 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Revision")
-                        .HasColumnType("datetime2");
+                        .IsRequired()
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 

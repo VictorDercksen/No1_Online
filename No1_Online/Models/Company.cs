@@ -12,12 +12,13 @@ namespace No1_Online.Models
         [Required]
         [Display(Name = "Name:")]
         public string Name { get; set; }
-
+        [Required]
+        public int ContactType { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         [Display(Name = "Tel:")]
-        public string Tel { get; set; }
+        public string? Tel { get; set; }
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         [Display(Name = "Fax")]
@@ -29,12 +30,12 @@ namespace No1_Online.Models
         public string? BranchCode { get; set; }
         [Required]
         [Display(Name = "Account Number:")]
-        public string AccountNumber { get; set; }
-        [Required]
+        public string? AccountNumber { get; set; }
+        
         [Display(Name = "VAT Number:")]
         public string? VATNo { get; set; }
 
-        [Column(TypeName = "decimal(10,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         [Display(Name = "Cred Limit:")]
         public decimal? CreditLimit { get; set; }
         [Display(Name = "Terms:")]
@@ -48,15 +49,15 @@ namespace No1_Online.Models
 
         public string? GitName { get; set; }
 
-        public DateTime? GitDate { get; set; }
+        public Nullable<DateTime> GitDate { get; set; }
         [Required]
-        [DataType(DataType.EmailAddress)]
+        //[DataType(DataType.EmailAddress)]
         [Display(Name = "Email LoadCon:")]
-        public string Email { get; set; }
-        [DataType(DataType.EmailAddress)]
+        public string? Email { get; set; }
+        //[DataType(DataType.EmailAddress)]
         [Display(Name = "Email Remitance:")]
         public string? EmailRemitance { get; set; }
-        [DataType(DataType.EmailAddress)]
+        //[DataType(DataType.EmailAddress)]
         [Display(Name = "Email Statements:")]
         public string? EmailStatements { get; set; }
         [Display(Name = "Group:")]
@@ -66,10 +67,10 @@ namespace No1_Online.Models
         [Display(Name = "Override:")]
         public bool Override { get; set; }
         [Display(Name = "Closing Date:")]
-        public DateTime? ClosingDate { get; set; }
+        public Nullable<DateTime> ClosingDate { get; set; }
         [Display(Name = "POD Closing date:")]
 
-        public DateTime? PodclosingDate { get; set; }
+        public Nullable<DateTime> PodclosingDate { get; set; }
         [Required]
         public int AddressId { get; set; }
         public Address Address { get; set; }
