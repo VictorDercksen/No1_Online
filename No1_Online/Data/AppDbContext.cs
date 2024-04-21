@@ -40,5 +40,47 @@ namespace No1_Online.Data
         public DbSet<TransportedProduct> TransportedProducts { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Configure the one-to-many relationship between Company and LoadingSchedule
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.LoadingSchedules)
+                .WithOne(ls => ls.Company)
+                .HasForeignKey(ls => ls.CompanyId);
+
+            // Configure the one-to-many relationship between Vehicle and LoadingSchedule
+            modelBuilder.Entity<Vehicle>()
+                .HasMany(v => v.LoadingSchedules)
+                .WithOne(ls => ls.Vehicle)
+                .HasForeignKey(ls => ls.VehicleId)
+                .IsRequired(false);  // Since VehicleId is nullable
+
+            // Configure the one-to-many relationship between Note and LoadingSchedule
+            modelBuilder.Entity<Note>()
+                .HasMany(n => n.LoadingSchedules)
+                .WithOne(ls => ls.Note)
+                .HasForeignKey(ls => ls.NoteId)
+                .IsRequired(false);  // Since NoteId is nullable
+
+            // Ensure that other configurations like decimal precision are respected
+            modelBuilder.Entity<Company>()
+                .Property(c => c.CreditLimit)
+                .HasColumnType("decimal(18,3)");
+
+            modelBuilder.Entity<Vehicle>()
+                .Property(v => v.GITValue)
+                .HasColumnType("decimal(18,3)");
+
+            modelBuilder.Entity<LoadingSchedule>()
+                .HasOne<Company>(ls => ls.CompanyTrans)
+                .WithMany()
+                .HasForeignKey(ls => ls.CompanyTransId);
+                
+
+        }
     }
+
+
 }

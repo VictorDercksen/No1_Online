@@ -8,9 +8,8 @@ namespace No1_Online.Models
     {
         public int Id { get; set; }
         [Required]
-    public string FirstName { get; set; }
-        [Required]
-    public string LastName { get; set; } = null!;
+    public string Name { get; set; }
+        
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string? Cell { get; set; }

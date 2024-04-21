@@ -12,6 +12,10 @@ namespace No1_Online.Models
         [Required]
         public DateTime Revision { get; set; }
 
-        
+        [Column(TypeName = "decimal(18,3)")]
+        [Display(Name = "Load Value:")]
+        public decimal? GITValue { get; set; }
+
+        public ICollection<LoadingSchedule> LoadingSchedules { get; set; }
     }
 }

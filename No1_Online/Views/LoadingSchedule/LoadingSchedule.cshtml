@@ -4,11 +4,7 @@
 <nav class="navbar bg-body-tertiary">
     <form class="container-fluid justify-content-start">
         <div class="d-flex align-items-center">
-            
-            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Close Form</button>
             <button class="btn btn-sm btn-outline-secondary me-2" type="button">Add New Record</button>
-            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Bulk Payment Client</button>
-            <button class="btn btn-sm btn-outline-secondary me-2" type="button">Remitance Payment</button>
             <div class="btn-group me-2">
                 <button type="button" class="btn btn-success">Load Confirmation</button>
                 <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -19,7 +15,6 @@
                     <li><a class="dropdown-item" href="#">Print</a></li>
                 </ul>
             </div>
-            <button class="btn btn-outline-success me-2" type="button">Account Calculations</button>
         </div>
     </form>
 </nav>
@@ -58,87 +53,71 @@
                     </div>
                 </div>
                 <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.CompanyTrans.Name"></label>
+                                    <input type="text" asp-for="loadingSchedule.CompanyTrans.Name" class="form-control" id="Transporter">
+                                    <span asp-validation-for="loadingSchedule.CompanyTrans.Name" class="text-danger"></span>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.PurchaseOrder"></label>
+                                    <input type="text" asp-for="loadingSchedule.PurchaseOrder" class="form-control" id="PurchaseOrder">
+                                    <span asp-validation-for="loadingSchedule.PurchaseOrder" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.LoadingPointLoad.City">Loading Point:</label>
+                                    <input type="text" asp-for="loadingSchedule.LoadingPointLoad.City" class="form-control" id="LoadingPointLoad">
+                                    <span asp-validation-for="loadingSchedule.LoadingPointLoad.City" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.Vehicle.Registration"></label>
+                                    <input type="text" asp-for="loadingSchedule.Vehicle.Registration" class="form-control" id="Vehicle">
+                                    <span asp-validation-for="loadingSchedule.Vehicle.Registration" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.SubReg"></label>
+                                    <input type="text" asp-for="loadingSchedule.SubReg" class="form-control" id="SubReg">
+                                    <span asp-validation-for="loadingSchedule.SubReg" class="text-danger"></span>
+                                </div>
+                            </div>
                     <div class="col">
                         <div class="form-group">
-                            <label asp-for="loadingSchedule.Company.Name"></label>
+                            <label asp-for="loadingSchedule.Company.Name">Client:</label>
                             <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control" id="CompanyName">
                             <span asp-validation-for="loadingSchedule.Company.Name" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.PurchaseOrder"></label>
-                            <input type="text" asp-for="loadingSchedule.PurchaseOrder" class="form-control" id="PurchaseOrder">
-                            <span asp-validation-for="loadingSchedule.PurchaseOrder" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.LoadingPointLoad.City"></label>
-                            <input type="text" asp-for="loadingSchedule.LoadingPointLoad.City" class="form-control" id="LoadingPointLoad">
-                            <span asp-validation-for="loadingSchedule.LoadingPointLoad.City" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.LoadingPointOff.City"></label>
-                            <input type="text" asp-for="loadingSchedule.LoadingPointOff.City" class="form-control" id="LoadingPointOff">
-                            <span asp-validation-for="loadingSchedule.LoadingPointOff.City" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.LoadingPointOff.City">Offload Point:</label>
+                                    <input type="text" asp-for="loadingSchedule.LoadingPointOff.City" class="form-control" id="LoadingPointOff">
+                                    <span asp-validation-for="loadingSchedule.LoadingPointOff.City" class="text-danger"></span>
+                                </div>
+
                         <div class="form-group">
                             <label asp-for="loadingSchedule.Value"></label>
                             <input type="text" asp-for="loadingSchedule.Value" class="form-control" id="Value">
                             <span asp-validation-for="loadingSchedule.Value" class="text-danger"></span>
                         </div>
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.LoadInstruction"></label>
+                                    <textarea asp-for="loadingSchedule.LoadInstruction" class="form-control" id="LoadInstruction" rows="3"></textarea>
+                                    <span asp-validation-for="loadingSchedule.LoadInstruction" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="loadingSchedule.ProfileId"></label>
+                                    <input type="text" class="form-control" asp-for="loadingSchedule.ProfileId" readonly>
+                                    <span asp-validation-for="loadingSchedule.ProfileId" class="text-danger"></span>
+                                </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.Vehicle"></label>
-                            <input type="text" asp-for="loadingSchedule.Vehicle" class="form-control" id="Vehicle">
-                            <span asp-validation-for="loadingSchedule.Vehicle" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.SubReg"></label>
-                            <input type="text" asp-for="loadingSchedule.SubReg" class="form-control" id="SubReg">
-                            <span asp-validation-for="loadingSchedule.SubReg" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.ProfileId"></label>
-                            <input type="text" class="form-control" asp-for="loadingSchedule.ProfileId" readonly>
-                            <span asp-validation-for="loadingSchedule.ProfileId" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.LoadInstruction"></label>
-                            <textarea asp-for="loadingSchedule.LoadInstruction" class="form-control" id="LoadInstruction" rows="3"></textarea>
-                            <span asp-validation-for="loadingSchedule.LoadInstruction" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="loadingSchedule.Note.Description"></label>
-                            <textarea asp-for="loadingSchedule.Note.Description" class="form-control" id="NoteDescription" rows="5"></textarea>
-                            <span asp-validation-for="loadingSchedule.Note.Description" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
+                    
+                </div>                           
+              
             </form>
         </div>
     </div>
@@ -151,12 +130,7 @@
         <div class="card-body">
             <form asp-controller="Company" asp-action="" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="Discount">Discount R:</label>
-                        <input type="text" class="form-control" id="Discount">
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="form-group">
                         <label for="DepositDate">Deposit Date:</label>
@@ -170,11 +144,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <div class="text-end mt-4">
-                            <button type="submit" class="btn btn-primary">Discount Calculation</button>
-                        </div>
-                    </div>
+                    
                     <div class="col">
                         <div class="text-end mt-4">
                             <button type="submit" class="btn btn-primary">Credit Note</button>
@@ -288,7 +258,7 @@
     </div>
 </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col">
             <div class="card mb-2">

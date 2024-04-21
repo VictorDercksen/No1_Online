@@ -23,6 +23,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('click', function (event) {
+        if (event.target.matches('#LoadsearchButton')) {
+            var searchValue = document.querySelector('#LoadsearchBox').value;
+            if (searchValue) {
+                var url = '/LoadingSchedule/SearchLoadingSchedule?searchBox=' + encodeURIComponent(searchValue);
+                var title = "Company Search Result";
+                loadPartialViewIntoTab(url, title);
+            }
+            event.preventDefault();
+        }
+    });
+});
+
 function loadPartialViewIntoTab(url, title) {
     var tabId = 'tab-' + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the tab
     console.log(url);
@@ -39,13 +53,12 @@ function loadPartialViewIntoTab(url, title) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                return response.text().then(text => { throw new Error(text || 'Network response was not ok'); });
             }
             return response.text();
         })
         .then(html => {
             document.querySelector('#' + tabId + '-content').innerHTML = html;
-            // Activate the new tab
             new bootstrap.Tab(document.querySelector('#' + tabId)).show();
         })
         .catch(error => {

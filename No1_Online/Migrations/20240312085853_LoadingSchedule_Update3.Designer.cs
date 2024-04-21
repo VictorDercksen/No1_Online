@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312085853_LoadingSchedule_Update3")]
+    partial class LoadingSchedule_Update3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -541,9 +544,6 @@ namespace No1_Online.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyTransId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -584,21 +584,18 @@ namespace No1_Online.Migrations
                     b.Property<string>("SubReg")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Transporter")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,3)");
 
-                    b.Property<int?>("VehicleId")
+                    b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
-
-                    b.HasIndex("CompanyTransId");
-
-                    b.HasIndex("LoadingPointLoadId");
-
-                    b.HasIndex("LoadingPointOffId");
 
                     b.HasIndex("NoteId");
 
@@ -862,45 +859,21 @@ namespace No1_Online.Migrations
 
             modelBuilder.Entity("No1_Online.Models.LoadingSchedule", b =>
                 {
-                    b.HasOne("No1_Online.Models.Company", "Company")
+                    b.HasOne("No1_Online.Models.Company", null)
                         .WithMany("LoadingSchedules")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("No1_Online.Models.Company", "CompanyTrans")
-                        .WithMany()
-                        .HasForeignKey("CompanyTransId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("No1_Online.Models.LoadingPoint", "LoadingPointLoad")
-                        .WithMany()
-                        .HasForeignKey("LoadingPointLoadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("No1_Online.Models.LoadingPoint", "LoadingPointOff")
-                        .WithMany()
-                        .HasForeignKey("LoadingPointOffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("No1_Online.Models.Note", "Note")
-                        .WithMany("LoadingSchedules")
+                        .WithMany()
                         .HasForeignKey("NoteId");
 
                     b.HasOne("No1_Online.Models.Vehicle", "Vehicle")
-                        .WithMany("LoadingSchedules")
-                        .HasForeignKey("VehicleId");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("CompanyTrans");
-
-                    b.Navigation("LoadingPointLoad");
-
-                    b.Navigation("LoadingPointOff");
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Note");
 
@@ -941,16 +914,6 @@ namespace No1_Online.Migrations
                 {
                     b.Navigation("Contacts");
 
-                    b.Navigation("LoadingSchedules");
-                });
-
-            modelBuilder.Entity("No1_Online.Models.Note", b =>
-                {
-                    b.Navigation("LoadingSchedules");
-                });
-
-            modelBuilder.Entity("No1_Online.Models.Vehicle", b =>
-                {
                     b.Navigation("LoadingSchedules");
                 });
 #pragma warning restore 612, 618

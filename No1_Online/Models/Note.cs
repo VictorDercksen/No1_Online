@@ -16,6 +16,7 @@ namespace No1_Online.Models
         
         
         public Nullable<DateTime> Revision { get; set; }
+        public ICollection<LoadingSchedule> LoadingSchedules { get; set; }
 
     }
 }

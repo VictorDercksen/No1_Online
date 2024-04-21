@@ -18,10 +18,8 @@ namespace No1_Online.Models
 
         [Required]
         public string? Revision { get; set; }
-        [Required]
-        public int ContactId { get; set; }  
-        public virtual Contact? Contact { get; set; }
 
-       
+        
+
     }
 }
