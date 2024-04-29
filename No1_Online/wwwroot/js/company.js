@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+
 function loadPartialViewIntoTab(url, title) {
     var tabId = 'tab-' + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the tab
     console.log(url);

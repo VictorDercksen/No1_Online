@@ -51,17 +51,21 @@ namespace No1_Online.Controllers
         }
 
 
+        [HttpGet]
+        public  IActionResult AutoSearchCompany(string term) 
+        {
+            var companies = _context.Companies
+                .Where(c => EF.Functions.Like(c.Name, $"%{term}%"))
+                .ToList();
 
+            return Json(companies.Select(c => c.Name));
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CompanyVM companyVm)
         {
-            //foreach (var val in ModelState.Values)
-            //{
-            //    Console.WriteLine(val.AttemptedValue);
-            //}
-            //Console.WriteLine();
+            
             if (ModelState.IsValid)
             {
                 _context.Add(companyVm.company);

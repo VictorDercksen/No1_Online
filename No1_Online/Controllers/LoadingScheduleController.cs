@@ -66,6 +66,6 @@ namespace No1_Online.Controllers
             return PartialView("LoadingSchedule", viewModel); // Return the partial view with the populated ViewModel
         }
 
-
+       
     }
 }
