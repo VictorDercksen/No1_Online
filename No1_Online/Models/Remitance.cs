@@ -12,22 +12,19 @@ namespace No1_Online.Models
 
         public DateTime Poddate { get; set; }
 
-
-        [Required]
-        public string ProfileId { get; set; }
         [Required]
         public DateTime Duedate { get; set; }
         [Required]
         public DateTime PaymentDate { get; set; }
         [Required]
 
-        [Column(TypeName = "decimal(10,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         public decimal Amount { get; set; }
         [Required]
         public string PaymentType { get; set; }
         [Required]
-        public int InvoiceId { get; set; }
-        public virtual Invoice Invoice { get; }
+        
+        public virtual string Invoice { get; set; }
         [Required]
         public int LoadingScheduleId { get; set; }
         public virtual LoadingSchedule LoadingSchedule { get; set; }

@@ -8,17 +8,17 @@ namespace No1_Online.Models
     {
         public int Id { get; set; }
         [Required]
-        [Column(TypeName = "decimal(5,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         public decimal LoadRate { get; set; }
         [Required]  
-        [Column(TypeName = "decimal(5,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         public decimal PaymentRate { get; set; }
         [Required]
-        [Column(TypeName = "decimal(5,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         public decimal Quantity { get; set; }
-        [Required]
-        public DateTime Revision { get; set; }
-
+        
+        public DateTime? Revision { get; set; }
+        
         [Required]  
         public int LoadingScheduleId { get; set; }  
         public virtual LoadingSchedule LoadingSchedule { get; set; }

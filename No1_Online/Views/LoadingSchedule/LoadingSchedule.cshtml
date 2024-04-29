@@ -24,7 +24,7 @@
 <div class="col-lg-6">
     <div class="card mb-5">
         <div class="card-header">
-            Enter Loading Schedule Details:
+            Loading Schedule Details:
         </div>
         <div class="card-body">
             <form asp-controller="LoadingSchedule" asp-action="" method="post">
@@ -133,14 +133,16 @@
                 
                 <div class="row">
                     <div class="form-group">
-                        <label for="DepositDate">Deposit Date:</label>
-                        <input type="date" class="form-control" id="DepositDate">
+                        <label asp-for="clientPayment.Date">Deposit Date:</label>
+                                <input type="date" class="form-control" asp-for="clientPayment.Date" id="DepositDate">
+                                <span asp-validation-for="clientPayment.Date" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="DepositAmount">Deposit Amount:</label>
-                        <input type="text" class="form-control" id="DepositAmount">
+                        <label asp-for="clientPayment.Amount">Deposit Amount:</label>
+                        <input type="text" class="form-control" asp-for="clientPayment.Amount" id="DepositAmount">
+                        <span asp-validation-for="clientPayment.Amount" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -164,48 +166,50 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="PODDate">POD Date:</label>
-                        <input type="text" class="form-control" id="PODDate">
+                        <label asp-for="remitance.Poddate">POD Date:</label>
+                        <input type="text" class="form-control" asp-for="remitance.Poddate" id="PODDate">
+                                <span asp-validation-for="remitance.Poddate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="InvoiceNo">Invoice Number:</label>
-                        <input type="text" class="form-control" id="InvoiceNo">
+                        <label asp-for="remitance.Invoice">Invoice Number:</label>
+                        <input type="text" class="form-control" asp-for="remitance.Invoice" id="InvoiceNo">
+                                <span asp-validation-for="remitance.Invoice" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="PayDue">Payment Due:</label>
-                        <input type="date" class="form-control" id="PayDue">
+                        <label asp-for="remitance.Duedate">Payment Due:</label>
+                        <input type="date" class="form-control"asp-for="remitance.Duedate" id="PayDue">
+                                <span asp-validation-for="remitance.Duedate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="PayDate">Payment Date:</label>
-                        <input type="date" class="form-control" id="PayDate">
+                        <label asp-for="remitance.PaymentDate">Payment Date:</label>
+                        <input type="date" class="form-control" asp-for="remitance.PaymentDate" id="PayDate">
+                                <span asp-validation-for="remitance.PaymentDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="PayType">Payment Type:</label>
-                        <select class="form-control" id="PayType">
+                        <label asp-for="remitance.PaymentType">Payment Type:</label>
+                        <select class="form-control" id="PayType" asp-for="remitance.PaymentType">
                             <option value="Cheque">Cheque</option>
+                            <option value="eft">eft</option>
                         </select>
+                                <span asp-validation-for="remitance.PaymentType" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="Amount">Amount:</label>
-                        <input type="text" class="form-control" id="Amount">
+                        <label asp-for="remitance.Amount">Amount:</label>
+                        <input type="text" class="form-control" asp-for="remitance.Amount" id="Amount">
+                                <span asp-validation-for="remitance.Amount" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="TransDisc">Trans Disc:</label>
-                        <input type="text" class="form-control" id="TransDisc">
-                    </div>
-                </div>
+                
             </form>
         </div>
     </div>
@@ -279,17 +283,88 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row"></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                @foreach (var tranProd in Model.transportedProducts)
+                                {
+                                    <tr>
+                                        <td>@tranProd.Product.Description</td>
+                                        <td>@tranProd.LoadRate</td>
+                                        <td>15</td>
+                                        <td>@tranProd.PaymentRate</td>
+                                        <td>15</td>
+                                        <td>@tranProd.Quantity</td>
+                                    </tr>
+                                }
+
+                               
                             </tbody>
                         </table>
                     </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sub Total:</td>
+                                        <td>@Model.calculations.load</td>
+                                        <td>@Model.calculations.sub</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>VAT:</td>
+                                        <td>@Model.calculations.loadVAT</td>
+                                        <td>@Model.calculations.subVAT</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Including VAT:</td>
+                                        <td>@Model.calculations.loadTotal</td>
+                                        <td>@Model.calculations.subTotal</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Profit Excluding VAT:</td>
+                                        <td>@Model.calculations.profit</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>VAT on Profit:</td>
+                                        <td>@Model.calculations.profitVAT</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             </div>
         </div>

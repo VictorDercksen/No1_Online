@@ -83,7 +83,19 @@ function loadPartialViewIntoTab(url, title) {
             new bootstrap.Tab(firstTab).show();
         }
     });
+
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

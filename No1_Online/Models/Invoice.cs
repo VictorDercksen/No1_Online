@@ -11,8 +11,8 @@ namespace No1_Online.Models
         public int GroupAllocation { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
-        public DateTime Revision { get; set; }
+        
+        public DateTime? Revision { get; set; }
         [Required]
         public int LoadingScheduleId { get; set; }
         public LoadingSchedule LoadingSchedule { get; set; }

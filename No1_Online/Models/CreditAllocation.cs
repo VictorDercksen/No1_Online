@@ -8,13 +8,13 @@ namespace No1_Online.Models
     {
         public int Id { get; set; }
 
-        [Column(TypeName = "decimal(10,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         [Required]  
         public decimal Amount { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
-        public DateTime Revision { get; set; }
+        
+        public DateTime? Revision { get; set; }
         [Required]
         public int LoadingScheduleId { get; set; }
         public LoadingSchedule LoadingSchedule { get; set; }

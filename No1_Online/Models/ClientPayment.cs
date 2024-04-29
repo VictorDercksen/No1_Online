@@ -19,8 +19,8 @@ namespace No1_Online.Models
 
          [Column(TypeName = "decimal(10,4)")]
          public decimal? Credit { get; set; }
-         [Required]
-        public DateTime Revision { get; set; }
+         
+        public DateTime? Revision { get; set; }
         [Required]
         public int LoadingScheduleId { get; set; }
         public  LoadingSchedule LoadingSchedule { get; set; }

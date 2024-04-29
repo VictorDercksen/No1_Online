@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
+using No1_Online.Models;
 using No1_Online.ViewModels;
 
 namespace No1_Online.Controllers
@@ -14,8 +15,13 @@ namespace No1_Online.Controllers
             this._context = context;   
         }
         public IActionResult LoadingSchedule()
-        {
-            return PartialView("LoadingSchedule");
+        {       
+            List<TransportedProduct> transportedProducts = new List<TransportedProduct>();  
+            LoadingSchedule loadingSchedule = new LoadingSchedule();
+            ClientPayment clientPayment = new ClientPayment();
+            Remitance remitance = new Remitance();
+            var  viewModel =  new LoadingScheduleVM(loadingSchedule,transportedProducts, clientPayment, remitance );
+            return PartialView("LoadingSchedule",viewModel);
         }
 
         [HttpGet]
@@ -45,9 +51,18 @@ namespace No1_Online.Controllers
             {
                 return NotFound(); // Or handle the case where the loading schedule is not found
             }
+            var transportedProduct = await _context.TransportedProducts
+                .Include(c => c.Product)
+                .Where (c => c.LoadingScheduleId == loadingSchedule.Id).ToListAsync();
 
-            var viewModel = new LoadingScheduleVM(loadingSchedule);
+            var  clientPayment  = await _context.ClientPayments
+                .FirstOrDefaultAsync(c => c.LoadingScheduleId.Equals(loadingSchedule.Id));
+            var remitance = await _context.Remitances
+                .FirstOrDefaultAsync(c => c.LoadingScheduleId.Equals(loadingSchedule.Id));
+
+            var viewModel = new LoadingScheduleVM(loadingSchedule, transportedProduct, clientPayment, remitance);
             
+
             return PartialView("LoadingSchedule", viewModel); // Return the partial view with the populated ViewModel
         }
 

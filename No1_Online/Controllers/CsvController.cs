@@ -31,7 +31,7 @@ namespace No1_Online.Controllers
             }
 
             // Display the parsed data using Bootstrap in the view
-            return View("UploadSuccess", records);
+            return PartialView("UploadSuccess", records);
         }
 
     }

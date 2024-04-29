@@ -14,47 +14,70 @@
     <link rel="stylesheet" href="~/No1_Online.styles.css" asp-append-version="true" />
 </head>
 <body>
-    
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <a class="navbar-brand" href="/">
-                            <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
-                        </a>
-                        <div class="p-2">
-                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex">
-                                <input class="form-control" type="search" placeholder="Search Company" aria-label="Search" id="searchBox">
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <a class="navbar-brand" href="/">
+                        <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
+                    </a>
+                    <div class="p-2">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="search-group d-flex">
+                            <div class="input-group me-2">
+                                <input class="form-control" type="search" placeholder="Search Company" aria-label="Search" id="searchBox" autocomplete="on">
                                 <button class="btn btn-outline-success" id="searchButton" type="button">Search</button>
                             </div>
-                        </div>
-                        <div class="collapse navbar-collapse ">
-                            <div class="d-flex">
+                            <div class="input-group me-2">
                                 <input class="form-control" type="search" placeholder="Search Load Number" aria-label="Search" id="LoadsearchBox">
                                 <button class="btn btn-outline-success" id="LoadsearchButton" type="button">Search</button>
                             </div>
+                            <button class="btn btn-outline-success btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Record</button>
                         </div>
-                        <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="modal" data-target="#uploadModal">Upload Record</a>
-                                </li>
-                            </ul>
+                    </div>
+                    <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1"></ul>
+                    </div>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1"></ul>
+                        <partial name="LoginPartial" />
+                    </div>
+                }
+            </div>
+        </nav>
+
+        <!-- Modal -->
+        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Upload Record</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="fileInput" class="form-label">Select file to upload</label>
+                            <input type="file" class="form-control" id="fileInput">
                         </div>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1"></ul>
-                            <partial name="LoginPartial" />
-                        </div>
-                    }
+                        <button id="uploadButton" class="btn btn-primary">Upload</button>
+                    </div>
                 </div>
-            </nav>
+            </div>
+        </div>
+
+
     </header>
+
+
+
+
+
 
 
     <div class="container-fluid">
@@ -66,7 +89,7 @@
                 <partial name="OffCanvasPartial"/>
             }
             </div>
-            <div class="col">
+            <div class="col flex-grow-1">
                 <div>
                     <ul class="nav nav-tabs" id ="dynamicTabList">
                        

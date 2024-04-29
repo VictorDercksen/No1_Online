@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423143649_TransportedProducts_Table1")]
+    partial class TransportedProducts_Table1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,7 +291,7 @@ namespace No1_Online.Migrations
                     b.Property<int>("LoadingScheduleId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -436,7 +439,7 @@ namespace No1_Online.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,3)");
+                        .HasColumnType("decimal(10,4)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -444,7 +447,7 @@ namespace No1_Online.Migrations
                     b.Property<int>("LoadingScheduleId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -491,7 +494,7 @@ namespace No1_Online.Migrations
                     b.Property<int>("LoadingScheduleId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -656,14 +659,13 @@ namespace No1_Online.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,3)");
+                        .HasColumnType("decimal(10,4)");
 
                     b.Property<DateTime>("Duedate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Invoice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
 
                     b.Property<int>("LoadingScheduleId")
                         .HasColumnType("int");
@@ -677,6 +679,10 @@ namespace No1_Online.Migrations
 
                     b.Property<DateTime>("Poddate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ProfileId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
