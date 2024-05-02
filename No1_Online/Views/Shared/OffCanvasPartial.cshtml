@@ -1,363 +1,576 @@
 ﻿@inject IHttpContextAccessor _httpContextAccessor
 
-
-<div class="offcanvas offcanvas-start show position-relative vh-100"  data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+<div class="offcanvas offcanvas-start show position-relative vh-100" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Input forms:</span>
-        </h6>
-        <ul class="nav flex-column">
-            
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("LoadingSchedule", "LoadingSchedule")" data-component-name="Company">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
-                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
-                    </svg>
-                    Loading Schedule
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Products", "Product")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    Products
-                </a>
-            </li>
-            <li>
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Company", "Company")" data-component-name="Company">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
-                    </svg>
-                    Company
-                </a>
-               
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Management reports:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                    </svg>
-                    Income per Vehicle
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                    </svg>
-                    Income All Vehicles
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Turnover Report
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Agent/Broker Statement
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                    </svg>
-                    Total Financial Summary Export to Excel
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Income Per Vehicle Transporter
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Transporter Missing Invoices
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/>
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                    </svg>
-                    Client vs Transporter Report
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    POD Closing Date Query
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Transporters:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Remitance(Paid/Unpaid Invoices)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Remitance(With Loading Points/Weight)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Loads(Paid by Client and Paid to Transporter)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Outstanding PODs All Transporters
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Remitance Advice(To Be Paid)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Outstandig PODs per transporter
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Other Reports:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Loading Schedules
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Maintenance:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Input New Clients / Agents / Suppliers
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Vehicles
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Invoice Closing Dates
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Other Reports:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Loading Schedules
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Customers:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Statement(Paid/Unpaid Invoices)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Statement(Paid/Unpaid Invoices) With ClientRefBatch
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Statement(With Loading Points)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Loads(Paid by Client and Paid to Transporter)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Outstanding PODs All Clients
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Statement(Unpaid Invoices)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Statement(Unpaid Invoices/ Outstanding PODs)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Invoices(All Clients)
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Client Payment
-                </a>
-            </li>
-        </ul>
-        <hr class="my-3">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Client vs Transporter Balances:</span>
-        </h6>
-        <ul class="nav flex-column">
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    All Clients Balances
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Reports", "Reports")" data-component-name="Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-diff" viewBox="0 0 16 16">
-                        <path d="M8 5a.5.5 0 0 1 .5.5V7H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V8H6a.5.5 0 0 1 0-1h1.5V5.5A.5.5 0 0 1 8 5m-2.5 6.5A.5.5 0 0 1 6 11h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
-                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                    </svg>
-                    Aggregated Clients that are also Transporters
-                </a>
-            </li>
-        </ul>
+        <div class="accordion accordion-flush" id="offcanvasAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingInputForms">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInputForms" aria-expanded="false" aria-controls="collapseInputForms">
+                        Input Forms
+                    </button>
+                </h2>
+                <div id="collapseInputForms" class="accordion-collapse collapse" aria-labelledby="headingInputForms" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <ul class="nav nav-tab flex-column">
+                            <li class="nav-item w-100">
+                                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("LoadingSchedule", "LoadingSchedule")" data-component-name="Company">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
+                                    </svg>
+                                    Loading Schedule
+                                </a>
+                            </li>
+                            <li class="nav-item w-100">
+                                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Products", "Product")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                    </svg>
+                                    Products
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Company", "Company")" data-component-name="Company">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                    </svg>
+                                    Company
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat the pattern for other sections -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingManagementReports">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseManagementReports" aria-expanded="false" aria-controls="collapseManagementReports">
+                        Management Reports
+                    </button>
+                </h2>
+                <div id="collapseManagementReports" class="accordion-collapse collapse" aria-labelledby="headingManagementReports" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <div id="collapseManagementReports" class="accordion-collapse collapse" aria-labelledby="headingManagementReports">
+                            <div class="accordion-body">
+                                <div class="accordion accordion-flush" id="managementReportsAccordion">
+                                    <!-- Nested accordion for each management report -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingIncomePerVehicle">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomePerVehicle" aria-expanded="false" aria-controls="collapseIncomePerVehicle">
+                                                Income All Vehicles
+                                            </button>
+                                        </h2>
+                                        <div id="collapseIncomePerVehicle" class="accordion-collapse collapse" aria-labelledby="headingIncomePerVehicle">
+                                            <div class="accordion-body">
+                                                <form id="incomePerVehicleForm">
+                                                    
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">From:</span>
+                                                        <input type="date" id="startDateIncomePerVehicle" class="form-control" name="startDateIncomePerVehicle">
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">To:</span>
+                                                        <input type="date" id="endDate" class="form-control" name="endDateIncomePerVehicle">
+                                                    </div>
+                                                    <div class="custom-input-group">
+                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Transporter">
+                                                    </div>
+                                                    <div class="custom-input-group">
+                                                        <button type="submit" id="submitIncomePerVehicle" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Income All Vehicles -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingIncomeAllVehicles">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomeAllVehicles" aria-expanded="false" aria-controls="collapseIncomeAllVehicles">
+                                                Income per Vehicle
+                                            </button>
+                                        </h2>
+                                        <div id="collapseIncomeAllVehicles" class="accordion-collapse collapse" aria-labelledby="headingIncomeAllVehicles">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">From:</span>
+                                                        <input type="date" id="startDateIncomeAllVehicles" class="form-control" name="startDate">
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">To:</span>
+                                                        <input type="date" id="endDateIncomeAllVehicles" class="form-control" name="endDate">
+                                                    </div>
+                                                    <div class="custom-input-group">
+                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Registration">
+                                                    </div>
+                                                    <div class="custom-input-group">
+                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Transporter">
+                                                    </div>
+                                                    <div class="custom-input-group">
+                                                        <button type="submit" id="submitIncomeAllVehicles" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Turnover Report -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTurnoverReport">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTurnoverReport" aria-expanded="false" aria-controls="collapseTurnoverReport">
+                                                Turnover Report
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTurnoverReport" class="accordion-collapse collapse" aria-labelledby="headingTurnoverReport">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Financial Quarter">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Agent/Broker Statement -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingAgentBrokerStatement">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAgentBrokerStatement" aria-expanded="false" aria-controls="collapseAgentBrokerStatement">
+                                                Agent/Broker Statement
+                                            </button>
+                                        </h2>
+                                        <div id="collapseAgentBrokerStatement" class="accordion-collapse collapse" aria-labelledby="headingAgentBrokerStatement">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Agent ID">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Total Financial Summary Export to Excel -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTotalFinancialSummary">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTotalFinancialSummary" aria-expanded="false" aria-controls="collapseTotalFinancialSummary">
+                                                Total Financial Summary Export to Excel
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTotalFinancialSummary" class="accordion-collapse collapse" aria-labelledby="headingTotalFinancialSummary">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Year">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Income Per Vehicle Transporter -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingIncomePerVehicleTransporter">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomePerVehicleTransporter" aria-expanded="false" aria-controls="collapseIncomePerVehicleTransporter">
+                                                Income Per Vehicle Transporter
+                                            </button>
+                                        </h2>
+                                        <div id="collapseIncomePerVehicleTransporter" class="accordion-collapse collapse" aria-labelledby="headingIncomePerVehicleTransporter">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Transporter ID">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Transporter Missing Invoices -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTransporterMissingInvoices">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTransporterMissingInvoices" aria-expanded="false" aria-controls="collapseTransporterMissingInvoices">
+                                                Transporter Missing Invoices
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTransporterMissingInvoices" class="accordion-collapse collapse" aria-labelledby="headingTransporterMissingInvoices">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Month">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Client vs Transporter Report -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingClientVsTransporterReport">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientVsTransporterReport" aria-expanded="false" aria-controls="collapseClientVsTransporterReport">
+                                                Client vs Transporter Report
+                                            </button>
+                                        </h2>
+                                        <div id="collapseClientVsTransporterReport" class="accordion-collapse collapse" aria-labelledby="headingClientVsTransporterReport">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter Report Criteria">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- POD Closing Date Query -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingPODClosingDateQuery">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePODClosingDateQuery" aria-expanded="false" aria-controls="collapsePODClosingDateQuery">
+                                                POD Closing Date Query
+                                            </button>
+                                        </h2>
+                                        <div id="collapsePODClosingDateQuery" class="accordion-collapse collapse" aria-labelledby="headingPODClosingDateQuery">
+                                            <div class="accordion-body">
+                                                <form>
+                                                    <div class="custom-input-group">
+                                                        <input type="text" class="form-control custom-form-control" placeholder="Enter POD ID">
+                                                        <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Add more accordion items as needed for other report groups -->
+
         </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTransporters">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTransporters" aria-expanded="false" aria-controls="collapseTransporters">
+                        Transporters
+                    </button>
+                </h2>
+                <div id="collapseTransporters" class="accordion-collapse collapse" aria-labelledby="headingTransporters" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <div class="accordion" id="transportersAccordion">
+                            <!-- Nested accordion for Remitance (Paid/Unpaid Invoices) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRemitancePaidUnpaid">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRemitancePaidUnpaid" aria-expanded="false" aria-controls="collapseRemitancePaidUnpaid">
+                                        Remitance (Paid/Unpaid Invoices)
+                                    </button>
+                                </h2>
+                                <div id="collapseRemitancePaidUnpaid" class="accordion-collapse collapse" aria-labelledby="headingRemitancePaidUnpaid">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Invoice Status">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nested accordion for Remitance (With Loading Points/Weight) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRemitanceLoadingPoints">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRemitanceLoadingPoints" aria-expanded="false" aria-controls="collapseRemitanceLoadingPoints">
+                                        Remitance (With Loading Points/Weight)
+                                    </button>
+                                </h2>
+                                <div id="collapseRemitanceLoadingPoints" class="accordion-collapse collapse" aria-labelledby="headingRemitanceLoadingPoints">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Load Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nested accordion for All Loads (Paid by Client and Paid to Transporter) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingAllLoads">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllLoads" aria-expanded="false" aria-controls="collapseAllLoads">
+                                        All Loads (Paid by Client and Paid to Transporter)
+                                    </button>
+                                </h2>
+                                <div id="collapseAllLoads" class="accordion-collapse collapse" aria-labelledby="headingAllLoads">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Payment Status">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nested accordion for Outstanding PODs All Transporters -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOutstandingPODs">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutstandingPODs" aria-expanded="false" aria-controls="collapseOutstandingPODs">
+                                        Outstanding PODs All Transporters
+                                    </button>
+                                </h2>
+                                <div id="collapseOutstandingPODs" class="accordion-collapse collapse" aria-labelledby="headingOutstandingPODs">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter POD Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nested accordion for Remitance Advice (To Be Paid) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRemitanceAdviceToBePaid">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRemitanceAdviceToBePaid" aria-expanded="false" aria-controls="collapseRemitanceAdviceToBePaid">
+                                        Remitance Advice (To Be Paid)
+                                    </button>
+                                </h2>
+                                <div id="collapseRemitanceAdviceToBePaid" class="accordion-collapse collapse" aria-labelledby="headingRemitanceAdviceToBePaid">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Payment Advice Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nested accordion for Outstanding PODs per Transporter -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOutstandingPODsPerTransporter">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutstandingPODsPerTransporter" aria-expanded="false" aria-controls="collapseOutstandingPODsPerTransporter">
+                                        Outstanding PODs per Transporter
+                                    </button>
+                                </h2>
+                                <div id="collapseOutstandingPODsPerTransporter" class="accordion-collapse collapse" aria-labelledby="headingOutstandingPODsPerTransporter">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Transporter ID">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOtherReports">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtherReports" aria-expanded="false" aria-controls="collapseOtherReports">
+                        Other Reports
+                    </button>
+                </h2>
+                <div id="collapseOtherReports" class="accordion-collapse collapse" aria-labelledby="headingOtherReports" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <div class="accordion" id="otherReportsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingAllLoadingSchedules">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllLoadingSchedules" aria-expanded="false" aria-controls="collapseAllLoadingSchedules">
+                                        All Loading Schedules
+                                    </button>
+                                </h2>
+                                <div id="collapseAllLoadingSchedules" class="accordion-collapse collapse" aria-labelledby="headingAllLoadingSchedules">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Schedule Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+    <h2 class="accordion-header" id="headingCustomers">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseCustomers">
+            Customers
+        </button>
+    </h2>
+    <div id="collapseCustomers" class="accordion-collapse collapse" aria-labelledby="headingCustomers" data-bs-parent="#offcanvasAccordion">
+        <div class="accordion-body">
+            <div class="accordion" id="customersAccordion">
+                <!-- Accordion items for each type of report under Customers -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingStatementPaidUnpaid">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementPaidUnpaid" aria-expanded="false" aria-controls="collapseStatementPaidUnpaid">
+                            Statement (Paid/Unpaid Invoices)
+                        </button>
+                    </h2>
+                    <div id="collapseStatementPaidUnpaid" class="accordion-collapse collapse" aria-labelledby="headingStatementPaidUnpaid">
+                        <div class="accordion-body">
+                            <form>
+                                <div class="custom-input-group">
+                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Invoice Details">
+                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingStatementClientRefBatch">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementClientRefBatch" aria-expanded="false" aria-controls="collapseStatementClientRefBatch">
+                            Statement (Paid/Unpaid Invoices) With ClientRefBatch
+                        </button>
+                    </h2>
+                    <div id="collapseStatementClientRefBatch" class="accordion-collapse collapse" aria-labelledby="headingStatementClientRefBatch">
+                        <div class="accordion-body">
+                            <form>
+                                <div class="custom-input-group">
+                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Batch Ref">
+                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingStatementLoadingPoints">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementLoadingPoints" aria-expanded="false" aria-controls="collapseStatementLoadingPoints">
+                            Statement (With Loading Points)
+                        </button>
+                    </h2>
+                                <div id="collapseStatementLoadingPoints" class="accordion-collapse collapse" aria-labelledby="headingStatementLoadingPoints">
+                        <div class="accordion-body">
+                            <form>
+                                <div class="custom-input-group">
+                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Loading Points">
+                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAllLoadsPaid">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllLoadsPaid" aria-expanded="false" aria-controls="collapseAllLoadsPaid">
+                            All Loads (Paid by Client and Paid to Transporter)
+                        </button>
+                    </h2>
+                    <div id="collapseAllLoadsPaid" class="accordion-collapse collapse" aria-labelledby="headingAllLoadsPaid">
+                        <div class="accordion-body">
+                            <form>
+                                <div class="custom-input-group">
+                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Load Details">
+                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOutstandingPODsAllClients">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutstandingPODsAllClients" aria-expanded="false" aria-controls="collapseOutstandingPODsAllClients">
+                            Outstanding PODs All Clients
+                        </button>
+                    </h2>
+                    <div id="collapseOutstandingPODsAllClients" class="accordion-collapse collapse" aria-labelledby="headingOutstandingPODsAllClients">
+                        <div class="accordion-body">
+                            <form>
+                                <div class="custom-input-group">
+                                    <input type="text" class="form-control custom-form-control" placeholder="Enter POD Details">
+                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingClientTransporterBalances">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientTransporterBalances" aria-expanded="false" aria-controls="collapseClientTransporterBalances">
+                        Client vs Transporter Balances
+                    </button>
+                </h2>
+                <div id="collapseClientTransporterBalances" class="accordion-collapse collapse" aria-labelledby="headingClientTransporterBalances" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <div class="accordion" id="clientTransporterBalancesAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingAllClientsBalances">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllClientsBalances" aria-expanded="false" aria-controls="collapseAllClientsBalances">
+                                        All Clients Balances
+                                    </button>
+                                </h2>
+                                <div id="collapseAllClientsBalances" class="accordion-collapse collapse" aria-labelledby="headingAllClientsBalances">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Client ID or Name">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingAggregatedClientsTransporters">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAggregatedClientsTransporters" aria-expanded="false" aria-controls="collapseAggregatedClientsTransporters">
+                                        Aggregated Clients that are also Transporters
+                                    </button>
+                                </h2>
+                                <div id="collapseAggregatedClientsTransporters" class="accordion-collapse collapse" aria-labelledby="headingAggregatedClientsTransporters">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </div>
+</div>
+</div>

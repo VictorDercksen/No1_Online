@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (event) {
         if (event.target.matches('#LoadsearchButton')) {
             var searchValue = document.querySelector('#LoadsearchBox').value;
@@ -35,7 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
         }
     });
+
+
 });
+
 
 
 

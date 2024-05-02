@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace No1_Online.Models
 {
     [Table("LoadingSchedules")]
-    public class LoadingSchedule
+    public class LoadingSchedule 
     {
         [Display(Name = "Load Id:")]
         public int Id { get; set; }

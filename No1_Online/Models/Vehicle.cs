@@ -15,7 +15,9 @@ namespace No1_Online.Models
         [Column(TypeName = "decimal(18,3)")]
         [Display(Name = "Load Value:")]
         public decimal? GITValue { get; set; }
+        public int? CompanyId { get; set; }
 
+        public Company Company { get; set; }
         public ICollection<LoadingSchedule> LoadingSchedules { get; set; }
     }
 }

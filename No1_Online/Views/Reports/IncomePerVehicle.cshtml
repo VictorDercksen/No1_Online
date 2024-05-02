@@ -1,0 +1,87 @@
+﻿@model No1_Online.ViewModels.ReportsVM
+
+
+<nav class="navbar bg-body-tertiary">
+    
+        <div class="d-flex align-items-center">
+            <button class="btn btn btn-success me-2" type="button">Export Excel</button>
+        <button class="btn btn btn-success me-2" type="button" @* onclick="window.location.href='@Url.Action("GeneratePDF", "Reports",Model.loadingSchedules)'" *@>Generate Report</button>
+        </div>
+    
+</nav>
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="card-header">
+            Vehicle Information:
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Registration</th>
+                        <th>GIT Value</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Total Value Transported</th>
+                        
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach(var vehicle in Model.vehicleTotals){
+                        <tr>
+                            <td>@vehicle.Key.Registration</td>
+                            <td>@vehicle.Key.GITValue.ToString()</td>
+                            <td>@Model.startDate</td>
+                            <td>@Model.endDate</td>
+                            <td>@vehicle.Value</td>
+                           
+                        </tr>
+                   }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="card-header">
+            Affiliated Loading Schedules:
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Load Number</th>
+                        <th>Company</th>
+                        <th>Transporter</th>
+                        <th>Value</th>
+                        <th>Date</th>
+                        <th>Loading Point</th>
+                        <th>Offloading Point</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var loads in Model.loadingSchedules)
+                    {
+                        <tr>
+                            <td>@loads.Id</td>
+                            <td>@loads.Company.Name</td>
+                            <td>@loads.CompanyTrans.Name</td>
+                            <td>@loads.Value</td>
+                            <td>@loads.Date</td>
+                            <td>@loads.LoadingPointLoad.City</td>
+                            <td>@loads.LoadingPointOff.City</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

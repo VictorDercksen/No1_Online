@@ -1,4 +1,5 @@
-﻿using No1_Online.Models;
+﻿using No1_Online.Classes;
+using No1_Online.Models;
 
 namespace No1_Online.ViewModels
 {
@@ -20,51 +21,10 @@ namespace No1_Online.ViewModels
 
         public LoadingScheduleVM()
         {
-            this.calculations = new Calculations(); 
+             
         }
 
     }
 
-    public class Calculations
-    {
-        public decimal loadTotal { get; set; }
-        public  decimal load { get; set; }
-        public decimal subTotal { get; set; }
-        public decimal sub { get; set; }
-        public decimal VAT = 0.15m;
-        public decimal loadVAT { get; set; }    
-        public decimal subVAT { get; set; }
-        public decimal profit { get; set; }
-        public decimal profitVAT { get; set; }
-       
-       public Calculations(List<TransportedProduct> _transportedProducts)
-        {
-            foreach(var  product in _transportedProducts)
-            {
-                load += product.LoadRate * product.Quantity;
-                sub += product.PaymentRate * product.Quantity;
-            }
-            loadVAT = VAT * load;
-            subVAT = VAT * sub;
-
-            loadTotal = load + loadVAT;
-            subTotal = sub + subVAT;
-
-            profit = load - sub;
-            profitVAT = VAT * profit;
-        }
-
-        public Calculations()
-        {
-            this.loadTotal = 0;
-            this.subTotal = 0;
-            this.load = 0;
-            this.sub = 0;
-            this.loadVAT = 0;   
-            this.subVAT = 0;    
-            this.profit = 0;
-            this.profitVAT = 0;
-
-        }
-    }
+    
 }

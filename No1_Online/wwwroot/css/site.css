@@ -28,7 +28,23 @@ body {
 
 .input-group {
     display: flex;
-    align-items: center;
+    align-items: stretch; /* Aligns items vertically */
+    width: 100%; /* Full width to contain the button and input field */
+}
+.custom-input-group {
+    display: flex;
+    width: 100%; /* Ensure the input group takes full width of the container */
+    align-items: center; /* Aligns items vertically center */
+}
+
+.custom-form-control {
+    flex: 3; /* Takes up 3 parts of the available space */
+    margin-right: 8px; /* Adds space between the input and the button */
+}
+
+.custom-btn-primary {
+    flex: 1; /* Takes up 1 part of the available space */
+    text-align: center; /* Centers text in the button */
 }
 
 .btn-modal {
@@ -45,7 +61,7 @@ body {
     overflow: auto;
     position: absolute;
     z-index: 5000; /* High z-index to ensure it appears on top */
-    max-height: 200px; /* Limit the height with vertical scrolling */
+    max-height: 400px; /* Limit the height with vertical scrolling */
     display: none; /* Start hidden and only show when needed */
     transition: opacity 0.2s; /* Smooth transition for better UX */
     width: 100%; /* Ensures the dropdown matches the input width */
@@ -66,3 +82,4 @@ body {
     .autocomplete-suggestion:hover {
         background-color: #f0f0f0;
     }
+
