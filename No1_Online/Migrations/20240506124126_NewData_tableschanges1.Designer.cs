@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506124126_NewData_tableschanges1")]
+    partial class NewData_tableschanges1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -350,16 +353,17 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Group")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Markup")
+                    b.Property<int>("Markup")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NoteId")
+                    b.Property<int>("NoteId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Override")
@@ -404,6 +408,7 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -510,8 +515,9 @@ namespace No1_Online.Migrations
                     b.Property<int?>("PostalCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Revision")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Revision")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -632,7 +638,7 @@ namespace No1_Online.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -728,9 +734,10 @@ namespace No1_Online.Migrations
                         .HasColumnType("decimal(18,3)");
 
                     b.Property<string>("Registration")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -810,7 +817,9 @@ namespace No1_Online.Migrations
 
                     b.HasOne("No1_Online.Models.Note", "Note")
                         .WithMany()
-                        .HasForeignKey("NoteId");
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
 

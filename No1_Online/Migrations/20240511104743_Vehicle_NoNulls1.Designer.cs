@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using No1_Online.Data;
 
@@ -11,9 +12,11 @@ using No1_Online.Data;
 namespace No1_Online.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240511104743_Vehicle_NoNulls1")]
+    partial class Vehicle_NoNulls1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -404,6 +407,7 @@ namespace No1_Online.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -510,8 +514,9 @@ namespace No1_Online.Migrations
                     b.Property<int?>("PostalCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Revision")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Revision")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -632,7 +637,7 @@ namespace No1_Online.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Revision")
+                    b.Property<DateTime>("Revision")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

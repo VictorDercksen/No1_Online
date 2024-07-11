@@ -16,8 +16,8 @@ namespace No1_Online.Models
         [DataType(DataType.PostalCode)]
         public int? PostalCode { get; set; }
 
-        [Required]
-        public string? Revision { get; set; }
+       
+        public DateTime? Revision { get; set; }
 
         
 

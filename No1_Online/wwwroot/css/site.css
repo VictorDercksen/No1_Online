@@ -83,3 +83,28 @@ body {
         background-color: #f0f0f0;
     }
 
+
+
+#secondNavbarContainer {
+    display: none; /* Initially hidden */
+    overflow: hidden;
+    width: 100%;
+    transition: max-height 0.5s ease-out;
+}
+
+    #secondNavbarContainer.show {
+        display: block;
+        max-height: 200px; /* Adjust this value as needed */
+    }
+
+.accordion-collapse {
+    transition: max-height 0.3s ease;
+}
+
+.accordion-button::after {
+    transition: transform 0.3s ease;
+}
+
+.accordion-button[aria-expanded="true"]::after {
+    transform: rotate(90deg);
+}

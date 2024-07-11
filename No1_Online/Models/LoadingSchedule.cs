@@ -58,6 +58,6 @@ namespace No1_Online.Models
         public  Note? Note { get;  }
         
         public int? VehicleId { get; set; }  
-        public Vehicle Vehicle { get; set; } 
+        public Vehicle? Vehicle { get; set; } 
     }
 }

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var searchValue = document.querySelector('#searchBox').value;
             if (searchValue) {
                 var url = '/Company/SearchCompany?searchBox=' + encodeURIComponent(searchValue);
-                var title = "Company Search Result";
+                var title = searchValue;
                 loadPartialViewIntoTab(url, title);
             }
             event.preventDefault();
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var searchValue = document.querySelector('#LoadsearchBox').value;
             if (searchValue) {
                 var url = '/LoadingSchedule/SearchLoadingSchedule?searchBox=' + encodeURIComponent(searchValue);
-                var title = "Company Search Result";
+                var title ='Load: ' +  searchValue;
                 loadPartialViewIntoTab(url, title);
             }
             event.preventDefault();
@@ -40,7 +40,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function loadPartialViewIntoTab(url, title) {
+function loadSecondNavbar(transporter, startDate, endDate) {
+   
+    var url_Home = '/Reports/SecondNavbar' + '?transporter=' + encodeURIComponent(transporter) + '&startDate=' + encodeURIComponent(startDate) + '&endDate=' + encodeURIComponent(endDate);
+    console.log(url_Home);
+
+    fetch(url_Home)
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text || 'Network response was not ok'); });
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('secondNavbarContainer').innerHTML = data;
+            $('#secondNavbarContainer').hide().slideDown(); // Use jQuery for slideDown animation
+        })
+        .catch(error => {
+            console.error('Error loading second navbar:', error);
+        });
+}
+
+// Function to load partial view into tab
+function loadPartialViewIntoTab(url, title, transporter = null, startDate = null, endDate = null) {
     var tabId = 'tab-' + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the tab
     console.log(url);
 
@@ -63,6 +85,13 @@ function loadPartialViewIntoTab(url, title) {
         .then(html => {
             document.querySelector('#' + tabId + '-content').innerHTML = html;
             new bootstrap.Tab(document.querySelector('#' + tabId)).show();
+
+            // Check if the title contains "Income all vehicles" and load the second navbar if it does
+            if (title.toLowerCase().includes('income all vehicles')) {
+                loadSecondNavbar(transporter, startDate, endDate);
+            } else {
+                $('#secondNavbarContainer').slideUp(); // Hide if not needed
+            }
         })
         .catch(error => {
             console.error('Error fetching search results:', error);
@@ -86,9 +115,13 @@ function loadPartialViewIntoTab(url, title) {
             new bootstrap.Tab(firstTab).show();
         }
     });
-
-
 }
+
+// Ensure the second navbar is hidden initially
+$('#secondNavbarContainer').hide();
+
+
+
 
 
 

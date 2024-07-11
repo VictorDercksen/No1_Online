@@ -7,17 +7,17 @@ namespace No1_Online.Models
     public class Vehicle
     {
         public int Id { get; set; }
-        [Required]
-        public string Registration { get; set; }
-        [Required]
-        public DateTime Revision { get; set; }
+        
+        public string? Registration { get; set; }
+        
+        public DateTime? Revision { get; set; }
 
         [Column(TypeName = "decimal(18,3)")]
         [Display(Name = "Load Value:")]
         public decimal? GITValue { get; set; }
         public int? CompanyId { get; set; }
 
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
         public ICollection<LoadingSchedule> LoadingSchedules { get; set; }
     }
 }

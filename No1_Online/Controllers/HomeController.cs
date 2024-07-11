@@ -17,6 +17,7 @@ namespace No1_Online.Controllers
 
         public IActionResult Index()
         {
+            ViewData["ShowSecondNavbar"] = false;
             return View();
         }
 
@@ -26,5 +27,7 @@ namespace No1_Online.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }

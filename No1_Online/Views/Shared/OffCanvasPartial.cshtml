@@ -1,9 +1,7 @@
 ﻿@inject IHttpContextAccessor _httpContextAccessor
 
 <div class="offcanvas offcanvas-start show position-relative vh-100" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-    <div class="offcanvas-header">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
+
     <div class="offcanvas-body">
         <div class="accordion accordion-flush" id="offcanvasAccordion">
             <div class="accordion-item">
@@ -67,7 +65,7 @@
                                         <div id="collapseIncomePerVehicle" class="accordion-collapse collapse" aria-labelledby="headingIncomePerVehicle">
                                             <div class="accordion-body">
                                                 <form id="incomePerVehicleForm">
-                                                    
+
                                                     <div class="input-group">
                                                         <span class="input-group-text">From:</span>
                                                         <input type="date" id="startDateIncomePerVehicle" class="form-control" name="startDateIncomePerVehicle">
@@ -77,7 +75,7 @@
                                                         <input type="date" id="endDate" class="form-control" name="endDateIncomePerVehicle">
                                                     </div>
                                                     <div class="custom-input-group">
-                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Transporter">
+                                                        <input type="search" class="form-control custom-form-control autocomplete-input" name="transporter" placeholder="Transporter" data-autocomplete-url="/Company/AutoSearchCompany">
                                                     </div>
                                                     <div class="custom-input-group">
                                                         <button type="submit" id="submitIncomePerVehicle" class="btn btn-outline-success custom-btn-primary">Submit</button>
@@ -252,17 +250,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
 
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
+
+                <!-- Add more accordion items as needed for other report groups -->
+
             </div>
-
-            <!-- Add more accordion items as needed for other report groups -->
-
-        </div>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTransporters">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTransporters" aria-expanded="false" aria-controls="collapseTransporters">
@@ -422,104 +420,104 @@
             </div>
 
             <div class="accordion-item">
-    <h2 class="accordion-header" id="headingCustomers">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseCustomers">
-            Customers
-        </button>
-    </h2>
-    <div id="collapseCustomers" class="accordion-collapse collapse" aria-labelledby="headingCustomers" data-bs-parent="#offcanvasAccordion">
-        <div class="accordion-body">
-            <div class="accordion" id="customersAccordion">
-                <!-- Accordion items for each type of report under Customers -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingStatementPaidUnpaid">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementPaidUnpaid" aria-expanded="false" aria-controls="collapseStatementPaidUnpaid">
-                            Statement (Paid/Unpaid Invoices)
-                        </button>
-                    </h2>
-                    <div id="collapseStatementPaidUnpaid" class="accordion-collapse collapse" aria-labelledby="headingStatementPaidUnpaid">
-                        <div class="accordion-body">
-                            <form>
-                                <div class="custom-input-group">
-                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Invoice Details">
-                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                <h2 class="accordion-header" id="headingCustomers">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCustomers" aria-expanded="false" aria-controls="collapseCustomers">
+                        Customers
+                    </button>
+                </h2>
+                <div id="collapseCustomers" class="accordion-collapse collapse" aria-labelledby="headingCustomers" data-bs-parent="#offcanvasAccordion">
+                    <div class="accordion-body">
+                        <div class="accordion" id="customersAccordion">
+                            <!-- Accordion items for each type of report under Customers -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingStatementPaidUnpaid">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementPaidUnpaid" aria-expanded="false" aria-controls="collapseStatementPaidUnpaid">
+                                        Statement (Paid/Unpaid Invoices)
+                                    </button>
+                                </h2>
+                                <div id="collapseStatementPaidUnpaid" class="accordion-collapse collapse" aria-labelledby="headingStatementPaidUnpaid">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Invoice Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingStatementClientRefBatch">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementClientRefBatch" aria-expanded="false" aria-controls="collapseStatementClientRefBatch">
-                            Statement (Paid/Unpaid Invoices) With ClientRefBatch
-                        </button>
-                    </h2>
-                    <div id="collapseStatementClientRefBatch" class="accordion-collapse collapse" aria-labelledby="headingStatementClientRefBatch">
-                        <div class="accordion-body">
-                            <form>
-                                <div class="custom-input-group">
-                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Batch Ref">
-                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingStatementClientRefBatch">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementClientRefBatch" aria-expanded="false" aria-controls="collapseStatementClientRefBatch">
+                                        Statement (Paid/Unpaid Invoices) With ClientRefBatch
+                                    </button>
+                                </h2>
+                                <div id="collapseStatementClientRefBatch" class="accordion-collapse collapse" aria-labelledby="headingStatementClientRefBatch">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Batch Ref">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingStatementLoadingPoints">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementLoadingPoints" aria-expanded="false" aria-controls="collapseStatementLoadingPoints">
-                            Statement (With Loading Points)
-                        </button>
-                    </h2>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingStatementLoadingPoints">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatementLoadingPoints" aria-expanded="false" aria-controls="collapseStatementLoadingPoints">
+                                        Statement (With Loading Points)
+                                    </button>
+                                </h2>
                                 <div id="collapseStatementLoadingPoints" class="accordion-collapse collapse" aria-labelledby="headingStatementLoadingPoints">
-                        <div class="accordion-body">
-                            <form>
-                                <div class="custom-input-group">
-                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Loading Points">
-                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Loading Points">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingAllLoadsPaid">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllLoadsPaid" aria-expanded="false" aria-controls="collapseAllLoadsPaid">
-                            All Loads (Paid by Client and Paid to Transporter)
-                        </button>
-                    </h2>
-                    <div id="collapseAllLoadsPaid" class="accordion-collapse collapse" aria-labelledby="headingAllLoadsPaid">
-                        <div class="accordion-body">
-                            <form>
-                                <div class="custom-input-group">
-                                    <input type="text" class="form-control custom-form-control" placeholder="Enter Load Details">
-                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingAllLoadsPaid">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllLoadsPaid" aria-expanded="false" aria-controls="collapseAllLoadsPaid">
+                                        All Loads (Paid by Client and Paid to Transporter)
+                                    </button>
+                                </h2>
+                                <div id="collapseAllLoadsPaid" class="accordion-collapse collapse" aria-labelledby="headingAllLoadsPaid">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter Load Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOutstandingPODsAllClients">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutstandingPODsAllClients" aria-expanded="false" aria-controls="collapseOutstandingPODsAllClients">
-                            Outstanding PODs All Clients
-                        </button>
-                    </h2>
-                    <div id="collapseOutstandingPODsAllClients" class="accordion-collapse collapse" aria-labelledby="headingOutstandingPODsAllClients">
-                        <div class="accordion-body">
-                            <form>
-                                <div class="custom-input-group">
-                                    <input type="text" class="form-control custom-form-control" placeholder="Enter POD Details">
-                                    <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOutstandingPODsAllClients">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutstandingPODsAllClients" aria-expanded="false" aria-controls="collapseOutstandingPODsAllClients">
+                                        Outstanding PODs All Clients
+                                    </button>
+                                </h2>
+                                <div id="collapseOutstandingPODsAllClients" class="accordion-collapse collapse" aria-labelledby="headingOutstandingPODsAllClients">
+                                    <div class="accordion-body">
+                                        <form>
+                                            <div class="custom-input-group">
+                                                <input type="text" class="form-control custom-form-control" placeholder="Enter POD Details">
+                                                <button type="submit" class="btn btn-outline-success custom-btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingClientTransporterBalances">
@@ -571,6 +569,6 @@
 
 
 
+        </div>
     </div>
-</div>
 </div>

@@ -14,7 +14,7 @@ namespace No1_Online.Models
         public string Name { get; set; }
         [Required]
         public int ContactType { get; set; }
-        [Required]
+        
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         [Display(Name = "Tel:")]
@@ -25,10 +25,10 @@ namespace No1_Online.Models
         public string? Fax { get; set; }
         [Required]
         [Display(Name = "Bank Name:")]
-        public  string BankName { get; set; }
+        public  string? BankName { get; set; }
         [Display(Name = "Branch Code:")]
         public string? BranchCode { get; set; }
-        [Required]
+        
         [Display(Name = "Account Number:")]
         public string? AccountNumber { get; set; }
         
@@ -45,12 +45,12 @@ namespace No1_Online.Models
         [Column(TypeName = "nvarchar(450)")]
         public string? ProfileId { get; set; }
         [Display(Name = "Markup:")]
-        public int Markup { get; set; }
+        public int? Markup { get; set; }
 
         public string? GitName { get; set; }
 
         public Nullable<DateTime> GitDate { get; set; }
-        [Required]
+       
         //[DataType(DataType.EmailAddress)]
         [Display(Name = "Email LoadCon:")]
         public string? Email { get; set; }
@@ -61,9 +61,9 @@ namespace No1_Online.Models
         [Display(Name = "Email Statements:")]
         public string? EmailStatements { get; set; }
         [Display(Name = "Group:")]
-        public string Group { get; set; }
-        [Display(Name = "Bocked:")]
-        public bool Blocked { get; set; }
+        public string? Group { get; set; }
+        [Display(Name = "Blocked:")]
+        public bool  Blocked { get; set; }
         [Display(Name = "Override:")]
         public bool Override { get; set; }
         [Display(Name = "Closing Date:")]
@@ -71,14 +71,14 @@ namespace No1_Online.Models
         [Display(Name = "POD Closing date:")]
 
         public Nullable<DateTime> PodclosingDate { get; set; }
-        [Required]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        
+        public int? AddressId { get; set; }
+        public Address? Address { get; set; }
 
         public List<Contact> Contacts { get; set; } = new List<Contact>();
 
         public List<LoadingSchedule> LoadingSchedules { get; set; } = new List<LoadingSchedule>();
-        public int NoteId { get; set; }
+        public int? NoteId { get; set; }
         public Note? Note { get; set; }
     }
 }

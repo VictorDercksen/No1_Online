@@ -10,9 +10,9 @@ namespace No1_Online.Models
         public int Id { get; set; }
 
        
-        [Required]
         
-        public string Description { get; set; }
+        
+        public string? Description { get; set; }
         
         
         public Nullable<DateTime> Revision { get; set; }

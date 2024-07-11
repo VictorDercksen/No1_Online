@@ -20,22 +20,19 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                @if (signInManager.IsSignedIn(User))
-                {
+        @if (signInManager.IsSignedIn(User))
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+
                     <a class="navbar-brand" href="/">
                         <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" height="30">
                     </a>
-                    <div class="p-2">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
+                    
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="search-group d-flex">
                             <div class="input-group me-2">
-                                <input class="form-control" type="search" placeholder="Search Company" aria-label="Search" id="searchBox" autocomplete="on">
+                                <input class="form-control autocomplete-input" data-autocomplete-url="/Company/AutoSearchCompany"  type="search" placeholder="Search Company" aria-label="Search" id="searchBox">
                                 <button class="btn btn-outline-success" id="searchButton" type="button">Search</button>
                             </div>
                             <div class="input-group me-2">
@@ -52,13 +49,14 @@
                         <ul class="navbar-nav flex-grow-1"></ul>
                         <partial name="LoginPartial" />
                     </div>
-                }
-            </div>
-        </nav>
 
-        <!-- Modal -->
-        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+                </div>
+            </nav>
+            
+
+            <!-- Modal -->
+            <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="uploadModalLabel">Upload Record</h5>
@@ -75,7 +73,7 @@
             </div>
         </div>
 
-
+        }
     </header>
 
 
@@ -91,9 +89,12 @@
             {
                 <!-- Offcanvas content here -->
                 <partial name="OffCanvasPartial"/>
+                    
             }
             </div>
             <div class="col flex-grow-1">
+                <div id="secondNavbarContainer"></div>
+                <div>
                 <div>
                     <ul class="nav nav-tabs" id ="dynamicTabList">
                        
@@ -118,7 +119,7 @@
     <script  src="~/js/autocomplete.js"></script>
     <script src="~/js/tabstruct.js"></script>
     <script src="~/js/Reports.js"></script>
-        ]
+    <script src="~/js/secondNavbar.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
@@ -127,4 +128,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>

@@ -1,7 +1,9 @@
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
 using No1_Online.Models;
+using ServiceStack;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +38,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 var app = builder.Build();
 

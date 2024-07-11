@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const searchBox = document.getElementById('searchBox');
-   
+    const autocompleteInputs = document.querySelectorAll('.autocomplete-input');
 
     function createAutocomplete(input, url) {
         let suggestions = document.createElement('div');
@@ -55,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-
-
-    createAutocomplete(searchBox, '/Company/AutoSearchCompany');
-    
+    autocompleteInputs.forEach(input => {
+        createAutocomplete(input, input.getAttribute('data-autocomplete-url'));
+    });
 });

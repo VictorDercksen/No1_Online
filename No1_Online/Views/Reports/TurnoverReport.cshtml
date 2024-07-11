@@ -1,0 +1,116 @@
+﻿@inject IHttpContextAccessor _httpContextAccessor
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Reports:
+        </div>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    Customer:
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Paid Invoices</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Unpaid Invoices</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">All Invoices</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    Transporter:
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Remitance (Paid / Unpaid Invoices)</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Remitance (Loading Points / Weights)</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">All Loads (Paid by Client and to Trasporter)</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">All Loads (Paid by Client and to Trasporter)</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Outstading PODs for all Transporters</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <button class="btn btn-primary" onclick="window.location.href='@Url.Action("GeneratePDF", "Reports")'">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

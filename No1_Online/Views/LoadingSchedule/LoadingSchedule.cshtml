@@ -55,7 +55,7 @@
                 <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label asp-for="loadingSchedule.CompanyTrans.Name"></label>
+                                    <label asp-for="loadingSchedule.CompanyTrans.Name">Transporter:</label>
                                     <input type="text" asp-for="loadingSchedule.CompanyTrans.Name" class="form-control" id="Transporter">
                                     <span asp-validation-for="loadingSchedule.CompanyTrans.Name" class="text-danger"></span>
                                 </div>
@@ -87,7 +87,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="loadingSchedule.Company.Name">Client:</label>
-                            <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control" id="CompanyName">
+                            <input type="text" asp-for="loadingSchedule.Company.Name" class="form-control " id="CompanyName">
                             <span asp-validation-for="loadingSchedule.Company.Name" class="text-danger"></span>
                         </div>
 
@@ -99,7 +99,7 @@
 
                         <div class="form-group">
                             <label asp-for="loadingSchedule.Value"></label>
-                            <input type="text" asp-for="loadingSchedule.Value" class="form-control" id="Value">
+                                    <input type="text" asp-for="loadingSchedule.Value" class="form-control @Html.Raw((Model.loadingSchedule?.Vehicle?.Equals(null) != null)&&(Model.loadingSchedule.Value <= Model.loadingSchedule.Vehicle.GITValue || Model.loadingSchedule.Vehicle.GITValue == null) ? "border-success" : "border-danger")" id="Value">
                             <span asp-validation-for="loadingSchedule.Value" class="text-danger"></span>
                         </div>
 
@@ -245,6 +245,14 @@
         </div>
         <div class="card-body">
             <form>
+                       
+                        <label class="form-label" for="PreviousNotes">Previous Notes:</label>
+                        <select class="form-control" id="Grouping" for="PreviousNotes">
+                            <option value="1">Note 1</option>
+                            <option value="2">Note 2</option>
+                            <option value="3">Note 3</option>
+                        </select>
+                       
                 <div class="mb-3">
                     <label for="inputPerson" class="form-label">Input Person</label>
                     <input type="text" class="form-control" id="inputPerson">
