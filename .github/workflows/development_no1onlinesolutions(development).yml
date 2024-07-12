@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - no1onlinesolutions
 on:
   push:
     branches:
-      - master
+      - development
   workflow_dispatch:
 
 permissions:
@@ -68,7 +68,7 @@ jobs:
         with:
           app-name: 'no1onlinesolutions'
           resource-group-name: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          slot-name: 'production'
+          slot-name: 'development'
           package: .
 
 
