@@ -68,6 +68,6 @@ jobs:
         with:
           app-name: no1onlinesolutions/development
           resource-group-name: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          slot-name: 'development'
+          slot-name: development
           package: .
 
