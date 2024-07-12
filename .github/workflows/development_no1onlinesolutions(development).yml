@@ -61,10 +61,6 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AB644376815D4F869F932C462CED11AF }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_467B8AE79E254D90AE8F0DFCD6964C14 }}
 
-      - name: Check if Azure Web App exists
-        id: check-webapp
-        run: |
-          az webapp show --name no1onlinesolutions --resource-group No1-Online
           
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
