@@ -8,7 +8,7 @@ using ServiceStack;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("default");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
 // Add services to the container.
