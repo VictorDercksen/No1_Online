@@ -45,14 +45,15 @@ jobs:
       name: 'development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-      
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -67,3 +68,4 @@ jobs:
           app-name: 'no1onlinesolutions'
           slot-name: 'development'
           package: .
+
