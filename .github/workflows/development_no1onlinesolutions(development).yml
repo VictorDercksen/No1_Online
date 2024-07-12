@@ -66,7 +66,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: development (no1onlinesolutions/development)
+          app-name: no1onlinesolutions/development
           resource-group-name: ${{ secrets.AZURE_RESOURCE_GROUP }}
           slot-name: 'development'
           package: .
