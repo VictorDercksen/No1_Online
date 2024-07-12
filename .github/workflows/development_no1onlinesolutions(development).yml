@@ -61,13 +61,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AB644376815D4F869F932C462CED11AF }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_467B8AE79E254D90AE8F0DFCD6964C14 }}
 
-          
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: no1onlinesolutions-development
+          app-name: 'no1onlinesolutions'
           resource-group-name: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          slot-name: development
+          slot-name: 'production'
           package: .
+
+
 
