@@ -1,0 +1,37 @@
+﻿@page
+@model No1_Online.Pages.ReportsManagementModel
+
+@{
+    ViewData["Title"] = "Reports Management";
+}
+
+<h1>Reports Management</h1>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col">
+            <input class="form-control" type="search" placeholder="Search Reports" aria-label="Search" id="reportSearchBox">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-success" id="reportSearchButton" type="button">Search</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Report Name</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="reportResults">
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/reports.js"></script>

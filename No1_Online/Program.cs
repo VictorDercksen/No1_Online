@@ -1,30 +1,28 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
 using No1_Online.Models;
 using ServiceStack;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages(); // Add Razor Pages support
 builder.Services.AddDbContext<AppDbContext>(
         options => options.UseSqlServer(connectionString)
     );
 builder.Services.AddIdentity<AppUser, IdentityRole>(
         options =>
         {
-            //Change these before production    
+            // Change these before production    
             options.Password.RequiredUniqueChars = 0;
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 8;
             options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireLowercase = false;  
+            options.Password.RequireLowercase = false;
         }
         )
     .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
@@ -55,11 +53,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication(); // Ensure authentication is used
 app.UseAuthorization();
 
+app.MapRazorPages(); // Map Razor Pages
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-        
