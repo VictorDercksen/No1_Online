@@ -20,8 +20,7 @@
     <header>
         @if (signInManager.IsSignedIn(User))
         {
-            <!-- Include the top navbar tabs partial view -->
-            @await Html.PartialAsync("_TopNavbar")
+           
 
             <!-- Existing Navbar -->
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -84,21 +83,24 @@
                 }
             </div>
             <div class="col flex-grow-1">
-                <div id="secondNavbarContainer"></div>
-                <div>
-                    
-                    
-                        <div class="tab-pane fade show active" id="application-content">
-                        <ul class="nav nav-tabs" id="dynamicTabList"></ul>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <div id="secondNavbarContainer"></div>
+                    <div>
+                        <ul class="nav nav-tabs" id="dynamicTabList">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="reports-tab" data-bs-toggle="tab" href="#reports-storage-content">Reports Storage</a>
+                            </li>
+                        </ul>
                         <div class="tab-content" id="dynamicTabContent">
+                            <div class="tab-pane fade show active" id="reports-storage-content" role="tabpanel" aria-labelledby="reports-tab">
+                                <!-- Reports Storage content will be loaded here -->
+                            </div>
                         </div>
-                        </div>
-                        <div class="tab-pane fade" id="reports-storage-content">
-                            <!-- Reports Storage content will be loaded here -->
-                        </div>
-                    
-                </div>
+                    </div>
+                }
                 <main role="main" class="pb-3">
+                    
                     @RenderBody()
                 </main>
             </div>
@@ -121,13 +123,62 @@
 
     <script>
         $(document).ready(function () {
-            $('a[data-bs-toggle="tab"]').on('show.bs.tab', function (e) {
-                var target = $(e.target).attr("href");
-                if (target === "#reports-storage-content") {
+        @if (signInManager.IsSignedIn(User))
+        {
+            <text>
                     $("#reports-storage-content").load("/ReportsManagement");
-                }
+            </text>
+        }
+
+                $('a[data-bs-toggle="tab"]').on('show.bs.tab', function (e) {
+                    var target = $(e.target).attr("href");
+                    if (target === "#reports-storage-content") {
+                        $("#reports-storage-content").load("/ReportsManagement");
+                    }
+                });
+
+            // Handle Load Schedule button click
+            $("#loadScheduleLink").on("click", function () {
+                // Generate a new tab ID
+                var newTabId = "loading-schedule-tab";
+                var newTabPaneId = "loading-schedule-content";
+
+                // Add a new tab with a close button
+                $("#dynamicTabList").append(
+                    '<li class="nav-item">' +
+                    '<a class="nav-link" id="' + newTabId + '" data-bs-toggle="tab" href="#' + newTabPaneId + '">Loading Schedule ' +
+                    '<button type="button" class="close-tab-btn" aria-label="Close" style="border:none; background:none;" onclick="closeTab(\'' + newTabId + '\', \'' + newTabPaneId + '\')">&times</button>' +
+                    '</a>' +
+                    '</li>'
+                );
+
+                // Add a new tab pane
+                $("#dynamicTabContent").append(
+                    '<div class="tab-pane fade" id="' + newTabPaneId + '" role="tabpanel" aria-labelledby="' + newTabId + '">' +
+                    'Loading...' +
+                    '</div>'
+                );
+
+                // Activate the new tab
+                $("#" + newTabId).tab('show');
+
+                // Load the content into the new tab pane
+                $("#" + newTabPaneId).load("/LoadingSchedule");
             });
         });
+
+        // Function to close a tab
+        function closeTab(tabId, paneId) {
+            // Remove the tab and its pane
+            $('#' + tabId).closest('li').remove();
+            $('#' + paneId).remove();
+
+            // Activate the first tab if there are any left
+            var firstTab = $('#dynamicTabList a:first');
+            if (firstTab.length) {
+                firstTab.tab('show');
+            }
+        }
     </script>
 </body>
 </html>
