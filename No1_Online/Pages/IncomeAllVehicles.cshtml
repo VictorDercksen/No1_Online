@@ -1,0 +1,128 @@
+﻿@page
+@model No1_Online.Pages.IncomeAllVehiclesModel
+@{
+    ViewData["Title"] = "IncomeAllVehicles";
+
+}
+<div class="card mb-2">
+    <div class="card-body bg-light">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Start Date:</strong> <span id="startDate">@Model.reportsVM.startDate.ToString()</span>
+            </div>
+            <div class="col-md-4">
+                <strong>End Date:</strong> <span id="endDate">@Model.reportsVM.endDate.ToString()</span>
+            </div>
+            <div class="col-md-4">
+                <strong>Transporter:</strong> <span id="transporter">@Model.reportsVM.loadingSchedules.FirstOrDefault()?.CompanyTrans?.Name</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="card-header">
+            Vehicle Information:
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Registration</th>
+                        <th>GIT Value</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Total Value Transported</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vehicle in Model.reportsVM.vehicleTotals)
+                    {
+                        <tr>
+                            <td>@vehicle.Key.Registration</td>
+                            <td>@vehicle.Key.GITValue.ToString()</td>
+                            <td>@Model.reportsVM.startDate</td>
+                            <td>@Model.reportsVM.endDate</td>
+                            <td>@vehicle.Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="card-header">
+            Affiliated Loading Schedules:
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Load Number</th>
+                        <th>Company</th>
+                        <th>Transporter</th>
+                        <th>Value</th>
+                        <th>Date</th>
+                        <th>Loading Point</th>
+                        <th>Offloading Point</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var loads in Model.reportsVM.loadingSchedules)
+                    {
+                        <tr>
+                            <td>@loads.Id</td>
+                            <td>@loads.Company.Name</td>
+                            <td>@loads.CompanyTrans.Name</td>
+                            <td>@loads.Value</td>
+                            <td>@loads.Date</td>
+                            <td>@loads.LoadingPointLoad.City</td>
+                            <td>@loads.LoadingPointOff.City</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function appendNewTab(tabId, paneId, content) {
+            // Add a new tab and corresponding tab pane
+            $("#dynamicTabList").append(
+                `<li class="nav-item">
+                            <a class="nav-link" id="${tabId}" data-bs-toggle="tab" href="#${paneId}">
+                                Income Per Vehicle
+                                <span class="close-tab" onclick="closeTab('${tabId}', '${paneId}')">&times;</span>
+                            </a>
+                        </li>`
+            );
+            $("#dynamicTabContent").append(
+                `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
+                            ${content}
+                        </div>`
+            );
+
+            // Activate the new tab
+            $(`#${tabId}`).tab('show');
+        }
+
+        // Function to close a tab
+        function closeTab(tabId, paneId) {
+            $('#' + tabId).closest('li').remove();
+            $('#' + paneId).remove();
+
+            // Activate the first tab if there are any left
+            var firstTab = $('#dynamicTabList a:first');
+            if (firstTab.length) {
+                firstTab.tab('show');
+            }
+        }
+    </script>
+}

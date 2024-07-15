@@ -14,7 +14,7 @@ using No1_Online.Classes.Reports;
 
 namespace No1_Online.Controllers
 {
-    public class ReportsController : Controller
+    public class ReportsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
@@ -29,18 +29,7 @@ namespace No1_Online.Controllers
         
 
 
-        [HttpGet]
-        public async Task<IActionResult> IncomeAllVehicles(DateTime startDate, DateTime endDate, string transporter) 
-        {
-
-
-            ReportsVM viewModel = await GetIncomeAllVehicles(startDate, endDate, transporter);
-            
-            return PartialView("IncomeAllVehicles",viewModel);
-
-
-
-        }
+       
         [HttpGet]
         public async Task<ReportsVM> GetIncomeAllVehicles(DateTime startDate, DateTime endDate, string transporter)
         {
@@ -107,17 +96,19 @@ namespace No1_Online.Controllers
             }
         }
 
-        [HttpGet]
-        public  IActionResult SecondNavbar(string transporter, DateTime startDate, DateTime endDate)
-        {
-            var viewModel = new SecondNavbarViewModel
-            {
-                _startDate = startDate,
-                _endDate = endDate,
-                _transporter = transporter
-            };
-            return ViewComponent("SecondNavbar", viewModel);
-        }
+        //[HttpGet]
+        //public  IActionResult SecondNavbar(string transporter, DateTime startDate, DateTime endDate)
+        //{
+        //    var viewModel = new SecondNavbarViewModel
+        //    {
+        //        _startDate = startDate,
+        //        _endDate = endDate,
+        //        _transporter = transporter
+        //    };
+        //    return ViewComponent("SecondNavbar", viewModel);
+        //}
+
+
     }
 
     

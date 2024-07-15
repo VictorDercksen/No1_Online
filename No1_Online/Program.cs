@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
 using No1_Online.Models;
-using ServiceStack;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages(); // Add Razor Pages support
+builder.Services.AddServerSideBlazor(); // Add Blazor Server support
 builder.Services.AddDbContext<AppDbContext>(
         options => options.UseSqlServer(connectionString)
     );
@@ -24,7 +24,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireLowercase = false;
         }
-        )
+    )
     .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -35,7 +35,17 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("default", client =>
+{
+    var apiBaseAddress = builder.Configuration["ApiBaseAddress"];
+    if (!Uri.TryCreate(apiBaseAddress, UriKind.Absolute, out var baseAddress))
+    {
+        throw new InvalidOperationException("The ApiBaseAddress setting is invalid.");
+    }
+    client.BaseAddress = baseAddress;
+    // Add any other HttpClient configuration here if needed
+});
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 var app = builder.Build();
@@ -57,6 +67,9 @@ app.UseAuthentication(); // Ensure authentication is used
 app.UseAuthorization();
 
 app.MapRazorPages(); // Map Razor Pages
+app.MapBlazorHub(); // Map Blazor Hub
+/*app.MapFallbackToPage("/_Host");*/ // Commented out as it is not needed for MVC
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

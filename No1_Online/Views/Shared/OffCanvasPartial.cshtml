@@ -1,5 +1,8 @@
-﻿@inject IHttpContextAccessor _httpContextAccessor
+﻿@using No1_Online.Views.Shared.Component;
 
+@inject IHttpContextAccessor _httpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.RazorPages
 <div class="offcanvas offcanvas-start show position-relative vh-100" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
     <div class="offcanvas-body">
@@ -22,7 +25,7 @@
                                 </a>
                             </li>
                             <li class="nav-item w-100">
-                                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Products", "Product")">
+                                <a class="nav-link d-flex align-items-center gap-2" >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                                     </svg>
@@ -30,7 +33,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center gap-2" href="@Url.Action("Company", "Company")" data-component-name="Company">
+                                <a class="nav-link d-flex align-items-center gap-2" href="javascript:void(0);" id="CompanyLink" data-component-name="Company">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
                                     </svg>
@@ -57,33 +60,13 @@
                                 <div class="accordion accordion-flush" id="managementReportsAccordion">
                                     <!-- Nested accordion for each management report -->
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingIncomePerVehicle">
+                                        <h2 class="accordion-header" id="IncomeAllVehicles">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomePerVehicle" aria-expanded="false" aria-controls="collapseIncomePerVehicle">
                                                 Income All Vehicles
                                             </button>
                                         </h2>
-                                        <div id="collapseIncomePerVehicle" class="accordion-collapse collapse" aria-labelledby="headingIncomePerVehicle">
-                                            <div class="accordion-body">
-                                                <form id="incomePerVehicleForm">
-
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">From:</span>
-                                                        <input type="date" id="startDateIncomePerVehicle" class="form-control" name="startDateIncomePerVehicle">
-                                                    </div>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">To:</span>
-                                                        <input type="date" id="endDate" class="form-control" name="endDateIncomePerVehicle">
-                                                    </div>
-                                                    <div class="custom-input-group">
-                                                        <input type="search" class="form-control custom-form-control autocomplete-input" name="transporter" placeholder="Transporter" data-autocomplete-url="/Company/AutoSearchCompany">
-                                                    </div>
-                                                    <div class="custom-input-group">
-                                                        <button type="submit" id="submitIncomePerVehicle" class="btn btn-outline-success custom-btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
+                                        <component type="typeof(IncomeAllVehiclesForm)" render-mode="ServerPrerendered" />
+                                        
                                     </div>
 
                                     <!-- Income All Vehicles -->
@@ -572,3 +555,26 @@
         </div>
     </div>
 </div>
+<script>
+    function appendNewTab(tabId, paneId, content) {
+        // Add a new tab and corresponding tab pane
+        $("#dynamicTabList").append(
+            `<li class="nav-item">
+                        <a class="nav-link" id="${tabId}" data-bs-toggle="tab" href="#${paneId}">
+                            Income Per Vehicle
+                            <span class="close-tab" onclick="closeTab('${tabId}', '${paneId}')">&times;</span>
+                        </a>
+                    </li>`
+        );
+        $("#dynamicTabContent").append(
+            `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
+                        ${content}
+                    </div>`
+        );
+
+        // Activate the new tab
+        $(`#${tabId}`).tab('show');
+    }
+
+    
+</script>
