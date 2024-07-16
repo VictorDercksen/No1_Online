@@ -62,10 +62,10 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="IncomeAllVehicles">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomePerVehicle" aria-expanded="false" aria-controls="collapseIncomePerVehicle">
-                                                Income All Vehicles
+                                                Income per Vehicle
                                             </button>
                                         </h2>
-                                        <component type="typeof(IncomeAllVehiclesForm)" render-mode="ServerPrerendered" />
+                                        
                                         
                                     </div>
 
@@ -73,30 +73,13 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingIncomeAllVehicles">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomeAllVehicles" aria-expanded="false" aria-controls="collapseIncomeAllVehicles">
-                                                Income per Vehicle
+                                                Income All Vehicles
                                             </button>
                                         </h2>
                                         <div id="collapseIncomeAllVehicles" class="accordion-collapse collapse" aria-labelledby="headingIncomeAllVehicles">
                                             <div class="accordion-body">
-                                                <form>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">From:</span>
-                                                        <input type="date" id="startDateIncomeAllVehicles" class="form-control" name="startDate">
-                                                    </div>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">To:</span>
-                                                        <input type="date" id="endDateIncomeAllVehicles" class="form-control" name="endDate">
-                                                    </div>
-                                                    <div class="custom-input-group">
-                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Registration">
-                                                    </div>
-                                                    <div class="custom-input-group">
-                                                        <input type="search" class="form-control custom-form-control" name="transporter" placeholder="Transporter">
-                                                    </div>
-                                                    <div class="custom-input-group">
-                                                        <button type="submit" id="submitIncomeAllVehicles" class="btn btn-outline-success custom-btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
+                                                <component type="typeof(IncomeAllVehiclesForm)" render-mode="ServerPrerendered" />
+                                               
                                             </div>
                                         </div>
                                     </div>
