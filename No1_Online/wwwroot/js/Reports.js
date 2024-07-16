@@ -18,12 +18,7 @@
 
 function generateReport() {
     // Get form data
-    var form = document.getElementById('generateReportForm');
-    var formData = new FormData(form);
-
-    // Convert form data to JSON object
-    var data = {};
-    formData.forEach((value, key) => data[key] = value);
+    
 
     // Send AJAX request
     fetch('/Reports/GenerateReport', {

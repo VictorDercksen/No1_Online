@@ -1,9 +1,10 @@
-﻿using System.Composition;
+﻿using No1_Online.ViewModels;
+using System.Composition;
 
 namespace No1_Online.Interfaces
 {
     public interface IReportService
     {
-        IEnumerable<String> SearchReports(string query);
+        Task<ReportsVM> GetIncomeAllVehiclesAsync(DateTime startDate, DateTime endDate, string transporter);
     }
 }

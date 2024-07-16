@@ -555,26 +555,3 @@
         </div>
     </div>
 </div>
-<script>
-    function appendNewTab(tabId, paneId, content) {
-        // Add a new tab and corresponding tab pane
-        $("#dynamicTabList").append(
-            `<li class="nav-item">
-                        <a class="nav-link" id="${tabId}" data-bs-toggle="tab" href="#${paneId}">
-                            Income Per Vehicle
-                            <span class="close-tab" onclick="closeTab('${tabId}', '${paneId}')">&times;</span>
-                        </a>
-                    </li>`
-        );
-        $("#dynamicTabContent").append(
-            `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
-                        ${content}
-                    </div>`
-        );
-
-        // Activate the new tab
-        $(`#${tabId}`).tab('show');
-    }
-
-    
-</script>

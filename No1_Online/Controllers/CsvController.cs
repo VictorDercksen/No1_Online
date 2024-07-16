@@ -8,7 +8,11 @@ namespace No1_Online.Controllers
 {
     public class CsvController : Controller
     {
-       
+        public CsvController()
+        {
+            
+        }
+
         [HttpPost]
         public IActionResult Upload(IFormFile csvFile)
         {

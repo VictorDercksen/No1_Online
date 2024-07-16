@@ -20,22 +20,18 @@
             <button class="btn btn-outline-success" id="reportSearchButton" type="button">Search</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Report Name</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="reportResults">
-                    <!-- Results will be populated here -->
-                </tbody>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Available Reports</h2>
+                <ul>
+                    @foreach (var report in Model.Reports)
+                    {
+                        <li>@report</li>
+                    }
+                </ul>
+            </div>
         </div>
-       
     </div>
 </div>
 

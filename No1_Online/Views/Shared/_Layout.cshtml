@@ -198,6 +198,39 @@
             });
         });
 
+        function addTab(tabId, paneId, tabTitle, url, startDate, endDate, transporter) {
+            // Construct the URL with parameters
+            var _transporter = encodeURIComponent(transporter);
+            var fullUrl = `${url}/${startDate}/${endDate}/${_transporter}`;
+
+            // Add a new tab with a close button
+            $("#dynamicTabList").append(
+                '<li class="nav-item">' +
+                '<a class="nav-link" id="' + tabId + '" data-bs-toggle="tab" href="#' + paneId + '">' + tabTitle + ' ' +
+                '<button type="button" class="close-tab-btn" aria-label="Close" style="border:none; background:none;" onclick="closeTab(\'' + tabId + '\', \'' + paneId + '\')">&times;</button>' +
+                '</a>' +
+                '</li>'
+            );
+
+            // Add a new tab pane
+            $("#dynamicTabContent").append(
+                '<div class="tab-pane fade" id="' + paneId + '" role="tabpanel" aria-labelledby="' + tabId + '">' +
+                'Loading...' +
+                '</div>'
+            );
+
+            // Activate the new tab
+            $("#" + tabId).tab('show');
+            $("#" + paneId).load(fullUrl);
+            
+            // Load the content into the new tab pane
+            // $("#" + paneId).load(fullUrl, function (response, status, xhr) {
+            //     if (status == "error") {
+            //         var msg = "Sorry but there was an error: ";
+            //         $("#" + paneId).html(msg + xhr.status + " " + xhr.statusText);
+            //     }
+            // });
+        }
         // Function to close a tab
         function closeTab(tabId, paneId) {
             // Remove the tab and its pane

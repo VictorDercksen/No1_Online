@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using No1_Online.Data;
+using No1_Online.Interfaces;
 using No1_Online.Models;
+using No1_Online.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +48,9 @@ builder.Services.AddHttpClient("default", client =>
     client.BaseAddress = baseAddress;
     // Add any other HttpClient configuration here if needed
 });
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddSingleton<GoogleCloudStorageService>(provider =>
+    new GoogleCloudStorageService("no1-online-reports-bucket"));
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 var app = builder.Build();

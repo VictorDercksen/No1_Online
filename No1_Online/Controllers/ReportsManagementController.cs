@@ -5,21 +5,21 @@ namespace No1_Online.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReportsManagementController : ControllerBase
+    public class ReportsManagementController : Controller
     {
-        private readonly IReportService _reportService;
+        
 
-        public ReportsManagementController(IReportService reportService)
+        public ReportsManagementController()
         {
-            _reportService = reportService;
+            
         }
 
-        [HttpGet("search")]
-        public IActionResult SearchReports(string query)
-        {
-            var reports = _reportService.SearchReports(query);
-            return Ok(reports);
-        }
+        //[HttpGet("search")]
+        //public IActionResult SearchReports(string query)
+        //{
+        //    var reports = _reportService.SearchReports(query);
+        //    return Ok(reports);
+        //}
 
        
     }
