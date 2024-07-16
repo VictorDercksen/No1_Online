@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using No1_Online.Classes.Reports;
 using No1_Online.Interfaces;
 using No1_Online.Services;
@@ -16,12 +17,14 @@ namespace No1_Online.Pages
 
         private readonly IReportService _reportService;
         private readonly GoogleCloudStorageService _googleCloudStorageService;
+        public ExcelExportService excelExportService;
         public IncomeAllVehiclesModel(IReportService reportService)
         {
             _reportService = reportService;
             reportsVM = new ReportsVM();
             string bucketName = "no1-online-reports-bucket";
             _googleCloudStorageService = new GoogleCloudStorageService(bucketName);
+            
         }
 
         public async Task<IActionResult> OnGetAsync(DateTime startDate, DateTime endDate, string transporter)
@@ -53,11 +56,11 @@ namespace No1_Online.Pages
 
                 // Generate the PDF as a byte array
                 byte[] pdfBytes = document.GeneratePdf();
-                string reportName = $"IncomeAllVehiclesReport_{reportsVM.loadingSchedules[0].CompanyTrans.Name}.pdf";
+                string reportName = $"IncomeAllVehiclesReport_{reportsVM.loadingSchedules[0].CompanyTrans.Name}{reportsVM.startDate.ToString()}{reportsVM.endDate.ToString()}.pdf";
                 string reportUrl = await _googleCloudStorageService.UploadReportAsync(reportName, pdfBytes);
                 return new FileContentResult(pdfBytes, "application/pdf")
                 {
-                    FileDownloadName = "IncomeAllVehiclesReport_" + reportsVM.loadingSchedules[0].CompanyTrans.Name + ".pdf"
+                    FileDownloadName = "IncomeAllVehiclesReport_" + reportsVM.loadingSchedules[0].CompanyTrans.Name + reportsVM.startDate.ToString()  +  reportsVM.endDate.ToString() +".pdf"
                 };
             }
             catch (Exception ex)
@@ -65,6 +68,21 @@ namespace No1_Online.Pages
                 // Log the exception and return an error response
                 return StatusCode(500, new { message = "An error occurred while generating the report.", error = ex.Message });
             }
+        }
+
+        public async Task<IActionResult> OnPostExcel()
+        {
+            excelExportService = new ExcelExportService();
+            var startDate = (DateTime)TempData["StartDate"];
+            var endDate = (DateTime)TempData["EndDate"];
+            var transporter = TempData["Transporter"].ToString();
+
+            reportsVM = await _reportService.GetIncomeAllVehiclesAsync(startDate, endDate, transporter);
+            
+
+            var excelFile = excelExportService.ExportLoadingSchedulesToExcel(reportsVM.loadingSchedules);
+
+            return File(excelFile, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LoadingSchedules.xlsx");
         }
     }
 }

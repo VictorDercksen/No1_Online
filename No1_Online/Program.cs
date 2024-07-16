@@ -4,6 +4,7 @@ using No1_Online.Data;
 using No1_Online.Interfaces;
 using No1_Online.Models;
 using No1_Online.Services;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddSingleton<GoogleCloudStorageService>(provider =>
     new GoogleCloudStorageService("no1-online-reports-bucket"));
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 var app = builder.Build();
 
