@@ -97,14 +97,47 @@ body {
         max-height: 200px; /* Adjust this value as needed */
     }
 
-.accordion-collapse {
-    transition: max-height 0.3s ease;
+
+
+
+
+#spinner-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
 }
 
-.accordion-button::after {
-    transition: transform 0.3s ease;
+.spinner {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
 }
 
-.accordion-button[aria-expanded="true"]::after {
-    transform: rotate(90deg);
+    .spinner:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #3498db;
+        border-color: #3498db transparent #3498db transparent;
+        animation: spinner 1.2s linear infinite;
+    }
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

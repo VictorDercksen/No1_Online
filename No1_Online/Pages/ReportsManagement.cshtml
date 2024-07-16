@@ -1,7 +1,9 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
+@using No1_Online.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Microsoft.AspNetCore.Mvc.RazorPages
-
+@inject SignInManager<AppUser> signInManager
 
 @model No1_Online.Pages.ReportsManagementModel
 
@@ -11,28 +13,140 @@
 
 
 
-<div class="container p-3">
-    <div class="row mb-3">
-        <div class="col">
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 col-md-6">
             <input class="form-control" type="search" placeholder="Search Reports" aria-label="Search" id="reportSearchBox">
         </div>
-        <div class="col-auto">
-            <button class="btn btn-outline-success" id="reportSearchButton" type="button">Search</button>
+        <div class="col-12 col-md-auto mt-3 mt-md-0">
+            <button class="btn btn-outline-success w-100" id="reportSearchButton" type="button">Search</button>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2>Available Reports</h2>
-                <ul>
-                    @foreach (var report in Model.Reports)
-                    {
-                        <li>@report</li>
-                    }
-                </ul>
+    <div class="accordion" id="reportAccordion">
+        <!-- Income All Vehicles Reports -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingIncomeAllVehicles">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomeAllVehicles" aria-expanded="true" aria-controls="collapseIncomeAllVehicles">
+                    Income All Vehicles
+                </button>
+            </h2>
+            <div id="collapseIncomeAllVehicles" class="accordion-collapse collapse show" aria-labelledby="headingIncomeAllVehicles" data-bs-parent="#reportAccordion">
+                <div class="accordion-body">
+                    <div class="list-group">
+                        @foreach (var report in Model.Reports)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@report</span>
+                                <div>
+                                    <a href="/Reports/Download?name=@report" class="btn btn-success btn-sm me-2">Download</a>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteReport('@report')">Delete</button>
+                                </div>
+                            </div>
+                        }
+                        @if (!Model.Reports.Any())
+                        {
+                            <div class="list-group-item text-center">
+                                No reports available.
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Income Per Vehicle Reports -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingIncomePerVehicle">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIncomePerVehicle" aria-expanded="false" aria-controls="collapseIncomePerVehicle">
+                    Income Per Vehicle
+                </button>
+            </h2>
+            <div id="collapseIncomePerVehicle" class="accordion-collapse collapse" aria-labelledby="headingIncomePerVehicle" data-bs-parent="#reportAccordion">
+                <div class="accordion-body">
+                    <div class="list-group">
+                        @* @foreach (var report in Model.IncomePerVehicleReports)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@report</span>
+                                <div>
+                                    <a href="/Reports/Download?name=@report" class="btn btn-success btn-sm me-2">Download</a>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteReport('@report')">Delete</button>
+                                </div>
+                            </div>
+                        }
+                        @if (!Model.IncomePerVehicleReports.Any())
+                        {
+                            <div class="list-group-item text-center">
+                                No reports available.
+                            </div>
+                        } *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client vs Transporter Reports -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingClientVsTransporter">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientVsTransporter" aria-expanded="false" aria-controls="collapseClientVsTransporter">
+                    Client vs Transporter
+                </button>
+            </h2>
+            <div id="collapseClientVsTransporter" class="accordion-collapse collapse" aria-labelledby="headingClientVsTransporter" data-bs-parent="#reportAccordion">
+                <div class="accordion-body">
+                    <div class="list-group">
+                        @* @foreach (var report in Model.ClientVsTransporterReports)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@report</span>
+                                <div>
+                                    <a href="/Reports/Download?name=@report" class="btn btn-success btn-sm me-2">Download</a>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteReport('@report')">Delete</button>
+                                </div>
+                            </div>
+                        }
+                        @if (!Model.ClientVsTransporterReports.Any())
+                        {
+                            <div class="list-group-item text-center">
+                                No reports available.
+                            </div>
+                        } *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Financial Summary Reports -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTotalFinancialSummary">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTotalFinancialSummary" aria-expanded="false" aria-controls="collapseTotalFinancialSummary">
+                    Total Financial Summary
+                </button>
+            </h2>
+            <div id="collapseTotalFinancialSummary" class="accordion-collapse collapse" aria-labelledby="headingTotalFinancialSummary" data-bs-parent="#reportAccordion">
+                <div class="accordion-body">
+                    <div class="list-group">
+                        @* @foreach (var report in Model.TotalFinancialSummaryReports)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@report</span>
+                                <div>
+                                    <a href="/Reports/Download?name=@report" class="btn btn-success btn-sm me-2">Download</a>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteReport('@report')">Delete</button>
+                                </div>
+                            </div>
+                        }
+                        @if (!Model.TotalFinancialSummaryReports.Any())
+                        {
+                            <div class="list-group-item text-center">
+                                No reports available.
+                            </div>
+                        } *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more sections for other types of reports as needed -->
     </div>
 </div>
-
-<script src="~/js/reports.js"></script>

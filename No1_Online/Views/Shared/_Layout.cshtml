@@ -155,11 +155,12 @@
                     '</li>'
                 );
 
-                // Add a new tab pane
                 $("#dynamicTabContent").append(
-                    '<div class="tab-pane fade" id="' + newTabPaneId + '" role="tabpanel" aria-labelledby="' + newTabId + '">' +
-                    'Loading...' +
-                    '</div>'
+                    `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
+                    <div id="spinner-wrapper" class="d-flex">
+                        <div class="spinner"></div>
+                    </div>
+                </div>`
                 );
 
                 // Activate the new tab
@@ -185,9 +186,11 @@
 
                 // Add a new tab pane
                 $("#dynamicTabContent").append(
-                    '<div class="tab-pane fade" id="' + newTabPaneId + '" role="tabpanel" aria-labelledby="' + newTabId + '">' +
-                    'Loading...' +
-                    '</div>'
+                    `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
+                            <div id="spinner-wrapper" class="d-flex">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>`
                 );
 
                 // Activate the new tab
@@ -214,9 +217,11 @@
 
             // Add a new tab pane
             $("#dynamicTabContent").append(
-                '<div class="tab-pane fade" id="' + paneId + '" role="tabpanel" aria-labelledby="' + tabId + '">' +
-                'Loading...' +
-                '</div>'
+                `<div class="tab-pane fade" id="${paneId}" role="tabpanel" aria-labelledby="${tabId}">
+                            <div id="spinner-wrapper" class="d-flex">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>`
             );
 
             // Activate the new tab
