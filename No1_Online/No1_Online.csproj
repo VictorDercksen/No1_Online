@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazorise" Version="1.5.3" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.5.3" />
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.5.3" />
+    <PackageReference Include="Blazorise.Components" Version="1.5.3" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.3" />
+    <PackageReference Include="BootstrapBlazor" Version="8.7.2" />
     <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
     <PackageReference Include="CsvHelper" Version="30.1.0" />
     <PackageReference Include="EPPlus" Version="7.2.1" />

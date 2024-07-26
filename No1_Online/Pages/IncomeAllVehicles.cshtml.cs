@@ -58,6 +58,11 @@ namespace No1_Online.Pages
                 byte[] pdfBytes = document.GeneratePdf();
                 string reportName = $"IncomeAllVehiclesReport_{reportsVM.loadingSchedules[0].CompanyTrans.Name}{reportsVM.startDate.ToString()}{reportsVM.endDate.ToString()}.pdf";
                 string reportUrl = await _googleCloudStorageService.UploadReportAsync(reportName, pdfBytes);
+
+                TempData["StartDate"] = startDate;
+                TempData["EndDate"] = endDate;
+                TempData["Transporter"] = transporter;
+
                 return new FileContentResult(pdfBytes, "application/pdf")
                 {
                     FileDownloadName = "IncomeAllVehiclesReport_" + reportsVM.loadingSchedules[0].CompanyTrans.Name + reportsVM.startDate.ToString()  +  reportsVM.endDate.ToString() +".pdf"
@@ -81,6 +86,10 @@ namespace No1_Online.Pages
             
 
             var excelFile = excelExportService.ExportLoadingSchedulesToExcel(reportsVM.loadingSchedules);
+
+            TempData["StartDate"] = startDate;
+            TempData["EndDate"] = endDate;
+            TempData["Transporter"] = transporter;
 
             return File(excelFile, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LoadingSchedules.xlsx");
         }

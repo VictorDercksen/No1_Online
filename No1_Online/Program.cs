@@ -5,6 +5,9 @@ using No1_Online.Interfaces;
 using No1_Online.Models;
 using No1_Online.Services;
 using OfficeOpenXml;
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,10 +53,20 @@ builder.Services.AddHttpClient("default", client =>
     // Add any other HttpClient configuration here if needed
 });
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddSingleton<GoogleCloudStorageService>(provider =>
     new GoogleCloudStorageService("no1-online-reports-bucket"));
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+// Add Blazorise services
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrap5Providers()
+    .AddFontAwesomeIcons();
 
 var app = builder.Build();
 

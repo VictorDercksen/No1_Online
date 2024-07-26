@@ -1,0 +1,74 @@
+﻿@using Blazorise
+@using Blazorise.Bootstrap5
+@using Blazorise.Icons.FontAwesome
+@using No1_Online.Views.Shared.Component;
+
+<Bar Mode="BarMode.VerticalInline"
+     CollapseMode="BarCollapseMode.Small"
+     NavigationBreakpoint="Breakpoint.Tablet"
+     ThemeContrast="ThemeContrast.Light"
+     Class="custom-sidebar">
+    <BarBrand>
+        <BarItem>
+            <BarLink To="#">
+                <BarIcon IconName="IconName.Dashboard" />
+                <span class="ms-2">Menu</span>
+            </BarLink>
+        </BarItem>
+    </BarBrand>
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        <BarIcon IconName="IconName.Edit" />
+                        <span class="ms-2">Input Forms</span>
+                    </BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem>
+                            <BarLink To="javascript:void(0);" Id="loadScheduleLink" data-component-name="Company">
+                                <BarIcon IconName="IconName.File" />
+                                <span class="ms-2">Loading Schedule</span>
+                            </BarLink>
+                        </BarDropdownItem>
+                        <BarDropdownItem>
+                            <BarLink To="javascript:void(0);" Id="CompanyLink" data-component-name="Company">
+                                <BarIcon IconName="IconName.UserPlus" />
+                                <span class="ms-2">Company</span>
+                            </BarLink>
+                        </BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        <BarIcon IconName="IconName.ChartBar" />
+                        <span class="ms-2">Management Reports</span>
+                    </BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    <BarIcon IconName="IconName.Car" />
+                                    <span class="ms-2">Income All Vehicles</span>
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem>
+                                        <IncomeAllVehiclesForm />
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarDropdownItem>
+                        <BarDropdownItem>
+                            <BarLink To="javascript:void(0);" Id="turnoverReportLink" data-component-name="TurnoverReport">
+                                <BarIcon IconName="IconName.ChartLine" />
+                                <span class="ms-2">Turnover Report</span>
+                            </BarLink>
+                        </BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+        </BarStart>
+    </BarMenu>
+</Bar>

@@ -1,29 +1,40 @@
 ﻿@page "/IncomeAllVehiclesForm"
+@using Blazorise
+@using Blazorise.Bootstrap
+@using Blazorise.Icons.FontAwesome
+@using No1_Online.Interfaces;
+@using No1_Online.Models;
+@using Blazorise.Components;
 @inject IJSRuntime JS
+@inject ICompanyService companyService
 
-<div class="input-group">
+<div class="input-group mb-3">
     <span class="input-group-text">From:</span>
     <InputDate TValue="DateTime" id="startDateIncomePerVehicle" class="form-control" @bind-Value="formModel.StartDate" />
 </div>
-<div class="input-group">
+<div class="input-group mb-3">
     <span class="input-group-text">To:</span>
     <InputDate TValue="DateTime" id="endDate" class="form-control" @bind-Value="formModel.EndDate" />
 </div>
-<div class="custom-input-group">
-    <InputText class="form-control custom-form-control" placeholder="Transporter" @bind-Value="formModel.Transporter" />
-</div>
-<div class="custom-input-group">
+
+<div class="custom-input-group mb-3">
+    <CompanyAutoComplete @bind-SelectedValue="formModel.Transporter"
+                         Placeholder="Transporter" />
     <button class="btn btn-outline-success custom-btn-primary" @onclick="LoadIncomeAllVehiclesPage">Submit</button>
 </div>
 
 @code {
     private IncomeAllVehiclesFormModel formModel = new();
 
-    protected override void OnInitialized()
+
+    protected override async Task OnInitializedAsync()
     {
         formModel.StartDate = DateTime.Now;
         formModel.EndDate = DateTime.Now;
+
     }
+
+
 
     private async Task LoadIncomeAllVehiclesPage()
     {
@@ -37,8 +48,9 @@
         var startDate = formModel.StartDate.ToString("yyyy-MM-dd");
         var endDate = formModel.EndDate.ToString("yyyy-MM-dd");
         var transporter = formModel.Transporter;
+        var page = "AllIncomeTransporter";
         // Call JavaScript function to add and load the tab
-        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, startDate, endDate, transporter);
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, startDate, endDate, transporter, page);
     }
 
     public class IncomeAllVehiclesFormModel
