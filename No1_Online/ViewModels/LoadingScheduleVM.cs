@@ -21,7 +21,9 @@ namespace No1_Online.ViewModels
 
         public LoadingScheduleVM()
         {
-             
+            this.loadingSchedule = new LoadingSchedule();
+            this.clientPayment = new ClientPayment();
+            this.remitance = new Remitance();
         }
 
     }

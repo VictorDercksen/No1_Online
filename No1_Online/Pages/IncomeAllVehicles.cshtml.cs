@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using No1_Online.Classes.Reports;
 using No1_Online.Interfaces;
 using No1_Online.Services;
 using No1_Online.ViewModels;
-using System;
-using System.Threading.Tasks;
+
 
 namespace No1_Online.Pages
 {

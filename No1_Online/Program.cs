@@ -54,6 +54,7 @@ builder.Services.AddHttpClient("default", client =>
 });
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ILoadingScheduleService, LoadingScheduleService>();
 builder.Services.AddSingleton<GoogleCloudStorageService>(provider =>
     new GoogleCloudStorageService("no1-online-reports-bucket"));
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
