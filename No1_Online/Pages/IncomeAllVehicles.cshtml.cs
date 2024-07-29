@@ -16,13 +16,13 @@ namespace No1_Online.Pages
         private readonly IReportService _reportService;
         private readonly GoogleCloudStorageService _googleCloudStorageService;
         public ExcelExportService excelExportService;
-        public IncomeAllVehiclesModel(IReportService reportService)
+        public IncomeAllVehiclesModel(IReportService reportService, GoogleCloudStorageService googleCloudStorageService)
         {
             _reportService = reportService;
             reportsVM = new ReportsVM();
             string bucketName = "no1-online-reports-bucket";
-            _googleCloudStorageService = new GoogleCloudStorageService(bucketName);
-            
+            _googleCloudStorageService = googleCloudStorageService;
+
         }
 
         public async Task<IActionResult> OnGetAsync(DateTime startDate, DateTime endDate, string transporter)

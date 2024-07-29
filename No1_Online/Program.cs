@@ -55,8 +55,13 @@ builder.Services.AddHttpClient("default", client =>
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ILoadingScheduleService, LoadingScheduleService>();
-builder.Services.AddSingleton<GoogleCloudStorageService>(provider =>
-    new GoogleCloudStorageService("no1-online-reports-bucket"));
+builder.Services.AddSingleton(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var bucketName = configuration["GCP:BucketName"];
+    var credentialsJson = configuration["GOOGLE_APPLICATION_CREDENTIALS_JSON"];
+    return new GoogleCloudStorageService(bucketName, credentialsJson);
+});
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 

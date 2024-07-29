@@ -1,4 +1,5 @@
-﻿using Google.Cloud.Storage.V1;
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
 
 namespace No1_Online.Services
 {
@@ -7,10 +8,10 @@ namespace No1_Online.Services
         private readonly StorageClient _storageClient;
         private readonly string _bucketName;
 
-        public GoogleCloudStorageService(string bucketName)
+        public GoogleCloudStorageService(string bucketName, string credentialsJson)
         {
-            // Create a StorageClient using Application Default Credentials
-            _storageClient = StorageClient.Create();
+            var credential = GoogleCredential.FromJson(credentialsJson);
+            _storageClient = StorageClient.Create(credential);
             _bucketName = bucketName;
         }
 
