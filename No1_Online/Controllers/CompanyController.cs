@@ -14,12 +14,12 @@ namespace No1_Online.Controllers
     {
         private readonly AppDbContext _context;
         
-        private  IHttpContextAccessor _httpContextAccessor;
-        public CompanyController(AppDbContext context,  IHttpContextAccessor httpContextAccessor)
+        
+        public CompanyController(AppDbContext context)
         {
             this._context = context;
            
-            _httpContextAccessor = httpContextAccessor;
+          
         }
 
         [HttpGet]

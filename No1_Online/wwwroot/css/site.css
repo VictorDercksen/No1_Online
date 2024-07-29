@@ -97,14 +97,111 @@ body {
         max-height: 200px; /* Adjust this value as needed */
     }
 
-.accordion-collapse {
-    transition: max-height 0.3s ease;
+
+
+
+
+#spinner-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
 }
 
-.accordion-button::after {
-    transition: transform 0.3s ease;
+.spinner {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
 }
 
-.accordion-button[aria-expanded="true"]::after {
-    transform: rotate(90deg);
+    .spinner:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #3498db;
+        border-color: #3498db transparent #3498db transparent;
+        animation: spinner 1.2s linear infinite;
+    }
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.custom-sidebar {
+        --b-vertical-bar-width: 400px;
+        height: calc(90vh - 56px);
+        background-color: #f8f9fa;
+        border-right: 1px solid #e9ecef;
+        padding: 1rem;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+
+    .custom-sidebar .bar-brand {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+    }
+
+    .custom-sidebar .bar-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .custom-sidebar .bar-link {
+        color: #495057;
+        transition: color 0.3s ease;
+    }
+
+    .custom-sidebar .bar-link:hover {
+        color:none;
+    }
+
+    .custom-sidebar .dropdown-toggle::after {
+        display: none;
+    }
+
+    .custom-sidebar .bar-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .custom-sidebar .bar-dropdown-menu {
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .custom-sidebar .bar-dropdown-item {
+        padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .custom-sidebar {
+            --b-bar-width: 100%;
+        }
+    }
+
+@media (max-width: 991.98px) {
+    .search-group {
+        flex-direction: column;
+    }
+
+    .input-group, .btn-modal {
+        margin-bottom: 0.5rem;
+    }
 }

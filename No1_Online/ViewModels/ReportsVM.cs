@@ -27,6 +27,10 @@ namespace No1_Online.ViewModels
         {
             this.loadingSchedules1 = loadingSchedules1;
         }
+        public ReportsVM()
+        {
+            
+        }
 
         public void GenerateReport()
         {
