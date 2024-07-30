@@ -19,16 +19,25 @@ namespace No1_Online.Pages
             _companyService = companyService;
         }
 
-        public async Task<IActionResult> OnGetAsync(string company)
+        public async Task<IActionResult> OnGetAsync(string company = null)
         {
+            if (string.IsNullOrEmpty(company))
+            {
+                // Return an empty Company and Contacts list for a new company
+                Company = new Company();
+                Contacts = new List<Contact>();
+                return Page();
+            }
+
             TempData["company"] = company;
 
             Company = await _companyService.SearchCompany(company);
-            Contacts = await _companyService.SearchContacts(Company);
             if (Company == null)
             {
                 return NotFound();
             }
+
+            Contacts = await _companyService.SearchContacts(Company);
 
             return Page();
         }

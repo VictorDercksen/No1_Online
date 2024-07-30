@@ -65,6 +65,9 @@ function addTab(tabId, paneId, tabTitle, url, startDate, endDate, transporter, p
             var company = encodeURIComponent(transporter);
             fullUrl = `${url}/${company}`;
             break;
+        case "LoadingScheduleSearch":
+            fullUrl = url;
+            break;
         case "LoadingSchedule":
             fullUrl = url;
             break;
