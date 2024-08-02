@@ -6,7 +6,13 @@ namespace No1_Online.Models
     [Table("Notes")]
     public class Note
     {
-
+        public Note()
+        {
+            Id = 0; // This will be set by the database
+            Description = string.Empty;
+            Revision = DateTime.Now;
+            LoadingSchedules = new List<LoadingSchedule>();
+        }
         public int Id { get; set; }
 
        

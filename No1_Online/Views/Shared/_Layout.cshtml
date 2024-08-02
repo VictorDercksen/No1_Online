@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using No1_Online.Views.Shared.Component;
+@using No1_Online.Components;
 @inject SignInManager<AppUser> signInManager
 @inject IHttpContextAccessor _httpContextAccessor
 
@@ -23,7 +23,9 @@
     <link href="_content/Blazorise/blazorise.css" rel="stylesheet" />
     <link href="_content/Blazorise.Bootstrap5/blazorise.bootstrap5.css" rel="stylesheet" />
     <link href="_content/Blazorise.Icons.FontAwesome/v6/css/all.min.css" rel="stylesheet">
-    
+    <base href="~/" />
+    <component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" 
+    render-mode="ServerPrerendered" />
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -72,8 +74,8 @@
         }
         .nav-tabs .nav-link:hover,
         .nav-tabs .nav-link.active {
-            color: #007bff;
-            border-bottom-color: #007bff;
+                color: #AE0F18;
+                border-bottom-color: #AE0F18;
         }
         
         .close-tab-btn {
@@ -94,7 +96,7 @@
         }
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
+            border-top: 4px solid #AE0F18;
             border-radius: 50%;
             width: 40px;
             height: 40px;

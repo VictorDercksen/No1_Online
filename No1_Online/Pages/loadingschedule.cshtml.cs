@@ -1,70 +1,72 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using No1_Online.Models;
-using No1_Online.ViewModels;
 using No1_Online.Interfaces;
-using System.Threading.Tasks;
+using No1_Online.ViewModels;
+using Microsoft.AspNetCore.Components;
 
 namespace No1_Online.Pages
 {
     public class loadingscheduleModel : PageModel
     {
-
-        private readonly ICompanyService _companyService;
-        private readonly ILoadingScheduleService _loadingScheduleService;
-
         [BindProperty]
         public LoadingScheduleVM loadingScheduleVM { get; set; }
 
-        public loadingscheduleModel(ICompanyService companyService, ILoadingScheduleService loadingScheduleService)
+        private readonly ILoadingScheduleService _loadingScheduleService;
+
+        public loadingscheduleModel(ILoadingScheduleService loadingScheduleService)
         {
-            _companyService = companyService;
             _loadingScheduleService = loadingScheduleService;
             loadingScheduleVM = new LoadingScheduleVM();
         }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id = null)
         {
+            loadingScheduleVM = await _loadingScheduleService.GetLoadingSchedule(id);
 
-            if (id.HasValue)
+            if (loadingScheduleVM == null)
             {
-                loadingScheduleVM = await _loadingScheduleService.GetLoadingSchedule(id);
+                return NotFound();
             }
-            else
-            {
-                loadingScheduleVM = new LoadingScheduleVM();
-            }
+
+            
 
             return Page();
         }
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        await PopulateViewModelAsync();
-        //        return Page();
-        //    }
+        public EventCallback<LoadingScheduleDetailsViewModel> OnLoadingScheduleSave => EventCallback.Factory.Create<LoadingScheduleDetailsViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.LoadingScheduleDetails = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
 
-        //    if (loadingScheduleVM.LoadingSchedule.Id == 0)
-        //    {
-        //        await _loadingScheduleService.CreateLoadingScheduleAsync(loadingScheduleVM.LoadingSchedule);
-        //    }
-        //    else
-        //    {
-        //        await _loadingScheduleService.UpdateLoadingScheduleAsync(loadingScheduleVM.LoadingSchedule);
-        //    }
+        public EventCallback<ClientPaymentInputViewModel> OnClientPaymentSave => EventCallback.Factory.Create<ClientPaymentInputViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.ClientPaymentInput = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
 
-        //    return RedirectToPage("./Index");
-        //}
+        public EventCallback<TransporterPaymentInputViewModel> OnTransporterPaymentSave => EventCallback.Factory.Create<TransporterPaymentInputViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.TransporterPaymentInput = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
 
-        //private async Task PopulateViewModelAsync()
-        //{
-        //    loadingScheduleVM.Transporters = await _companyService.GetTransportersAsync();
-        //    loadingScheduleVM.Marketers = await _companyService.GetMarketersAsync();
-        //    loadingScheduleVM.Clients = await _companyService.GetClientsAsync();
-        //    loadingScheduleVM.Vehicles = await _loadingScheduleService.GetVehiclesAsync();
-        //    loadingScheduleVM.LoadingPoints = await _loadingScheduleService.GetLoadingPointsAsync();
-        //}
+        public EventCallback<InvoicesComponentViewModel> OnInvoiceSave => EventCallback.Factory.Create<InvoicesComponentViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.InvoicesComponent = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
+
+        public EventCallback<NotesComponentViewModel> OnNoteSave => EventCallback.Factory.Create<NotesComponentViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.NotesComponent = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
+
+        public EventCallback<ProductTableViewModel> OnProductTableSave => EventCallback.Factory.Create<ProductTableViewModel>(this, async (viewModel) =>
+        {
+            loadingScheduleVM.ProductTable = viewModel;
+            await _loadingScheduleService.UpdateLoadingSchedule(loadingScheduleVM);
+        });
     }
 }

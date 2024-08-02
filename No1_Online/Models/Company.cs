@@ -7,6 +7,39 @@ namespace No1_Online.Models
     [Table("Companies")]
     public class Company
     {
+        public Company()
+        {
+            Id = 0; // This will be set by the database
+            Name = string.Empty;
+            ContactType = 0;
+            Tel = string.Empty;
+            Fax = string.Empty;
+            BankName = string.Empty;
+            BranchCode = string.Empty;
+            AccountNumber = string.Empty;
+            VATNo = string.Empty;
+            CreditLimit = 0m;
+            Terms = 0;
+            ProfileId = string.Empty;
+            Markup = 0;
+            GitName = string.Empty;
+            GitDate = DateTime.Now;
+            Email = string.Empty;
+            EmailRemitance = string.Empty;
+            EmailStatements = string.Empty;
+            Group = string.Empty;
+            Blocked = false;
+            Override = false;
+            ClosingDate = DateTime.Now;
+            PodclosingDate = DateTime.Now;
+            AddressId = 0;
+            Address = new Address();
+            Contacts = new List<Contact>();
+            LoadingSchedules = new List<LoadingSchedule>();
+            NoteId = 0;
+            Note = new Note();
+        }
+
         public int Id { get; set; }
 
         [Required]

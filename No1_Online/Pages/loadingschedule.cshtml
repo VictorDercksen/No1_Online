@@ -1,4 +1,11 @@
-﻿@page "{id:int}"
+﻿@page "{id:int?}"
+@using No1_Online.Components;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using No1_Online.ViewModels;
+@namespace No1_Online.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model No1_Online.Pages.loadingscheduleModel
 @{
     ViewData["Title"] = "Loading Schedule";
@@ -17,7 +24,7 @@
         margin-bottom: 30px;
     }
     .loading-schedule-card .card-header {
-        background-color: #28a745;
+            background-color: #AE0F18;
         color: white;
         border-radius: 10px 10px 0 0;
         padding: 15px 20px;
@@ -36,15 +43,15 @@
         border-radius: 5px;
     }
     .btn-primary {
-        background-color: #28a745;
+        background-color: #AE0F18;
         border: none;
         padding: 10px 20px;
     }
     .btn-primary:hover {
-        background-color: #218838;
+            background-color: #AE0F18;
     }
     .section-header {
-        color: #28a745;
+        color: #AE0F18;
         margin-bottom: 15px;
         font-weight: 600;
     }
@@ -59,397 +66,46 @@
 <div class="scrollable-container">
     <div class="row">
         <div class="col-lg-6">
-            <div class="loading-schedule-card">
-                <div class="card-header">
-                    <h3 class="mb-0">Loading Schedule Details</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="Id">ID:</label>
-                                    <input type="text" id="Id" name="loadingScheduleVM.LoadingSchedule.Id" value="@Model.loadingScheduleVM.loadingSchedule.Id" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="Date">Loading Date:</label>
-                                    <input type="date" id="Date" name="loadingScheduleVM.LoadingSchedule.Date" value="@Model.loadingScheduleVM.loadingSchedule.Date.ToString("yyyy-MM-dd")" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Self Load:</label>
-                                    <div class="form-check">
-                                        <input type="checkbox" id="SelfLoad" name="loadingScheduleVM.LoadingSchedule.SelfLoad" value="true" @(Model.loadingScheduleVM.loadingSchedule.SelfLoad ? "checked" : "") class="form-check-input">
-                                        <label class="form-check-label" for="SelfLoad">Self Load</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="CompanyTransName">Transporter:</label>
-                                    <input type="text" id="CompanyTransName" name="loadingScheduleVM.LoadingSchedule.CompanyTrans.Name" value="@Model.loadingScheduleVM.loadingSchedule.CompanyTrans?.Name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="CompanyName">Client:</label>
-                                    <input type="text" id="CompanyName" name="loadingScheduleVM.LoadingSchedule.Company.Name" value="@Model.loadingScheduleVM.loadingSchedule.Company?.Name" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="PurchaseOrder">Purchase Order:</label>
-                                    <input type="text" id="PurchaseOrder" name="loadingScheduleVM.LoadingSchedule.PurchaseOrder" value="@Model.loadingScheduleVM.loadingSchedule.PurchaseOrder" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="Value">Value:</label>
-                                    <input type="number" step="0.01" id="Value" name="loadingScheduleVM.LoadingSchedule.Value" value="@Model.loadingScheduleVM.loadingSchedule.Value" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="LoadingPointLoadCity">Loading Point:</label>
-                                    <input type="text" id="LoadingPointLoadCity" name="loadingScheduleVM.LoadingSchedule.LoadingPointLoad.City" value="@Model.loadingScheduleVM.loadingSchedule.LoadingPointLoad?.City" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="LoadingPointOffCity">Offload Point:</label>
-                                    <input type="text" id="LoadingPointOffCity" name="loadingScheduleVM.LoadingSchedule.LoadingPointOff.City" value="@Model.loadingScheduleVM.loadingSchedule.LoadingPointOff?.City" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="VehicleRegistration">Vehicle:</label>
-                                    <input type="text" id="VehicleRegistration" name="loadingScheduleVM.LoadingSchedule.Vehicle.Registration" value="@Model.loadingScheduleVM.loadingSchedule.Vehicle?.Registration" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="SubReg">Sub Reg:</label>
-                                    <input type="text" id="SubReg" name="loadingScheduleVM.LoadingSchedule.SubReg" value="@Model.loadingScheduleVM.loadingSchedule.SubReg" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="LoadInstruction">Load Instructions:</label>
-                            <textarea id="LoadInstruction" name="loadingScheduleVM.LoadingSchedule.LoadInstruction" class="form-control" rows="3">@Model.loadingScheduleVM.loadingSchedule.LoadInstruction</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="ProfileId">Profile ID:</label>
-                            <input type="text" id="ProfileId" name="loadingScheduleVM.LoadingSchedule.ProfileId" value="@Model.loadingScheduleVM.loadingSchedule.ProfileId" class="form-control" readonly>
-                        </div>
-
-                        <div class="text-end mt-4">
-                            <button type="submit" class="btn btn-primary">Save Loading Schedule</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <component type="typeof(LoadingScheduleDetails)" 
+                       render-mode="Static" 
+                       param-ViewModel="Model.loadingScheduleVM.LoadingScheduleDetails"
+                       param-OnSave="Model.OnLoadingScheduleSave" />
         </div>
 
         <div class="col-lg-3">
-            <div class="loading-schedule-card">
-                <div class="card-header">
-                    <h3 class="mb-0">Client Payment Input</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        <div class="form-group">
-                            <label class="form-label" for="ClientPaymentDate">Deposit Date:</label>
-                            <input type="date" id="ClientPaymentDate" name="loadingScheduleVM.ClientPayment.Date" value="@Model.loadingScheduleVM.clientPayment?.Date.ToString("yyyy-MM-dd")" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="ClientPaymentAmount">Deposit Amount:</label>
-                            <input type="number" step="0.01" id="ClientPaymentAmount" name="loadingScheduleVM.ClientPayment.Amount" value="@Model.loadingScheduleVM.clientPayment?.Amount" class="form-control">
-                        </div>
-                        <div class="text-end mt-4">
-                            <button type="submit" class="btn btn-primary">Credit Note</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="loading-schedule-card">
-                <div class="card-header">
-                    <h3 class="mb-0">Transporter Payment Input</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        <div class="form-group">
-                            <label class="form-label" for="RemitancePoddate">POD Date:</label>
-                            <input type="date" id="RemitancePoddate" name="loadingScheduleVM.Remitance.Poddate" value="@Model.loadingScheduleVM.remitance?.Poddate.ToString("yyyy-MM-dd")" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="RemitanceInvoice">Invoice Number:</label>
-                            <input type="text" id="RemitanceInvoice" name="loadingScheduleVM.Remitance.Invoice" value="@Model.loadingScheduleVM.remitance?.Invoice" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="RemitanceDuedate">Payment Due:</label>
-                            <input type="date" id="RemitanceDuedate" name="loadingScheduleVM.Remitance.Duedate" value="@Model.loadingScheduleVM.remitance?.Duedate.ToString("yyyy-MM-dd")" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="RemitancePaymentDate">Payment Date:</label>
-                            <input type="date" id="RemitancePaymentDate" name="loadingScheduleVM.Remitance.PaymentDate" value="@Model.loadingScheduleVM.remitance?.PaymentDate.ToString("yyyy-MM-dd")" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="RemitancePaymentType">Payment Type:</label>
-                            <select id="RemitancePaymentType" name="loadingScheduleVM.Remitance.PaymentType" class="form-control">
-                                <option value="Cheque" @(Model.loadingScheduleVM.remitance?.PaymentType == "Cheque" ? "selected" : "")>Cheque</option>
-                                <option value="eft" @(Model.loadingScheduleVM.remitance?.PaymentType == "eft" ? "selected" : "")>EFT</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="RemitanceAmount">Amount:</label>
-                            <input type="number" step="0.01" id="RemitanceAmount" name="loadingScheduleVM.Remitance.Amount" value="@Model.loadingScheduleVM.remitance?.Amount" class="form-control">
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <component type="typeof(ClientPaymentInput)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.ClientPaymentInput" 
+                       param-OnSave="Model.OnClientPaymentSave" />
+            <component type="typeof(TransporterPaymentInput)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.TransporterPaymentInput" 
+                       param-OnSave="Model.OnTransporterPaymentSave" />
         </div>
 
         <div class="col-lg-3">
-            <div class="loading-schedule-card">
-                <div class="card-header">
-                    <h3 class="mb-0">Invoices</h3>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label class="form-label" for="InvDate">Date:</label>
-                            <input type="date" class="form-control" id="InvDate">
-                        </div>
-                        <button type="button" class="btn btn-secondary">Invoice</button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
-                                Options
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Email</a></li>
-                                <li><a class="dropdown-item" href="#">Print</a></li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="loading-schedule-card">
-                <div class="card-header">
-                    <h3 class="mb-0">Notes</h3>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label class="form-label" for="Grouping">Previous Notes:</label>
-                            <select class="form-control" id="Grouping">
-                                <option value="1">Note 1</option>
-                                <option value="2">Note 2</option>
-                                <option value="3">Note 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="inputPerson">Input Person</label>
-                            <input type="text" class="form-control" id="inputPerson">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="noteDate">Date</label>
-                            <input type="date" class="form-control" id="noteDate">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="noteDescription">Description</label>
-                            <textarea class="form-control" id="noteDescription" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <component type="typeof(InvoicesComponent)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.InvoicesComponent" 
+                       param-OnSave="Model.OnInvoiceSave" />
+            <component type="typeof(NotesComponent)" 
+                       render-mode="Static" 
+                       param-ViewModel="Model.loadingScheduleVM.NotesComponent" 
+                       param-OnSave="Model.OnNoteSave" />
         </div>
     </div>
-
-    @if (Model.loadingScheduleVM.transportedProducts.Count != 0)
+    @if (Model.loadingScheduleVM.ProductTable.TransportedProducts.Count != 0)
     {
         <div class="row">
             <div class="col-12">
-                <div class="loading-schedule-card">
-                    <div class="card-header">
-                        <h3 class="mb-0">Product Table</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="productForm" method="post">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="productTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Load Rate</th>
-                                            <th>VAT %</th>
-                                            <th>Sub Rate</th>
-                                            <th>VAT %</th>
-                                            <th>Units</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (int i = 0; i < Model.loadingScheduleVM.transportedProducts.Count; i++)
-                                        {
-                                            var tranProd = Model.loadingScheduleVM.transportedProducts[i];
-                                            <tr>
-                                                <td>
-                                                    <input type="text" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].Product.Description"
-                                                           value="@tranProd.Product.Description"
-                                                           placeholder="@tranProd.Product.Description">
-                                                </td>
-                                                <td>
-                                                    <input type="number" step="0.01" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].LoadRate"
-                                                           value="@tranProd.LoadRate.ToString("F2")"
-                                                           placeholder="@tranProd.LoadRate.ToString("F2")">
-                                                </td>
-                                                <td>
-                                                    <input type="number" step="0.01" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].LoadVAT"
-                                                           value="15"
-                                                           placeholder="15">
-                                                </td>
-                                                <td>
-                                                    <input type="number" step="0.01" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].PaymentRate"
-                                                           value="@tranProd.PaymentRate.ToString("F2")"
-                                                           placeholder="@tranProd.PaymentRate.ToString("F2")">
-                                                </td>
-                                                <td>
-                                                    <input type="number" step="0.01" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].SubVAT"
-                                                           value="15"
-                                                           placeholder="15">
-                                                </td>
-                                                <td>
-                                                    <input type="number" step="0.01" class="form-control product-input"
-                                                           name="loadingScheduleVM.transportedProducts[@i].Quantity"
-                                                           value="@tranProd.Quantity.ToString("F2")"
-                                                           placeholder="@tranProd.Quantity.ToString("F2")">
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-end mt-3">
-                                <button type="submit" class="btn btn-primary">Update Products</button>
-                            </div>
-                        </form>
-                        <div class="table-responsive mt-4">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td>Sub Total:</td>
-                                        <td id="loadSubTotal">@Model.loadingScheduleVM.calculations.Load.ToString("F2")</td>
-                                        <td id="subSubTotal">@Model.loadingScheduleVM.calculations.Sub.ToString("F2")</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>VAT:</td>
-                                        <td id="loadVAT">@Model.loadingScheduleVM.calculations.LoadVAT.ToString("F2")</td>
-                                        <td id="subVAT">@Model.loadingScheduleVM.calculations.SubVAT.ToString("F2")</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Including VAT:</td>
-                                        <td id="loadTotal">@Model.loadingScheduleVM.calculations.LoadTotal.ToString("F2")</td>
-                                        <td id="subTotal">@Model.loadingScheduleVM.calculations.SubTotal.ToString("F2")</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-responsive mt-4">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td>Profit Excluding VAT:</td>
-                                        <td id="profitExcludingVAT">@Model.loadingScheduleVM.calculations.Profit.ToString("F2")</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>VAT on Profit:</td>
-                                        <td id="profitVAT">@Model.loadingScheduleVM.calculations.ProfitVAT.ToString("F2")</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <component type="typeof(ProductTable)"
+                           render-mode="Static"
+                           param-ViewModel="Model.loadingScheduleVM.ProductTable"
+                           param-OnSave="Model.OnProductTableSave" />
             </div>
         </div>
     }
-    @section Scripts {
-        <script>
-            $(document).ready(function () {
-                function updateCalculations() {
-                    let loadSubTotal = 0;
-                    let subSubTotal = 0;
-                    let loadVAT = 0;
-                    let subVAT = 0;
+</div>
 
-                    $('#productTable tbody tr').each(function () {
-                        const loadRate = parseFloat($(this).find('input[name$=".LoadRate"]').val()) || 0;
-                        const loadVATPercent = parseFloat($(this).find('input[name$=".LoadVAT"]').val()) || 0;
-                        const subRate = parseFloat($(this).find('input[name$=".PaymentRate"]').val()) || 0;
-                        const subVATPercent = parseFloat($(this).find('input[name$=".SubVAT"]').val()) || 0;
-                        const quantity = parseFloat($(this).find('input[name$=".Quantity"]').val()) || 0;
-
-                        loadSubTotal += loadRate * quantity;
-                        subSubTotal += subRate * quantity;
-                        loadVAT += loadRate * quantity * (loadVATPercent / 100);
-                        subVAT += subRate * quantity * (subVATPercent / 100);
-                    });
-
-                    const loadTotal = loadSubTotal + loadVAT;
-                    const subTotal = subSubTotal + subVAT;
-                    const profitExcludingVAT = loadSubTotal - subSubTotal;
-                    const profitVAT = loadVAT - subVAT;
-
-                    $('#loadSubTotal').text(loadSubTotal.toFixed(2));
-                    $('#subSubTotal').text(subSubTotal.toFixed(2));
-                    $('#loadVAT').text(loadVAT.toFixed(2));
-                    $('#subVAT').text(subVAT.toFixed(2));
-                    $('#loadTotal').text(loadTotal.toFixed(2));
-                    $('#subTotal').text(subTotal.toFixed(2));
-                    $('#profitExcludingVAT').text(profitExcludingVAT.toFixed(2));
-                    $('#profitVAT').text(profitVAT.toFixed(2));
-                }
-
-                $('.product-input').on('input', updateCalculations);
-
-                updateCalculations();
-            });
-        </script>
-    }
-
+<script src="_framework/blazor.server.js"></script>
    

@@ -6,6 +6,34 @@ namespace No1_Online.Models
     [Table("LoadingSchedules")]
     public class LoadingSchedule 
     {
+        public LoadingSchedule()
+        {
+            Id = 0; // This will be set by the database
+            Date = DateTime.Now;
+            CompanyTransId = 0;
+            CompanyTrans = new Company();
+            PurchaseOrder = string.Empty;
+            SubReg = string.Empty;
+            Value = 0m;
+            LoadInstruction = string.Empty;
+            ProfileId = string.Empty;
+            Podnum = string.Empty;
+            Depo = 0;
+            PayTerms = string.Empty;
+            SelfLoad = false;
+            Revision = DateTime.Now;
+            CompanyId = 0;
+            Company = new Company();
+            LoadingPointLoadId = 0;
+            LoadingPointLoad = new LoadingPoint();
+            LoadingPointOffId = 0;
+            LoadingPointOff = new LoadingPoint();
+            NoteId = 0;
+            Note = new Note();
+            VehicleId = 0;
+            Vehicle = new Vehicle();
+        }
+
         [Display(Name = "Load Id:")]
         public int Id { get; set; }
         [Required]

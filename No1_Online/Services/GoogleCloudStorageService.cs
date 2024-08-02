@@ -8,11 +8,10 @@ namespace No1_Online.Services
         private readonly StorageClient _storageClient;
         private readonly string _bucketName;
 
-        public GoogleCloudStorageService(string bucketName, string credentialsJson)
+        public GoogleCloudStorageService(string bucketName)
         {
-            var credential = GoogleCredential.FromJson(credentialsJson);
-            _storageClient = StorageClient.Create(credential);
             _bucketName = bucketName;
+            _storageClient = StorageClient.Create();
         }
 
         public async Task<string> UploadReportAsync(string reportName, byte[] reportData)

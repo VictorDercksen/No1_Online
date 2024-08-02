@@ -72,7 +72,7 @@
         var newTabPaneId = $"loading-schedule-content-{loadId}";
         var tabTitle = $"Load #{loadId}";
         var url = $"/loadingschedule/{loadId}";
-        var page = "LoadingSchedule";
+        var page = "LoadingScheduleSearch";
 
         await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
     }

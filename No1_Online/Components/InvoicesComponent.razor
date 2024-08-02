@@ -1,0 +1,55 @@
+﻿@using No1_Online.ViewModels
+
+<div class="loading-schedule-card">
+    <div class="card-header">
+        <h3 class="mb-0">Invoices</h3>
+    </div>
+    <div class="card-body">
+        <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+            <div class="form-group">
+                <label class="form-label" for="InvDate">Date:</label>
+                <InputDate id="InvDate" @bind-Value="ViewModel.InvoiceDate" class="form-control" />
+            </div>
+            <button type="button" class="btn btn-secondary">Invoice</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" @onclick="ToggleDropdown">
+                    Options
+                </button>
+                <ul class="dropdown-menu @(isDropdownVisible ? "show" : "")">
+                    <li><a class="dropdown-item" @onclick="EmailInvoice">Email</a></li>
+                    <li><a class="dropdown-item" @onclick="PrintInvoice">Print</a></li>
+                </ul>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public InvoicesComponentViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public EventCallback<InvoicesComponentViewModel> OnSave { get; set; }
+
+    private bool isDropdownVisible = false;
+
+    private async Task HandleValidSubmit()
+    {
+        await OnSave.InvokeAsync(ViewModel);
+    }
+
+    private void ToggleDropdown()
+    {
+        isDropdownVisible = !isDropdownVisible;
+    }
+
+    private void EmailInvoice()
+    {
+        // Implement email functionality
+    }
+
+    private void PrintInvoice()
+    {
+        // Implement print functionality
+    }
+}
