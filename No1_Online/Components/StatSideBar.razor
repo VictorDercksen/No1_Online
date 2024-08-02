@@ -1,0 +1,200 @@
+﻿@using No1_Online.Components;
+@inject IJSRuntime JS
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-bars sidebar-menu-icon"></i>
+        <span class="sidebar-title">Menu</span>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="sidebar-section">
+            <h4 class="sidebar-section-title">Input Forms</h4>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <a href="javascript:void(0);" @onclick="OpenNewLoadingSchedule" class="sidebar-link">
+                        <i class="fas fa-file-alt sidebar-icon"></i>
+                        <span>New Loading Schedule</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="javascript:void(0);" @onclick="OpenNewCompany" class="sidebar-link">
+                        <i class="fas fa-building sidebar-icon"></i>
+                        <span>New Company</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-section">
+            <h4 class="sidebar-section-title">Management Reports</h4>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                    <button class="sidebar-dropdown-toggle" @onclick="ToggleIncomeVehiclesDropdown" aria-expanded="@isIncomeVehiclesDropdownOpen">
+                        <i class="fas fa-car sidebar-icon"></i>
+                        <span>Income All Vehicles</span>
+                        <i class="fas fa-chevron-down sidebar-dropdown-icon"></i>
+                    </button>
+                    <ul class="sidebar-dropdown-menu @(isIncomeVehiclesDropdownOpen ? "show" : "")">
+                        <li class="sidebar-dropdown-item">
+                            <IncomeAllVehiclesForm />
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="javascript:void(0);" @onclick="OpenTurnoverReport" class="sidebar-link">
+                        <i class="fas fa-chart-line sidebar-icon"></i>
+                        <span>Turnover Report</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<style>
+    .sidebar {
+        width: 300px;
+        height: 90vh;
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #34495e;
+    }
+
+    .sidebar-menu-icon {
+        font-size: 1.5rem;
+        margin-right: 5px;
+    }
+
+    .sidebar-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .sidebar-section {
+        margin-bottom: 30px;
+    }
+
+    .sidebar-section-title {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        color: #bdc3c7;
+    }
+
+    .sidebar-menu {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-menu-item {
+        margin-bottom: 10px;
+    }
+
+    .sidebar-link, .sidebar-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        color: #ecf0f1;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .sidebar-link:hover, .sidebar-dropdown-toggle:hover {
+            background-color: #34495e;
+        }
+
+    .sidebar-icon {
+        width: 20px;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .sidebar-dropdown-toggle {
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .sidebar-dropdown-icon {
+        margin-left: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar-dropdown-menu {
+        list-style-type: none;
+        padding-left: 30px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+        .sidebar-dropdown-menu.show {
+            max-height: 500px; /* Adjust this value as needed */
+            transition: max-height 0.3s ease-in;
+        }
+
+    .sidebar-dropdown-item {
+        margin-top: 10px;
+    }
+
+    .sidebar-dropdown-toggle[aria-expanded="true"] .sidebar-dropdown-icon {
+        transform: rotate(180deg);
+    }
+</style>
+
+@code {
+    private bool isIncomeVehiclesDropdownOpen = false;
+
+    private async Task OpenNewCompany()
+    {
+        var newTabId = "new-company-tab";
+        var newTabPaneId = "new-company-content";
+        var tabTitle = "New Company";
+        var url = $"/Company/{null}";  // This will now return an empty Company
+        var page = "Company";
+
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
+    }
+
+    private async Task OpenNewLoadingSchedule()
+    {
+        var newTabId = "new-loading-schedule-tab";
+        var newTabPaneId = "new-loading-schedule-content";
+        var tabTitle = "New Loading Schedule";
+        var url = $"/loadingschedule/{null}";  // This will now return an empty LoadingSchedule
+        var page = "LoadingSchedule";
+
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
+    }
+
+    private async Task OpenTurnoverReport()
+    {
+        var newTabId = "turnover-report-tab";
+        var newTabPaneId = "turnover-report-content";
+        var tabTitle = "Turnover Report";
+        var url = "/TurnoverReport";
+        var page = "TurnoverReport";
+
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
+    }
+
+    private void ToggleIncomeVehiclesDropdown()
+    {
+        isIncomeVehiclesDropdownOpen = !isIncomeVehiclesDropdownOpen;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,300 @@
+﻿@page "{company?}"
+@model No1_Online.Pages.CompanyModel
+@{
+    ViewData["Title"] = "Company Details";
+}
+
+<style>
+    .scrollable-container {
+        height: calc(90vh - 56px);
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+    .company-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+        .company-card .card-header {
+            background-color: #AE0F18;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            padding: 15px 20px;
+        }
+
+        .company-card .card-body {
+            padding: 30px;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .form-check-input {
+        margin-top: 0.3rem;
+    }
+
+    .btn-primary {
+        background-color: #AE0F18;
+        border: none;
+        padding: 10px 20px;
+    }
+
+        .btn-primary:hover {
+            background-color: #AE0F18;
+        }
+
+    .section-header {
+        color: #AE0F18;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .table {
+        background-color: white;
+    }
+
+        .table thead th {
+            background-color: #f8f9fa;
+        }
+</style>
+
+<div class="scrollable-container">
+    <div class="company-card">
+        <div class="card-header">
+            <h3 class="mb-0">Company Details</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="CompanyName">Name:</label>
+                            <input type="text" id="CompanyName" name="Company.Name" value="@Model.Company?.Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label">Status:</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="Blocked" name="Company.Blocked" value="true" @(Model.Company?.Blocked == true ? "checked" : "") class="form-check-input">
+                                <label class="form-check-label" for="Blocked">Blocked</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="Override" name="Company.Override" value="true" @(Model.Company?.Override == true ? "checked" : "") class="form-check-input">
+                                <label class="form-check-label" for="Override">Override</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="ContactType">Contact Type:</label>
+                            <input type="text" id="ContactType" name="Company.ContactType" value="@Model.Company?.ContactType" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="ProfileId">Marketer:</label>
+                            <input type="text" id="ProfileId" name="Company.ProfileId" value="@Model.Company?.ProfileId" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="CompanyTel">Tel:</label>
+                            <input type="text" id="CompanyTel" name="Company.Tel" value="@Model.Company?.Tel" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="Group">Group:</label>
+                            <select id="Group" name="Company.Group" class="form-control">
+                                <option value="1" @(Model.Company?.Group == "1" ? "selected" : "")>Client</option>
+                                <option value="2" @(Model.Company?.Group == "2" ? "selected" : "")>Transporter</option>
+                                <option value="Fixed" @(Model.Company?.Group == "Fixed" ? "selected" : "")>Fixed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="Markup">Markup:</label>
+                            <input type="number" id="Markup" name="Company.Markup" value="@Model.Company?.Markup" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="Fax">Fax:</label>
+                            <input type="text" id="Fax" name="Company.Fax" value="@Model.Company?.Fax" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="ClosingDate">Closing Date:</label>
+                            <input type="date" id="ClosingDate" name="Company.ClosingDate" value="@Model.Company?.ClosingDate?.ToString("yyyy-MM-dd")" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="VATNo">VAT Number:</label>
+                            <input type="text" id="VATNo" name="Company.VATNo" value="@Model.Company?.VATNo" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="PodClosingDate">POD Closing date:</label>
+                            <input type="date" id="PodClosingDate" name="Company.PodclosingDate" value="@Model.Company?.PodclosingDate?.ToString("yyyy-MM-dd")" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h5 class="section-header">Postal Address:</h5>
+                        <div class="form-group">
+                            <input type="text" id="Address1" name="Company.Address.Address1" value="@Model.Company?.Address?.Address1" class="form-control mb-2" placeholder="Address Line 1">
+                            <input type="text" id="Address2" name="Company.Address.Address2" value="@Model.Company?.Address?.Address2" class="form-control mb-2" placeholder="Address Line 2">
+                            <input type="text" id="Address3" name="Company.Address.Address3" value="@Model.Company?.Address?.Address3" class="form-control mb-2" placeholder="Address Line 3">
+                            <input type="text" id="PostalCode" name="Company.Address.PostalCode" value="@Model.Company?.Address?.PostalCode" class="form-control" placeholder="Postal Code">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5 class="section-header">Delivery Address:</h5>
+                        <div class="form-group">
+                            <input type="text" id="PhysicalAddress1" name="Company.Address.PhysicalAddress1" value="@Model.Company?.Address?.PhysicalAddress1" class="form-control mb-2" placeholder="Physical Address Line 1">
+                            <input type="text" id="PhysicalAddress2" name="Company.Address.PhysicalAddress2" value="@Model.Company?.Address?.PhysicalAddress2" class="form-control mb-2" placeholder="Physical Address Line 2">
+                            <input type="text" id="PhysicalAddress3" name="Company.Address.PhysicalAddress3" value="@Model.Company?.Address?.PhysicalAddress3" class="form-control mb-2" placeholder="Physical Address Line 3">
+                            <input type="text" id="PhysicalPostalCode" name="Company.Address.PhysicalPostalCode" value="@Model.Company?.Address?.PhysicalPostalCode" class="form-control" placeholder="Physical Postal Code">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5 class="section-header">Email Addresses:</h5>
+                        <div class="form-group">
+                            <label class="form-label" for="CompanyEmail">Email LoadCon:</label>
+                            <input type="email" id="CompanyEmail" name="Company.Email" value="@Model.Company?.Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="EmailRemitance">Email Remitance:</label>
+                            <input type="email" id="EmailRemitance" name="Company.EmailRemitance" value="@Model.Company?.EmailRemitance" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="EmailStatements">Email Statements:</label>
+                            <input type="email" id="EmailStatements" name="Company.EmailStatements" value="@Model.Company?.EmailStatements" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5 class="section-header">Banking Details:</h5>
+                        <div class="form-group">
+                            <label class="form-label" for="BankName">Bank Name:</label>
+                            <select id="BankName" name="Company.BankName" class="form-control">
+                                <option value="1" @(Model.Company?.BankName == "1" ? "selected" : "")>N/A</option>
+                                <option value="4" @(Model.Company?.BankName == "4" ? "selected" : "")>ABSA</option>
+                                <option value="5" @(Model.Company?.BankName == "5" ? "selected" : "")>STANDARD</option>
+                                <option value="6" @(Model.Company?.BankName == "6" ? "selected" : "")>NEDBANK</option>
+                                <option value="7" @(Model.Company?.BankName == "7" ? "selected" : "")>FNB</option>
+                                <option value="8" @(Model.Company?.BankName == "8" ? "selected" : "")>BOE</option>
+                                <option value="9" @(Model.Company?.BankName == "9" ? "selected" : "")>FIRST RAND BANK</option>
+                                <option value="10" @(Model.Company?.BankName == "10" ? "selected" : "")>4380208282</option>
+                                <option value="11" @(Model.Company?.BankName == "11" ? "selected" : "")>4120262185</option>
+                                <option value="12" @(Model.Company?.BankName == "12" ? "selected" : "")>4600260477</option>
+                                <option value="13" @(Model.Company?.BankName == "13" ? "selected" : "")>Bank Windhoek</option>
+                                <option value="14" @(Model.Company?.BankName == "14" ? "selected" : "")>Capitec</option>
+                                <option value="15" @(Model.Company?.BankName == "15" ? "selected" : "")>Investec</option>
+                                <option value="16" @(Model.Company?.BankName == "16" ? "selected" : "")>4730270271</option>
+                                <option value="17" @(Model.Company?.BankName == "17" ? "selected" : "")>CASH</option>
+                                <option value="18" @(Model.Company?.BankName == "18" ? "selected" : "")>KONTANT VRAG</option>
+                                <option value="19" @(Model.Company?.BankName == "19" ? "selected" : "")>grobank</option>
+                                <option value="20" @(Model.Company?.BankName == "20" ? "selected" : "")>STANDARD BANK</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="BranchCode">Branch Code:</label>
+                            <input type="text" id="BranchCode" name="Company.BranchCode" value="@Model.Company?.BranchCode" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="AccountNumber">Account Number:</label>
+                            <input type="text" id="AccountNumber" name="Company.AccountNumber" value="@Model.Company?.AccountNumber" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="CreditLimit">Credit Limit:</label>
+                            <input type="number" step="0.01" id="CreditLimit" name="Company.CreditLimit" value="@Model.Company?.CreditLimit" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="Terms">Terms:</label>
+                            <input type="number" id="Terms" name="Company.Terms" value="@Model.Company?.Terms" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label" for="Notes">Notes:</label>
+                        <textarea id="Notes" name="Company.Note.Description" class="form-control" rows="5">@Model.Company?.Note?.Description</textarea>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="company-card">
+        <div class="card-header">
+            <h3 class="mb-0">Company Contacts</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Tel</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Contacts != null)
+                        {
+                            @foreach (var contact in Model.Contacts)
+                            {
+                                <tr>
+                                    <td>@contact.Position</td>
+                                    <td>@contact.FirstName</td>
+                                    <td>@contact.LastName</td>
+                                    <td>@contact.Tel</td>
+                                    <td>@contact.Email</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,88 +37,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+let tabCounter = 1;
 
-
-
-function loadSecondNavbar(transporter, startDate, endDate) {
-   
-    var url_Home = '/Reports/SecondNavbar' + '?transporter=' + encodeURIComponent(transporter) + '&startDate=' + encodeURIComponent(startDate) + '&endDate=' + encodeURIComponent(endDate);
-    console.log(url_Home);
-
-    fetch(url_Home)
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => { throw new Error(text || 'Network response was not ok'); });
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('secondNavbarContainer').innerHTML = data;
-            $('#secondNavbarContainer').hide().slideDown(); // Use jQuery for slideDown animation
-        })
-        .catch(error => {
-            console.error('Error loading second navbar:', error);
-        });
+function toggleMetadata(report) {
+    var metadataElement = document.getElementById('metadata-' + report);
+    $(metadataElement).slideToggle(); // Use jQuery's slideToggle for animation
 }
 
-// Function to load partial view into tab
-function loadPartialViewIntoTab(url, title, transporter = null, startDate = null, endDate = null) {
-    var tabId = 'tab-' + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the tab
-    console.log(url);
-
-    // Create the new tab with a close button
-    var tabHtml = '<li class="nav-item"><a class="nav-link" id="' + tabId + '" data-bs-toggle="tab" href="#' + tabId + '-content">' + title + ' <button class="close-tab-btn" data-target="#' + tabId + '" style="border:none; background:none;">&times;</button></a></li>';
-    document.querySelector('#dynamicTabList').insertAdjacentHTML('beforeend', tabHtml);
-
-    // Create the content pane for the new tab
-    var paneHtml = '<div class="tab-pane fade" id="' + tabId + '-content"></div>';
-    document.querySelector('#dynamicTabContent').insertAdjacentHTML('beforeend', paneHtml);
-
-    // Load the content into the pane
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => { throw new Error(text || 'Network response was not ok'); });
-            }
-            return response.text();
-        })
-        .then(html => {
-            document.querySelector('#' + tabId + '-content').innerHTML = html;
-            new bootstrap.Tab(document.querySelector('#' + tabId)).show();
-
-            // Check if the title contains "Income all vehicles" and load the second navbar if it does
-            if (title.toLowerCase().includes('income all vehicles')) {
-                loadSecondNavbar(transporter, startDate, endDate);
-            } else {
-                $('#secondNavbarContainer').slideUp(); // Hide if not needed
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching search results:', error);
-        });
-
-    // Add event listener for the close button
-    document.querySelector('#' + tabId + ' .close-tab-btn').addEventListener('click', function (event) {
-        event.stopPropagation();
-        var targetId = this.getAttribute('data-target');
-        var targetTab = document.querySelector(targetId);
-        var targetPaneId = targetTab.getAttribute('href');
-        var targetPane = document.querySelector(targetPaneId);
-
-        // Remove the tab and its content
-        targetTab.parentNode.remove();
-        targetPane.remove();
-
-        // Activate the first tab if available
-        var firstTab = document.querySelector('.nav-tabs .nav-item:first-child .nav-link');
-        if (firstTab) {
-            new bootstrap.Tab(firstTab).show();
-        }
-    });
+function deleteReport(report) {
+    // Implement the delete report logic here
+    console.log("Delete report: " + report);
 }
 
-// Ensure the second navbar is hidden initially
-$('#secondNavbarContainer').hide();
+function addTab(tabId, paneId, tabTitle, url, startDate, endDate, transporter, page) {
+    startDate = startDate || "defaultStartDate"; // Provide a default value if startDate is null or empty
+    endDate = endDate || "defaultEndDate";
+    tabCounter++;
+    var newTabId = `${tabId}-${tabCounter}`;
+    var newTabPaneId = `${paneId}-content-${tabCounter}`;
+    let fullUrl;
+    switch (page) {
+        case "AllIncomeTransporter":
+            var _transporter = encodeURIComponent(transporter);
+            fullUrl = `${url}/${startDate}/${endDate}/${_transporter}`;
+            break;
+        case "CompanySearch":
+            var company = encodeURIComponent(transporter);
+            fullUrl = `${url}/${company}`;
+            break;
+        case "LoadingScheduleSearch":
+            fullUrl = url;
+            break;
+        case "LoadingSchedule":
+            fullUrl = url;
+            break;
+        case "Company":
+            fullUrl = url;
+            break;
+    }
+
+
+    // Add a new tab with a close button
+    $("#dynamicTabList").append(
+        '<li class="nav-item">' +
+        '<a class="nav-link" id="' + newTabId + '" data-bs-toggle="tab" href="#' + newTabPaneId + '">' + tabTitle + ' ' +
+        '<button type="button" class="close-tab-btn" aria-label="Close" style="border:none; background:none;" onclick="closeTab(\'' + newTabId + '\', \'' + newTabPaneId + '\')">&times;</button>' +
+        '</a>' +
+        '</li>'
+    );
+
+    // Add a new tab pane
+    $("#dynamicTabContent").append(
+        `<div class="tab-pane fade" id="${newTabPaneId}" role="tabpanel" aria-labelledby="${newTabId}">
+                                            <div id="spinner-wrapper" class="d-flex">
+                                                <div class="spinner"></div>
+                                            </div>
+                                        </div>`
+    );
+
+    // Activate the new tab
+    $("#" + newTabId).tab('show');
+    $("#" + newTabPaneId).load(fullUrl);
+
+    // Load the content into the new tab pane
+    // $("#" + paneId).load(fullUrl, function (response, status, xhr) {
+    //     if (status == "error") {
+    //         var msg = "Sorry but there was an error: ";
+    //         $("#" + paneId).html(msg + xhr.status + " " + xhr.statusText);
+    //     }
+    // });
+}
+
+
+
 
 
 

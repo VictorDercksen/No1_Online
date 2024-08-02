@@ -1,39 +1,39 @@
-﻿document.body.addEventListener('click', function (event) {
-    // Check if the upload button was clicked
-    if (event.target && event.target.id === 'uploadButton') {
-        var fileInput = document.getElementById('fileInput');
-        if (fileInput.files.length > 0) {
-            var file = fileInput.files[0];
-            var formData = new FormData();
-            formData.append('csvFile', file);
+﻿//document.body.addEventListener('click', function (event) {
+//    // Check if the upload button was clicked
+//    if (event.target && event.target.id === 'uploadButton') {
+//        var fileInput = document.getElementById('fileInput');
+//        if (fileInput.files.length > 0) {
+//            var file = fileInput.files[0];
+//            var formData = new FormData();
+//            formData.append('csvFile', file);
 
-            // Perform the fetch call to upload the file
-            fetch('/Csv/Upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        console.error('Server responded with status:', response.status);
-                        throw new Error('Network response was not OK');
-                    }
-                    return response.text();  // Changed to .text() if you are not sure about the response type
-                })
-                .then(data => {
-                    console.log('Server Response:', data);
-                    var title = "Upload Results";
-                    loadPartialModViewIntoTab(data, title);  // Update this if necessary based on actual response type
-                })
-                .catch(error => {
-                    console.error('Error uploading file:', error);
-                    alert('Failed to upload file.');
-                });
+//            // Perform the fetch call to upload the file
+//            fetch('/Csv/Upload', {
+//                method: 'POST',
+//                body: formData
+//            })
+//                .then(response => {
+//                    if (!response.ok) {
+//                        console.error('Server responded with status:', response.status);
+//                        throw new Error('Network response was not OK');
+//                    }
+//                    return response.text();  // Changed to .text() if you are not sure about the response type
+//                })
+//                .then(data => {
+//                    console.log('Server Response:', data);
+//                    var title = "Upload Results";
+//                    loadPartialModViewIntoTab(data, title);  // Update this if necessary based on actual response type
+//                })
+//                .catch(error => {
+//                    console.error('Error uploading file:', error);
+//                    alert('Failed to upload file.');
+//                });
 
-        } else {
-            alert('Please select a file to upload.');
-        }
-    }
-});
+//        } else {
+//            alert('Please select a file to upload.');
+//        }
+//    }
+//});
 
 function loadPartialModViewIntoTab(htmlContent, title) {
     var tabId = 'tab-' + Math.random().toString(36).substr(2, 9); // Generate a unique ID for the tab

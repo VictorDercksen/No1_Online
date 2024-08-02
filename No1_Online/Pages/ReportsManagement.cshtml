@@ -1,0 +1,208 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using No1_Online.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.RazorPages
+@inject SignInManager<AppUser> signInManager
+
+@model No1_Online.Pages.ReportsManagementModel
+
+@{
+    ViewData["Title"] = "Reports Management";
+}
+
+<style>
+    .reports-container {
+        display: flex;
+        height: calc(90vh - 60px);
+        background-color: #f8f9fa;
+    }
+
+    .reports-sidebar {
+        width: 250px;
+        height: calc(90vh - 58px);
+        background-color: #ffffff;
+        border-right: 1px solid #e9ecef;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .reports-content {
+        flex: 1;
+        padding: 25px;
+        overflow-y: auto;
+    }
+
+    .report-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        margin-bottom: 15px;
+        background-color: #ffffff;
+    }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .report-card .card-body {
+            padding: 15px;
+        }
+
+        .report-card .card-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+        }
+
+    .list-group-item {
+        border: none;
+        background-color: transparent;
+    }
+
+    .action-buttons .btn {
+        padding: .25rem .5rem;
+        font-size: .75rem;
+        border-radius: 15px;
+    }
+
+    .report-category {
+        font-weight: 500;
+        color: #495057;
+        cursor: pointer;
+        padding: 10px 12px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+        .report-category:hover {
+            background-color: #e9ecef;
+        }
+
+        .report-category.active {
+            background-color: #AE0F18;
+            color: white;
+        }
+
+    .search-container {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+        .search-container .btn {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            bottom: 4px;
+            border-radius: 20px;
+        }
+
+    #reportSearchBox {
+        padding-right: 100px;
+        border-radius: 20px;
+        border: 1px solid #ced4da;
+        padding: 8px 15px;
+    }
+
+    .page-title {
+        font-size: 2.2rem;
+        font-weight: 300;
+        margin-bottom: 25px;
+        color: #343a40;
+    }
+
+    .sidebar-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #343a40;
+    }
+
+    .report-name {
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .metadata-item p {
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="reports-container">
+    <div class="reports-sidebar">
+        <h4 class="sidebar-title">Report Categories</h4>
+        <div class="report-category active" data-category="income-all-vehicles">Income All Vehicles</div>
+        <div class="report-category" data-category="income-per-vehicle">Income Per Vehicle</div>
+        <!-- Add more categories as needed -->
+    </div>
+    <div class="reports-content">
+        <h1 class="page-title">Reports Management</h1>
+
+        <div class="search-container">
+            <input class="form-control" type="search" placeholder="Search Reports" aria-label="Search" id="reportSearchBox">
+            <button class="btn btn-primary" id="reportSearchButton" type="button">Search</button>
+        </div>
+
+        <div id="reportsList">
+            @foreach (var report in Model.Reports)
+            {
+                <div class="report-card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <span class="report-name">@report</span>
+                        <div class="action-buttons">
+                            <button class="btn btn-outline-info me-1" onclick="toggleMetadata('@report')">
+                                <i class="bi bi-info-circle"></i> Info
+                            </button>
+                            <a href="/Reports/Download?name=@report" class="btn btn-outline-success me-1">
+                                <i class="bi bi-download"></i> Download
+                            </a>
+                            <button class="btn btn-outline-danger" onclick="deleteReport('@report')">
+                                <i class="bi bi-trash3-fill"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-footer metadata-item" id="metadata-@report" style="display: none;">
+                        <p><strong>Report Name:</strong> @report</p>
+                        <p><strong>Generated On:</strong> @DateTime.Now.ToString("MMM dd, yyyy HH:mm")</p>
+                        <p><strong>Size:</strong> 1.2 MB</p>
+                    </div>
+                </div>
+            }
+            @if (!Model.Reports.Any())
+            {
+                <div class="alert alert-info">
+                    No reports available.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+<script>
+    function toggleMetadata(reportName) {
+        const metadataElement = document.getElementById(`metadata-${reportName}`);
+        $(metadataElement).slideToggle();
+    }
+
+    function deleteReport(reportName) {
+        if (confirm(`Are you sure you want to delete the report: ${reportName}?`)) {
+            console.log(`Deleting report: ${reportName}`);
+        }
+    }
+
+    $(document).ready(function () {
+        $('.report-category').click(function () {
+            $('.report-category').removeClass('active');
+            $(this).addClass('active');
+            console.log('Selected category:', $(this).data('category'));
+        });
+    });
+</script>

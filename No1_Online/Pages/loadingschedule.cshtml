@@ -1,0 +1,111 @@
+﻿@page "{id:int?}"
+@using No1_Online.Components;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using No1_Online.ViewModels;
+@namespace No1_Online.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model No1_Online.Pages.loadingscheduleModel
+@{
+    ViewData["Title"] = "Loading Schedule";
+}
+
+<style>
+    .scrollable-container {
+        height: calc(90vh - 56px);
+        overflow-y: auto;
+        padding: 20px;
+    }
+    .loading-schedule-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+    .loading-schedule-card .card-header {
+            background-color: #AE0F18;
+        color: white;
+        border-radius: 10px 10px 0 0;
+        padding: 15px 20px;
+    }
+    .loading-schedule-card .card-body {
+        padding: 30px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    .form-control {
+        border-radius: 5px;
+    }
+    .btn-primary {
+        background-color: #AE0F18;
+        border: none;
+        padding: 10px 20px;
+    }
+    .btn-primary:hover {
+            background-color: #AE0F18;
+    }
+    .section-header {
+        color: #AE0F18;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    .table {
+        background-color: white;
+    }
+    .table thead th {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<div class="scrollable-container">
+    <div class="row">
+        <div class="col-lg-6">
+            <component type="typeof(LoadingScheduleDetails)" 
+                       render-mode="Static" 
+                       param-ViewModel="Model.loadingScheduleVM.LoadingScheduleDetails"
+                       param-OnSave="Model.OnLoadingScheduleSave" />
+        </div>
+
+        <div class="col-lg-3">
+            <component type="typeof(ClientPaymentInput)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.ClientPaymentInput" 
+                       param-OnSave="Model.OnClientPaymentSave" />
+            <component type="typeof(TransporterPaymentInput)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.TransporterPaymentInput" 
+                       param-OnSave="Model.OnTransporterPaymentSave" />
+        </div>
+
+        <div class="col-lg-3">
+            <component type="typeof(InvoicesComponent)" 
+                       render-mode="Static"
+                       param-ViewModel="Model.loadingScheduleVM.InvoicesComponent" 
+                       param-OnSave="Model.OnInvoiceSave" />
+            <component type="typeof(NotesComponent)" 
+                       render-mode="Static" 
+                       param-ViewModel="Model.loadingScheduleVM.NotesComponent" 
+                       param-OnSave="Model.OnNoteSave" />
+        </div>
+    </div>
+    @if (Model.loadingScheduleVM.ProductTable.TransportedProducts.Count != 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <component type="typeof(ProductTable)"
+                           render-mode="Static"
+                           param-ViewModel="Model.loadingScheduleVM.ProductTable"
+                           param-OnSave="Model.OnProductTableSave" />
+            </div>
+        </div>
+    }
+</div>
+
+<script src="_framework/blazor.server.js"></script>
+   

@@ -5,80 +5,130 @@
 }
 
 <style>
-    .container {
-        max-width: 400px;
-        margin-top: 50px;
+    body {
+        background-color: #f8f9fa;
     }
 
-    .card {
+    .register-container {
+        max-width: 450px;
+        margin: 50px auto;
+    }
+
+    .register-card {
         border-radius: 15px;
-        border: 1px solid #dee2e6;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+
+    .register-header {
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .register-body {
+        padding: 30px;
     }
 
     .form-control {
-        border-radius: 20px;
+        border-radius: 8px;
+        padding: 12px 20px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
-    .btn-primary {
-        border-radius: 20px;
-        padding: 10px 20px;
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .btn-register {
+        border-radius: 8px;
+        padding: 12px 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #007bff;
+        border: none;
+        transition: background-color 0.15s ease-in-out;
     }
+
+        .btn-register:hover {
+            background-color: #0056b3;
+        }
 
     .logo {
         display: block;
-        margin: 0 auto 30px; /* Increased margin-bottom to 30px */
-        width: 100px; /* Adjust based on your logo's size */
+        margin: 0 auto 20px;
+        width: 120px;
+        height: auto;
+    }
+
+    .login-link {
+        color: #007bff;
+        transition: color 0.15s ease-in-out;
+    }
+
+        .login-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .register-title {
+        color: #343a40;
+        font-size: 1.5rem;
+        margin-bottom: 0;
     }
 </style>
 
-<div class="container">
-    <div class="card">
-        <div class="card-body">
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
             <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" class="logo">
-            <h2 class="text-center mb-4">Register</h2>
-            <hr class="my-3">
+            <h2 class="register-title">Create an Account</h2>
+        </div>
+        <div class="register-body">
             <form asp-action="Register" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                 <div class="mb-3">
-                    <label asp-for="Name" class="form-label"></label>
-                    <input asp-for="Name" class="form-control"/>
+                    <label asp-for="Name" class="form-label">First Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter your first name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="Surname" class="form-label"></label>
-                    <input asp-for="Surname" class="form-control"/>
+                    <label asp-for="Surname" class="form-label">Last Name</label>
+                    <input asp-for="Surname" class="form-control" placeholder="Enter your last name" />
                     <span asp-validation-for="Surname" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control"/>
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control"/>
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" class="form-control" placeholder="Create a password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="ConfirmPassword" class="form-label"></label>
-                    <input asp-for="ConfirmPassword" class="form-control"/>
+                <div class="mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                <div class="row">
-                    <div class="col-8">
-                        <a asp-action="Login" class="text-decoration-none float-start mt-2">Have an account?</a>
-                    </div>
-                    <div class="col-4">
-                        <input type="submit" value="Register" class="btn btn-primary btn-sm float-end"/>
-                    </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-register btn-primary">Create Account</button>
                 </div>
             </form>
+            <div class="mt-4 text-center">
+                <a asp-action="Login" class="login-link">Already have an account? Sign in</a>
+            </div>
         </div>
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

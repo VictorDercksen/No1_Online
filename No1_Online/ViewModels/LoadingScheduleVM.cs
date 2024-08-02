@@ -1,30 +1,31 @@
-﻿using No1_Online.Classes;
-using No1_Online.Models;
+﻿using No1_Online.Models;
+using No1_Online.ViewModels;
 
-namespace No1_Online.ViewModels
+public class LoadingScheduleVM
 {
-    public class LoadingScheduleVM
+    public LoadingScheduleDetailsViewModel LoadingScheduleDetails { get; set; }
+    public ClientPaymentInputViewModel ClientPaymentInput { get; set; }
+    public TransporterPaymentInputViewModel TransporterPaymentInput { get; set; }
+    public InvoicesComponentViewModel InvoicesComponent { get; set; }
+    public NotesComponentViewModel NotesComponent { get; set; }
+    public ProductTableViewModel ProductTable { get; set; }
+
+    public LoadingScheduleVM()
     {
-        public LoadingSchedule loadingSchedule = new LoadingSchedule();
-        public List<TransportedProduct> transportedProducts { get; set; } = new List<TransportedProduct>();  
-        public ClientPayment clientPayment { get; set; } = new ClientPayment();
-        public Remitance remitance { get; set; } = new Remitance();
-        public Calculations calculations { get; set; }
-        public LoadingScheduleVM(LoadingSchedule _loadingSchedule, List<TransportedProduct>  _transportedProducts, ClientPayment _clientPayment, Remitance _remitance)
-        {
-            this.loadingSchedule = _loadingSchedule;
-            this.transportedProducts = _transportedProducts; 
-            this.calculations = new Calculations(_transportedProducts);
-            this.clientPayment = _clientPayment;
-            this.remitance = _remitance;
-        }
-
-        public LoadingScheduleVM()
-        {
-             
-        }
-
+        LoadingScheduleDetails = new LoadingScheduleDetailsViewModel();
+        ClientPaymentInput = new ClientPaymentInputViewModel();
+        TransporterPaymentInput = new TransporterPaymentInputViewModel();
+        InvoicesComponent = new InvoicesComponentViewModel();
+        NotesComponent = new NotesComponentViewModel();
+        ProductTable = new ProductTableViewModel();
     }
 
-    
+    public void Initialize(LoadingSchedule loadingSchedule, List<TransportedProduct> transportedProducts, ClientPayment clientPayment, Remitance remitance)
+    {
+        LoadingScheduleDetails.LoadingSchedule = loadingSchedule ?? new LoadingSchedule();
+        ClientPaymentInput.ClientPayment = clientPayment ?? new ClientPayment();
+        TransporterPaymentInput.Remitance = remitance ?? new Remitance();
+        ProductTable.TransportedProducts = transportedProducts ?? new List<TransportedProduct>();
+        ProductTable.UpdateCalculations();
+    }
 }

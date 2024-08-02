@@ -1,0 +1,124 @@
+﻿@using No1_Online.ViewModels
+
+<div class="loading-schedule-card">
+    <div class="card-header">
+        <h3 class="mb-0">Loading Schedule Details</h3>
+    </div>
+    <div class="card-body">
+        <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label" for="Id">ID:</label>
+                        <InputNumber id="Id" @bind-Value="ViewModel.LoadingSchedule.Id" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label" for="Date">Loading Date:</label>
+                        <InputDate id="Date" @bind-Value="ViewModel.LoadingSchedule.Date" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Self Load:</label>
+                        <div class="form-check">
+                            <InputCheckbox id="SelfLoad" @bind-Value="ViewModel.LoadingSchedule.SelfLoad" class="form-check-input" />
+                            <label class="form-check-label" for="SelfLoad">Self Load</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="CompanyTransName">Transporter:</label>
+                        <InputText id="CompanyTransName" @bind-Value="ViewModel.LoadingSchedule.CompanyTrans.Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="CompanyName">Client:</label>
+                        <InputText id="CompanyName" @bind-Value="ViewModel.LoadingSchedule.Company.Name" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="PurchaseOrder">Purchase Order:</label>
+                        <InputText id="PurchaseOrder" @bind-Value="ViewModel.LoadingSchedule.PurchaseOrder" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="Value">Value:</label>
+                        <InputNumber id="Value" @bind-Value="ViewModel.LoadingSchedule.Value" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="LoadingPointLoadCity">Loading Point:</label>
+                        <InputText id="LoadingPointLoadCity" @bind-Value="ViewModel.LoadingSchedule.LoadingPointLoad.City" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="LoadingPointOffCity">Offload Point:</label>
+                        <InputText id="LoadingPointOffCity" @bind-Value="ViewModel.LoadingSchedule.LoadingPointOff.City" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="VehicleRegistration">Vehicle:</label>
+                        <InputText id="VehicleRegistration" @bind-Value="ViewModel.LoadingSchedule.Vehicle.Registration" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="SubReg">Sub Reg:</label>
+                        <InputText id="SubReg" @bind-Value="ViewModel.LoadingSchedule.SubReg" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="LoadInstruction">Load Instructions:</label>
+                <InputTextArea id="LoadInstruction" @bind-Value="ViewModel.LoadingSchedule.LoadInstruction" class="form-control" rows="3" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="ProfileId">Profile ID:</label>
+                <InputText id="ProfileId" @bind-Value="ViewModel.LoadingSchedule.ProfileId" class="form-control" readonly />
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-primary">Save Loading Schedule</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public LoadingScheduleDetailsViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public EventCallback<LoadingScheduleDetailsViewModel> OnSave { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnSave.InvokeAsync(ViewModel);
+    }
+}

@@ -1,0 +1,79 @@
+﻿@using Blazorise
+@using Blazorise.Bootstrap
+@using Blazorise.Icons.FontAwesome
+@using No1_Online.Interfaces
+@using No1_Online.Models
+@using Blazorise.Components
+@inject IJSRuntime JS
+@inject ILoadingScheduleService LoadingScheduleService
+
+<div class="search-group d-flex flex-grow-1">
+    <div class="input-group me-2 flex-grow-1">
+        <CompanyAutoComplete @bind-SelectedValue="client"
+                             Placeholder="Search Company" />
+        <button class="btn btn-outline-primary" @onclick="SearchCompanyPage" type="button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="input-group me-2">
+        <input class="form-control" type="search" placeholder="Search Load Number" aria-label="Search" @bind="loadNumber">
+        <button class="btn btn-outline-primary" @onclick="SearchLoadingSchedule" type="button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <button class="btn btn-primary btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#uploadModal">
+        <i class="fas fa-upload me-2"></i>Upload Record
+    </button>
+</div>
+
+@code {
+    private string client;
+    private string loadNumber;
+
+    private async Task SearchCompanyPage()
+    {
+        var newTabId = "search-company-tab";
+        var newTabPaneId = "search-company-content";
+        var tabTitle = "Company";
+        var url = "/Company";
+        string startDate = null;
+        string endDate = null;
+        var transporter = client;
+        var page = "CompanySearch";
+
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, startDate, endDate, transporter, page);
+    }
+
+    private async Task SearchLoadingSchedule()
+    {
+        if (string.IsNullOrWhiteSpace(loadNumber))
+        {
+            // Show an error message or toast notification
+            await JS.InvokeVoidAsync("alert", "Please enter a valid load number.");
+            return;
+        }
+
+        // Assuming the load number is an integer
+        if (!int.TryParse(loadNumber, out int loadId))
+        {
+            await JS.InvokeVoidAsync("alert", "Invalid load number. Please enter a valid integer.");
+            return;
+        }
+
+       
+
+        // if (loadingSchedule == null)
+        // {
+        //     await JS.InvokeVoidAsync("alert", $"No loading schedule found with load number {loadId}.");
+        //     return;
+        // }
+
+        var newTabId = $"loading-schedule-tab-{loadId}";
+        var newTabPaneId = $"loading-schedule-content-{loadId}";
+        var tabTitle = $"Load #{loadId}";
+        var url = $"/loadingschedule/{loadId}";
+        var page = "LoadingScheduleSearch";
+
+        await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
+    }
+}

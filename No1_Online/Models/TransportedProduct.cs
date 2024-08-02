@@ -16,7 +16,11 @@ namespace No1_Online.Models
         [Required]
         [Column(TypeName = "decimal(18,3)")]
         public decimal Quantity { get; set; }
-        
+
+        [NotMapped]
+        public decimal ClientVAT = 15;
+        [NotMapped]
+        public decimal TransporterVAT = 15;
         public DateTime? Revision { get; set; }
         
         [Required]  

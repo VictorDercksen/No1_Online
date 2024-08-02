@@ -11,36 +11,28 @@ using QuestPDF.Helpers;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using No1_Online.Classes.Reports;
+using No1_Online.Interfaces;
+using static No1_Online.Components.IncomeAllVehiclesForm;
 
 namespace No1_Online.Controllers
 {
+
     public class ReportsController : Controller
     {
         private readonly AppDbContext _context;
 
-        private IHttpContextAccessor _httpContextAccessor;
+        
        
-        public ReportsController(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public ReportsController(AppDbContext context)
         {
             this._context = context;
-            this._httpContextAccessor = httpContextAccessor;
+           
           
         }
         
 
 
-        [HttpGet]
-        public async Task<IActionResult> IncomeAllVehicles(DateTime startDate, DateTime endDate, string transporter) 
-        {
-
-
-            ReportsVM viewModel = await GetIncomeAllVehicles(startDate, endDate, transporter);
-            
-            return PartialView("IncomeAllVehicles",viewModel);
-
-
-
-        }
+       
         [HttpGet]
         public async Task<ReportsVM> GetIncomeAllVehicles(DateTime startDate, DateTime endDate, string transporter)
         {
@@ -79,45 +71,34 @@ namespace No1_Online.Controllers
 
 
         }
-        [HttpGet]
-        public async Task<IActionResult> GenerateReport(DateTime startDate, DateTime endDate, string transporter)
+        [HttpPost("IncomeAllVehicles")]
+        public async Task<IActionResult> OnPostIncomeAllVehiclesAsync(IncomeAllVehiclesFormModel incomeAllVehiclesFormModel)
         {
-            try
-            {
-                ReportsVM viewModel = await GetIncomeAllVehicles(startDate, endDate, transporter);
-                if (viewModel == null || !viewModel.loadingSchedules.Any())
-                {
-                    return NotFound("No data found for the given criteria.");
-                }
+            var reportsVM = await GetIncomeAllVehicles(
+                incomeAllVehiclesFormModel.StartDate,
+                incomeAllVehiclesFormModel.EndDate,
+                incomeAllVehiclesFormModel.Transporter
+            );
 
-                var document = new IncomeAllVehiclesDocument(viewModel, "Transporter: " + viewModel.loadingSchedules[0].CompanyTrans.Name);
-
-                // Generate the PDF as a byte array
-                byte[] pdfBytes = document.GeneratePdf();
-
-                return new FileContentResult(pdfBytes, "application/pdf")
-                {
-                    FileDownloadName = "IncomeAllVehiclesReport_"+ viewModel.loadingSchedules[0].CompanyTrans.Name + ".pdf"
-                };
-            }
-            catch (Exception ex)
-            {
-                // Log the exception and return an error response
-                return StatusCode(500, new { message = "An error occurred while generating the report.", error = ex.Message });
-            }
+            // Assuming you have a Razor partial view to render this data
+            return new JsonResult(reportsVM);
         }
+        
 
-        [HttpGet]
-        public  IActionResult SecondNavbar(string transporter, DateTime startDate, DateTime endDate)
-        {
-            var viewModel = new SecondNavbarViewModel
-            {
-                _startDate = startDate,
-                _endDate = endDate,
-                _transporter = transporter
-            };
-            return ViewComponent("SecondNavbar", viewModel);
-        }
+
+        //[HttpGet]
+        //public  IActionResult SecondNavbar(string transporter, DateTime startDate, DateTime endDate)
+        //{
+        //    var viewModel = new SecondNavbarViewModel
+        //    {
+        //        _startDate = startDate,
+        //        _endDate = endDate,
+        //        _transporter = transporter
+        //    };
+        //    return ViewComponent("SecondNavbar", viewModel);
+        //}
+
+
     }
 
     

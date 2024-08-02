@@ -1,0 +1,134 @@
+﻿@using No1_Online.ViewModels
+
+<div class="loading-schedule-card">
+    <div class="card-header">
+        <h3 class="mb-0">Product Table</h3>
+    </div>
+    <div class="card-body">
+        <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+            
+            
+
+            <div class="table-responsive">
+                <table class="table table-striped" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Load Rate</th>
+                            <th>VAT %</th>
+                            <th>Sub Rate</th>
+                            <th>VAT %</th>
+                            <th>Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewModel.TransportedProducts.Count; i++)
+                        {
+                            var index = i;
+                            <tr>
+                                <td>
+                                    <InputText @bind-Value="ViewModel.TransportedProducts[index].Product.Description" class="form-control product-input" />
+                                </td>
+                                <td>
+                                    <InputNumber @bind-Value="ViewModel.TransportedProducts[index].LoadRate" class="form-control product-input" />
+                                </td>
+                                <td>
+                                    <InputNumber @bind-Value="ViewModel.TransportedProducts[index].ClientVAT" class="form-control product-input" />
+                                </td>
+                                <td>
+                                    <InputNumber @bind-Value="ViewModel.TransportedProducts[index].PaymentRate" class="form-control product-input" />
+                                </td>
+                                <td>
+                                    <InputNumber @bind-Value="ViewModel.TransportedProducts[index].TransporterVAT" class="form-control product-input" />
+                                </td>
+                                <td>
+                                    <InputNumber @bind-Value="ViewModel.TransportedProducts[index].Quantity" class="form-control product-input" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary">Update Products</button>
+            </div>
+        </EditForm>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>Sub Total:</td>
+                        <td id="loadSubTotal">@ViewModel.Calculations.Load.ToString("F2")</td>
+                        <td id="subSubTotal">@ViewModel.Calculations.Sub.ToString("F2")</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>VAT:</td>
+                        <td id="loadVAT">@ViewModel.Calculations.LoadVAT.ToString("F2")</td>
+                        <td id="subVAT">@ViewModel.Calculations.SubVAT.ToString("F2")</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total Including VAT:</td>
+                        <td id="loadTotal">@ViewModel.Calculations.LoadTotal.ToString("F2")</td>
+                        <td id="subTotal">@ViewModel.Calculations.SubTotal.ToString("F2")</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>Profit Excluding VAT:</td>
+                        <td id="profitExcludingVAT">@ViewModel.Calculations.Profit.ToString("F2")</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>VAT on Profit:</td>
+                        <td id="profitVAT">@ViewModel.Calculations.ProfitVAT.ToString("F2")</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ProductTableViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public EventCallback<ProductTableViewModel> OnSave { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnSave.InvokeAsync(ViewModel);
+    }
+
+    protected override void OnInitialized()
+    {
+        // Initialize any necessary data
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Set up JavaScript interop for calculations if needed
+            JSRuntime.InvokeVoidAsync("setupProductTableCalculations");
+        }
+    }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+}

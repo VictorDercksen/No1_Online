@@ -5,70 +5,123 @@
 }
 
 <style>
-    .container {
-        max-width: 400px;
-        margin-top: 50px;
+    body {
+        background-color: #f8f9fa;
     }
 
-    .card {
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+    }
+
+    .login-card {
         border-radius: 15px;
-        border: 1px solid #dee2e6;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+
+    .login-header {
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .login-body {
+        padding: 30px;
     }
 
     .form-control {
-        border-radius: 20px;
+        border-radius: 8px;
+        padding: 12px 20px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
-    .btn-primary {
-        border-radius: 20px;
-        padding: 10px 20px;
+        .form-control:focus {
+            border-color: #AE0F18;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .btn-login {
+        border-radius: 8px;
+        padding: 12px 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: #AE0F18;
+        border: none;
+        transition: background-color 0.15s ease-in-out;
     }
+
+        .btn-login:hover {
+            background-color: #AE0F18;
+        }
 
     .logo {
         display: block;
-        margin: 0 auto 30px; /* Increased margin-bottom to 30px */
-        width: 100px; /* Adjust based on your logo's size */
+        margin: 0 auto 20px;
+        width: 120px;
+        height: auto;
+    }
+
+    .form-check-input {
+        margin-top: 0.25rem;
+    }
+
+    .register-link {
+        color: #007bff;
+        transition: color 0.15s ease-in-out;
+    }
+
+        .register-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .login-title {
+        color: #343a40;
+        font-size: 1.5rem;
+        margin-bottom: 0;
     }
 </style>
 
-<div class="container">
-    <div class="card">
-        <div class="card-body">
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
             <img src="~/SVG/no1_new_logo.svg" alt="No1 Logo" class="logo">
-            <h2 class="text-center mb-4">Login</h2>
-            <hr class="my-3">
+            <h2 class="login-title">Welcome Back</h2>
+        </div>
+        <div class="login-body">
             <form asp-action="Login" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                <div class="mb-3">
-                    <label asp-for="Username" class="form-label"></label>
-                    <input asp-for="Username" class="form-control" />
+                <div class="mb-4">
+                    <label asp-for="Username" class="form-label">Username</label>
+                    <input asp-for="Username" class="form-control" placeholder="Enter your username" />
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control" />
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" class="form-control" placeholder="Enter your password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="mb-3 form-check">
-                    <label class="form-check-label">
-                        <input asp-for="RememberMe" class="form-check-input" /> @Html.DisplayNameFor(a => a.RememberMe)
-                    </label>
+                <div class="mb-4 form-check">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    <label asp-for="RememberMe" class="form-check-label">Remember me</label>
                 </div>
-                <div class="row">
-                    <div class="col-8">
-                        <a asp-action="Register" class="text-decoration-none float-start mt-2">Don't have an account?</a>
-                    </div>
-                    <div class="col-4">
-                        <input type="submit" value="Login" class="btn btn-primary btn-sm float-end" />
-                    </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-login btn-primary">Sign In</button>
                 </div>
             </form>
+            <div class="mt-4 text-center">
+                <a asp-action="Register" class="register-link">Don't have an account? Sign up</a>
+            </div>
         </div>
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
