@@ -1,42 +1,99 @@
 ﻿@using Blazorise
-@using Blazorise.Bootstrap
-@using Blazorise.Icons.FontAwesome
-@using No1_Online.Interfaces;
-@using No1_Online.Models;
-@using Blazorise.Components;
-@inject IJSRuntime JS
+@using Blazorise.Components
+@using No1_Online.Interfaces
+@using No1_Online.Models
 @inject ICompanyService companyService
 
 <Autocomplete TItem="Company"
               TValue="string"
-              Data="@transporterSuggestions"
+              Data="@FilteredCompanies"
               TextField="@(item => item.Name)"
               ValueField="@(item => item.Name)"
               SelectedValueChanged="@OnSelectedValueChanged"
               Placeholder="@Placeholder"
               Filter="AutocompleteFilter.Contains"
-              CustomFilter="@CustomCompanyFilter" 
-               />
+              CustomFilter="@CustomCompanyFilter"
+              MinLength="1">
+    <NotFoundContent>No companies found</NotFoundContent>
+</Autocomplete>
 
 @code {
-    private IEnumerable<Company> transporterSuggestions = new List<Company>();
+    private List<Company> allCompanies = new List<Company>();
+    private List<Company> FilteredCompanies => FilterCompaniesByType(allCompanies);
+
     [Parameter] public EventCallback<string> SelectedValueChanged { get; set; }
     [Parameter] public string Placeholder { get; set; }
     [Parameter] public string SelectedValue { get; set; }
+    [Parameter] public string CompanyTypeString { get; set; }
+
+    private CompanyType _companyType;
 
     protected override async Task OnInitializedAsync()
     {
-        transporterSuggestions = await companyService.AutoSearchCompany();
+        try
+        {
+            Console.WriteLine($"OnInitializedAsync started. CompanyTypeString: {CompanyTypeString}");
+            _companyType = Enum.TryParse<CompanyType>(CompanyTypeString, true, out var result)
+                ? result
+                : CompanyType.Both;
+            Console.WriteLine($"Parsed CompanyType: {_companyType}");
+
+            await FetchAllCompanies();
+
+            Console.WriteLine($"Filtered companies count: {FilteredCompanies.Count}");
+            foreach (var company in FilteredCompanies.Take(5))
+            {
+                Console.WriteLine($"Filtered company: {company.Name}, ContactType: {company.ContactType}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error in OnInitializedAsync: {ex}");
+        }
+    }
+
+    private async Task FetchAllCompanies()
+    {
+        allCompanies = (await companyService.GetAllCompanies()).ToList();
+        Console.WriteLine($"Fetched {allCompanies.Count} companies");
+        Console.WriteLine("First 5 companies:");
+        foreach (var company in allCompanies.Take(5))
+        {
+            Console.WriteLine($"Company: {company.Name}, ContactType: {company.ContactType}");
+        }
+        StateHasChanged();
+    }
+
+    private List<Company> FilterCompaniesByType(List<Company> companies)
+    {
+        var filtered = companies.Where(c =>
+            _companyType == CompanyType.Both ||
+            (_companyType == CompanyType.Transporter && (c.ContactType == 1 || c.ContactType == 4)) ||
+            (_companyType == CompanyType.Client && (c.ContactType == 2 || c.ContactType == 4))
+        ).ToList();
+
+        Console.WriteLine($"Filtering companies. CompanyType: {_companyType}, Filtered count: {filtered.Count}");
+        return filtered;
     }
 
     private bool CustomCompanyFilter(Company item, string searchValue)
     {
+        if (string.IsNullOrEmpty(searchValue))
+            return true;
         return item.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase);
     }
 
     private Task OnSelectedValueChanged(string value)
     {
         SelectedValue = value;
+        Console.WriteLine($"Selected value changed: {value}");
         return SelectedValueChanged.InvokeAsync(value);
+    }
+
+    public enum CompanyType
+    {
+        Transporter,
+        Client,
+        Both
     }
 }

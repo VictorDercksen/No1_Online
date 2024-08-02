@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using No1_Online.Components;
 using No1_Online.Data;
 using No1_Online.Interfaces;
 using No1_Online.Models;
 using ServiceStack;
+using System.Threading;
+using static No1_Online.Components.CompanyAutoComplete;
 
 namespace No1_Online.Services
 {
@@ -11,20 +14,36 @@ namespace No1_Online.Services
     {
         private readonly AppDbContext _context;
 
-        public CompanyService(AppDbContext context)
+        private readonly ILogger<CompanyService> _logger;
+        private static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        public CompanyService(AppDbContext context, ILogger<CompanyService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Company>> AutoSearchCompany()
+        public async Task<IEnumerable<Company>> GetAllCompanies()
         {
-            var companies = _context.Companies
-                
-                .ToList();
+            try
+            {
+                await _semaphore.WaitAsync();
+                _logger.LogInformation("GetAllCompanies called");
 
-            
-            return companies;
+                var companies = await _context.Companies.ToListAsync();
+
+                _logger.LogInformation($"GetAllCompanies returned {companies.Count} companies");
+                return companies;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred in GetAllCompanies");
+                throw;
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
         [HttpGet]
