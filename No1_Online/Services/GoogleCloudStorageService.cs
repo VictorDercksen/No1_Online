@@ -14,6 +14,11 @@ namespace No1_Online.Services
             _storageClient = StorageClient.Create(credential);
             _bucketName = bucketName;
         }
+        //public GoogleCloudStorageService(string bucketName)
+        //{
+        //    _bucketName = bucketName;
+        //    _storageClient = StorageClient.Create();
+        //}
 
         public async Task<string> UploadReportAsync(string reportName, byte[] reportData)
         {
@@ -35,6 +40,21 @@ namespace No1_Online.Services
             }
 
             return reportList;
+        }
+
+        public async Task<byte[]> DownloadReportAsync(string reportName)
+        {
+            try
+            {
+                using var memoryStream = new MemoryStream();
+                await _storageClient.DownloadObjectAsync(_bucketName, reportName, memoryStream);
+                return memoryStream.ToArray();
+            }
+            catch (Google.GoogleApiException e) when (e.HttpStatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                // Report not found
+                return null;
+            }
         }
     }
 }

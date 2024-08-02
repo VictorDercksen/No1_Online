@@ -62,6 +62,13 @@ builder.Services.AddSingleton(sp =>
     var credentialsJson = configuration["GOOGLE_APPLICATION_CREDENTIALS_JSON"];
     return new GoogleCloudStorageService(bucketName, credentialsJson);
 });
+//builder.Services.AddSingleton(sp =>
+//{
+//    var configuration = sp.GetRequiredService<IConfiguration>();
+//    var bucketName = configuration["GCP:BucketName"];
+//    return new GoogleCloudStorageService(bucketName);
+//});
+
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
