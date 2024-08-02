@@ -45,8 +45,10 @@ namespace No1_Online.Classes.Reports
                     row.RelativeItem().ShowOnce().Column(innerColumn =>
                     {
                         innerColumn.Item().Text(Title).Style(titleStyle);
-
-                        
+                        innerColumn.Item().Text("No1 Online Logistics (PTY)").FontSize(10).Bold().FontColor(Colors.Grey.Medium);
+                        innerColumn.Item().Text("9 Kiaat Street").FontSize(10).FontColor(Colors.Grey.Medium);
+                        innerColumn.Item().Text("Kraaifontein Industria").FontSize(10).FontColor(Colors.Grey.Medium);
+                        innerColumn.Item().Text("7569").FontSize(10).FontColor(Colors.Grey.Medium);
 
                     });
 

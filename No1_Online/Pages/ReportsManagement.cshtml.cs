@@ -19,5 +19,15 @@ namespace No1_Online.Pages
         {
             Reports = await _googleCloudStorageService.ListReportsAsync();
         }
+
+        public async Task<IActionResult> OnGetDownloadReportAsync(string reportName)
+        {
+            var reportData = await _googleCloudStorageService.DownloadReportAsync(reportName);
+            if (reportData == null)
+            {
+                return NotFound();
+            }
+            return File(reportData, "application/pdf", reportName);
+        }
     }
 }
