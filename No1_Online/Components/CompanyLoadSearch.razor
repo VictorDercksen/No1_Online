@@ -9,7 +9,8 @@
 
 <div class="search-group d-flex flex-grow-1">
     <div class="input-group me-2 flex-grow-1">
-        <CompanyAutoComplete @bind-SelectedValue="client"
+        <CompanyAutoComplete CompanyTypeString="Both"
+                             @bind-SelectedValue="company"
                              Placeholder="Search Company" />
         <button class="btn btn-outline-primary" @onclick="SearchCompanyPage" type="button">
             <i class="fas fa-search"></i>
@@ -27,7 +28,7 @@
 </div>
 
 @code {
-    private string client;
+    private string company;
     private string loadNumber;
 
     private async Task SearchCompanyPage()
@@ -38,7 +39,7 @@
         var url = "/Company";
         string startDate = null;
         string endDate = null;
-        var transporter = client;
+        var transporter = company;
         var page = "CompanySearch";
 
         await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, startDate, endDate, transporter, page);

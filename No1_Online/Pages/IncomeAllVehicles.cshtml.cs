@@ -20,7 +20,6 @@ namespace No1_Online.Pages
         {
             _reportService = reportService;
             reportsVM = new ReportsVM();
-            string bucketName = "no1-online-reports-bucket";
             _googleCloudStorageService = googleCloudStorageService;
 
         }

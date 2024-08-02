@@ -66,7 +66,7 @@ namespace No1_Online.Models
         [Display(Name = "Payment Terms:")]
         public string? PayTerms { get; set; }
 
-        [Display(Name = "Self Load:")]
+        [Display(Name = "Invoice on Load:")]
         public bool SelfLoad { get; set; }
 
         [Required]  

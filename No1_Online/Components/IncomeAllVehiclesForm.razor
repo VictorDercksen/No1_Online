@@ -18,7 +18,8 @@
 </div>
 
 <div class="custom-input-group mb-3">
-    <CompanyAutoComplete @bind-SelectedValue="formModel.Transporter"
+    <CompanyAutoComplete CompanyTypeString="Transporter"
+                         @bind-SelectedValue="formModel.Transporter"
                          Placeholder="Transporter" />
     <button class="btn btn-outline-success custom-btn-primary" @onclick="LoadIncomeAllVehiclesPage">Submit</button>
 </div>

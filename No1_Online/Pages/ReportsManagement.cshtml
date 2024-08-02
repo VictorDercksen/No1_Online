@@ -159,7 +159,7 @@
                             <button class="btn btn-outline-info me-1" onclick="toggleMetadata('@report')">
                                 <i class="bi bi-info-circle"></i> Info
                             </button>
-                            <a href="/Reports/Download?name=@report" class="btn btn-outline-success me-1">
+                            <a asp-page-handler="DownloadReport" asp-route-reportName="@report" class="btn btn-outline-success me-1">
                                 <i class="bi bi-download"></i> Download
                             </a>
                             <button class="btn btn-outline-danger" onclick="deleteReport('@report')">

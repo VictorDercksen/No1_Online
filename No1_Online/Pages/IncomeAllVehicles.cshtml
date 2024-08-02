@@ -12,8 +12,11 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         padding: 20px;
         margin-bottom: 30px;
-        height: calc(90vh - 60px)
+        height: 85vh; /* Adjust based on your layout */
+        display: flex;
+        flex-direction: column;
     }
+
     .report-header {
         background-color: #AE0F18;
         color: white;
@@ -21,41 +24,43 @@
         border-radius: 10px 10px 0 0;
         margin: -20px -20px 20px -20px;
     }
-    .action-buttons .btn {
-        margin-right: 10px;
+
+    .report-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
+
+    .action-buttons {
+        margin-bottom: 15px;
+    }
+
     .info-card {
+        margin-bottom: 15px;
+    }
+
+    .table-container {
+        flex: 1;
+        overflow-y: auto;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         padding: 15px;
-        margin-bottom: 20px;
     }
-    .table-container {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-    .table thead th {
-        background-color: #f1f3f5;
-    }
-    .scroll-view {
-        max-height: 70vh;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
-    .scroll-view::-webkit-scrollbar {
-        width: 8px;
-    }
-    .scroll-view::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 4px;
-    }
-    .scroll-view::-webkit-scrollbar-track {
-        background-color: #f1f1f1;
-    }
+
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
 </style>
 
 <div class="report-container">
@@ -63,34 +68,34 @@
         <h2 class="mb-0">Income All Vehicles Report</h2>
     </div>
 
-    <div class="action-buttons mb-4">
-        <form asp-page-handler="Excel" method="post" class="d-inline-block">
-            <button class="btn btn-success">
-                <i class="bi bi-file-earmark-excel me-2"></i>Export to Excel
-            </button>
-        </form>
-        <form asp-page-handler="Report" method="post" class="d-inline-block">
-            <button class="btn btn-primary">
-                <i class="bi bi-file-earmark-pdf me-2"></i>Generate Report
-            </button>
-        </form>
-    </div>
+    <div class="report-body">
+        <div class="action-buttons">
+            <form asp-page-handler="Excel" method="post" class="d-inline-block">
+                <button class="btn btn-success">
+                    <i class="bi bi-file-earmark-excel me-2"></i>Export to Excel
+                </button>
+            </form>
+            <form asp-page-handler="Report" method="post" class="d-inline-block">
+                <button class="btn btn-primary">
+                    <i class="bi bi-file-earmark-pdf me-2"></i>Generate Report
+                </button>
+            </form>
+        </div>
 
-    <div class="info-card">
-        <div class="row">
-            <div class="col-md-4">
-                <strong>Start Date:</strong> <span id="startDate">@Model.reportsVM.startDate.ToString()</span>
-            </div>
-            <div class="col-md-4">
-                <strong>End Date:</strong> <span id="endDate">@Model.reportsVM.endDate.ToString()</span>
-            </div>
-            <div class="col-md-4">
-                <strong>Transporter:</strong> <span id="transporter">@Model.reportsVM.loadingSchedules.FirstOrDefault()?.CompanyTrans?.Name</span>
+        <div class="info-card">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Start Date:</strong> <span id="startDate">@Model.reportsVM.startDate.ToString()</span>
+                </div>
+                <div class="col-md-4">
+                    <strong>End Date:</strong> <span id="endDate">@Model.reportsVM.endDate.ToString()</span>
+                </div>
+                <div class="col-md-4">
+                    <strong>Transporter:</strong> <span id="transporter">@Model.reportsVM.loadingSchedules.FirstOrDefault()?.CompanyTrans?.Name</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="scroll-view">
         <div class="table-container">
             <h4 class="mb-3">Affiliated Loading Schedules</h4>
             <div class="table-responsive">
