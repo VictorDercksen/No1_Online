@@ -1,0 +1,57 @@
+﻿@using No1_Online.ViewModels
+
+<div class="loading-schedule-card">
+    <div class="card-header">
+        <h3 class="mb-0">Transporter Payment Input</h3>
+    </div>
+    <div class="card-body">
+        <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            
+
+            <div class="form-group">
+                <label class="form-label" for="RemitancePoddate">POD Date:</label>
+                <InputDate id="RemitancePoddate" @bind-Value="ViewModel.Remitance.Poddate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="RemitanceInvoice">Invoice Number:</label>
+                <InputText id="RemitanceInvoice" @bind-Value="ViewModel.Remitance.Invoice" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="RemitanceDuedate">Payment Due:</label>
+                <InputDate id="RemitanceDuedate" @bind-Value="ViewModel.Remitance.Duedate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="RemitancePaymentDate">Payment Date:</label>
+                <InputDate id="RemitancePaymentDate" @bind-Value="ViewModel.Remitance.PaymentDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="RemitancePaymentType">Payment Type:</label>
+                <InputSelect id="RemitancePaymentType" @bind-Value="ViewModel.Remitance.PaymentType" class="form-control">
+                    <option value="Cheque">Cheque</option>
+                    <option value="eft">EFT</option>
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="RemitanceAmount">Amount:</label>
+                <InputNumber id="RemitanceAmount" @bind-Value="ViewModel.Remitance.Amount" class="form-control" />
+            </div>
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-primary">Save Payment</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public TransporterPaymentInputViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public EventCallback<TransporterPaymentInputViewModel> OnSave { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnSave.InvokeAsync(ViewModel);
+    }
+}

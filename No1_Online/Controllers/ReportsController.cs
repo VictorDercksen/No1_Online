@@ -12,7 +12,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using No1_Online.Classes.Reports;
 using No1_Online.Interfaces;
-using static No1_Online.Views.Shared.Component.IncomeAllVehiclesForm;
+using static No1_Online.Components.IncomeAllVehiclesForm;
 
 namespace No1_Online.Controllers
 {

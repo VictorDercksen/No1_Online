@@ -6,6 +6,15 @@ namespace No1_Online.Models
     [Table("LoadingPoints")]
     public class LoadingPoint
     {
+        public LoadingPoint()
+        {
+            Id = 0; // This will be set by the database
+            Street = string.Empty;
+            Suburb = string.Empty;
+            City = string.Empty;
+            PostalCode = 0;
+            Revision = DateTime.Now;
+        }
         public int Id { get; set; }
         
         public string? Street { get; set; }

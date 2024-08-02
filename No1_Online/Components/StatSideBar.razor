@@ -1,5 +1,6 @@
-﻿@using No1_Online.Views.Shared.Component
+﻿@using No1_Online.Components;
 @inject IJSRuntime JS
+
 <div class="sidebar">
     <div class="sidebar-header">
         <i class="fas fa-bars sidebar-menu-icon"></i>
@@ -27,7 +28,7 @@
             <h4 class="sidebar-section-title">Management Reports</h4>
             <ul class="sidebar-menu">
                 <li class="sidebar-menu-item">
-                    <button class="sidebar-dropdown-toggle" @onclick="ToggleIncomeVehiclesDropdown">
+                    <button class="sidebar-dropdown-toggle" @onclick="ToggleIncomeVehiclesDropdown" aria-expanded="@isIncomeVehiclesDropdownOpen">
                         <i class="fas fa-car sidebar-icon"></i>
                         <span>Income All Vehicles</span>
                         <i class="fas fa-chevron-down sidebar-dropdown-icon"></i>
@@ -48,7 +49,6 @@
         </div>
     </nav>
 </div>
-
 
 <style>
     .sidebar {
@@ -137,11 +137,22 @@
     .sidebar-dropdown-menu {
         list-style-type: none;
         padding-left: 30px;
-        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
     }
+
+        .sidebar-dropdown-menu.show {
+            max-height: 500px; /* Adjust this value as needed */
+            transition: max-height 0.3s ease-in;
+        }
 
     .sidebar-dropdown-item {
         margin-top: 10px;
+    }
+
+    .sidebar-dropdown-toggle[aria-expanded="true"] .sidebar-dropdown-icon {
+        transform: rotate(180deg);
     }
 </style>
 
@@ -153,7 +164,7 @@
         var newTabId = "new-company-tab";
         var newTabPaneId = "new-company-content";
         var tabTitle = "New Company";
-        var url = "/Company";  // This will now return an empty Company
+        var url = $"/Company/{null}";  // This will now return an empty Company
         var page = "Company";
 
         await JS.InvokeVoidAsync("addTab", newTabId, newTabPaneId, tabTitle, url, null, null, null, page);
@@ -184,5 +195,6 @@
     private void ToggleIncomeVehiclesDropdown()
     {
         isIncomeVehiclesDropdownOpen = !isIncomeVehiclesDropdownOpen;
+        StateHasChanged();
     }
 }

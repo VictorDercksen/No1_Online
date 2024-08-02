@@ -5,5 +5,6 @@ namespace No1_Online.Interfaces
     public interface ILoadingScheduleService
     {
         public Task<LoadingScheduleVM> GetLoadingSchedule(int? searchId);
+        public Task UpdateLoadingSchedule(LoadingScheduleVM loadingScheduleVM);
     }
 }

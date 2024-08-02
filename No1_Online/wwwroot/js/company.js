@@ -71,6 +71,9 @@ function addTab(tabId, paneId, tabTitle, url, startDate, endDate, transporter, p
         case "LoadingSchedule":
             fullUrl = url;
             break;
+        case "Company":
+            fullUrl = url;
+            break;
     }
 
 
